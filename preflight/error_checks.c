@@ -20,4 +20,5 @@
 void		error_checks(void)
 {
 	verify_start_and_end();
+	verify_ants();
 }
