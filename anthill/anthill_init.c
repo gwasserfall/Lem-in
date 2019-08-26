@@ -20,10 +20,17 @@ t_anthill *create_anthill(void)
 	if (!(hill = malloc(sizeof(t_anthill))))
 		return false;
 
-	while (get_next_line(0, &line))
+	hill->linear = NULL;
+	hill->room_count = get_nb_rooms();
+
+	printf("Malloc anthill\n");
+
+	while (get_next_line(0, &line) > 0)
 	{
 		if (!(ft_strcmp(line, "##start")))
 			next_start = true;
+		
+		printf("Post start check\n");
 
 		if (!(ft_strcmp(line, "##end")))
 			next_end = true;
@@ -68,6 +75,12 @@ t_anthill *create_anthill(void)
 				}
 			}
 		}
+
+		if ((ft_strchr(line, '-') != NULL))
+		{
+			rm = ft_strsplit(line, '-');
+			link_rooms(hill, rm[0], rm[1]);
+		}
 		free(line);
 	}
 	return hill;
@@ -87,12 +100,12 @@ void db_print_linear(t_anthill *anthill)
 
 	while (cursor)
 	{
-		printf("name = %s", cursor->name);
-		printf("is_start = %d", cursor->is_start);
-		printf("is_end = %d", cursor->is_end);
-		printf("x = %d", cursor->x);
-		printf("y = %d", cursor->y);
-		printf("link_count = %d", cursor->link_count);
+		printf("\n\nname = %s\n", cursor->name);
+		printf("is_start = %d\n", cursor->is_start);
+		printf("is_end = %d\n", cursor->is_end);
+		printf("x = %d\n", cursor->x);
+		printf("y = %d\n", cursor->y);
+		printf("link_count = %d\n", cursor->link_count);
 
 		cursor = cursor->linear_next;
 	}

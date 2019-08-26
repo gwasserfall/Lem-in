@@ -59,3 +59,24 @@ void	set_start_room(t_anthill *hill, t_room *entry)
 		entry = entry->linear_next;
 	}
 }
+
+
+/*
+	Find room by name
+
+	TODO :: Comments here, may not need this
+*/
+t_room *find_room_by_name(t_anthill *anthill, char *name)
+{
+	t_room *cursor;
+
+	cursor = anthill->linear;
+
+	while (cursor)
+	{
+		if (!(ft_strcmp(cursor->name, name)))
+			return (cursor);
+		cursor = cursor->linear_next;
+	}
+	return (NULL);
+}
