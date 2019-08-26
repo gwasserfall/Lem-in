@@ -15,4 +15,10 @@ typedef struct		s_room
 	
 }					t_room;
 
+/*
+** Preflight prototypes.
+*/
+int					get_nb_rooms(void);
+int					word_count(char *str, char delim, int index);
+
 #endif
