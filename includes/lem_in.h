@@ -8,6 +8,15 @@
 #include <stdio.h>
 #include "../libft/libft.h"
 
+# define RESET "\033[00m"
+# define GREEN "\033[32m"
+# define BLUE "\033[34m"
+# define WHITE "\033[37m"
+# define RED "\033[31m"
+# define YELLOW "\033[33m"
+# define CYAN "\033[36m"
+# define PURPLE "\033[35m"
+
 typedef int roomtype;
 
 typedef struct		s_room
@@ -53,5 +62,7 @@ void				init_roomlink_max(t_room *room, int max_links);
 */
 int					get_nb_rooms(void);
 int					word_count(char *str, char delim, int index);
+void				verify_start_and_end(void);
+void				error_checks(void);
 
 #endif
