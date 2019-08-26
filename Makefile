@@ -1,2 +1,7 @@
+FLAGS=-g
+
 all:
-	gcc -I./includes main.c
+	gcc $(FLAGS) -I./includes ./preflight/*.c ./rooms/*.c ./anthill/*.c ./libft/libft.a main.c -o lemon
+
+test:
+	./lemon < test_hill1.txt
