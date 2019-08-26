@@ -1,1 +1,2 @@
-gcc -I./includes main.c
+all:
+	gcc -I./includes main.c
