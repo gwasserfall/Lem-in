@@ -60,9 +60,10 @@ t_room	*init_room(void)
 */
 void	append_room_linear(t_room *entry_point, t_room *new)
 {
-	while (entry_point->next)
+	if (entry_point == NULL)
+		entry_point = new;
+	while (entry_point->next != NULL)
 		entry_point = entry_point->next;
-
 	entry_point->next = new;
 }
 
@@ -99,8 +100,12 @@ t_room *find_room_by_name(t_anthill **anthill, char *name)
 
 	while (cursor)
 	{
-		if (!(ft_strcmp(cursor->name, name)))
+		if ((ft_strequ(name, cursor->name)) == 1)
+		{
+			ft_putendl("HERE");
+			ft_putendl(cursor->name);
 			return (cursor);
+		}
 		cursor = cursor->next;
 	}
 	return (NULL);

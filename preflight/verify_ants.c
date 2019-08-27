@@ -42,3 +42,11 @@ void		verify_ants(char *line)
 		exit(1);
 	}
 }
+
+void		print_ant_error(void)
+{
+		ft_putstr(RED);
+		ft_putendl("No ants given or it is badly formatted.");
+		ft_putstr(RESET);
+		exit(1);
+}

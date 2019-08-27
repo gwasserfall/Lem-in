@@ -26,9 +26,19 @@ t_anthill	*build_anthill(void)
 	{
 		type = check_line(line);
 		pre_add_data(type, line, &anthill);
-		// INCOMPLETE
 	}
-
+	if (anthill->nb_ants <= 0)
+		print_ant_error();
+	printf("%d\n", anthill->linear->is_end);
+	// t_room *cursor = anthill->linear;
+	// while (cursor)
+	// {
+	// printf("IM HERE\n");
+	// 	printf("START : %d\n", cursor->is_start);
+	// 	printf("END : %d\n", cursor->is_end);
+	// 	cursor = cursor->next;
+	// }
+	return (anthill);
 }
 
 /*
@@ -53,8 +63,7 @@ int		check_line(char *line)
 		return (3);
 	else if (word_count(line, '-', 0) == 2)
 		return (4);
-	else if ((word_count(line, '-', 0) == 0) &&
-			(word_count(line, ' ', 0) == 0) && (line[i] != '#'))
+	else if (only_digit(line) == 1)
 		return (1);
 	else
 		return (6);
@@ -75,4 +84,21 @@ t_anthill	*init_anthill(void)
 	anthill->nb_ants = 0;
 	anthill->end = NULL;
 	return (anthill);
+}
+
+/*
+** checks if the only info in the line is digits.
+*/
+int		only_digit(char *line)
+{
+	int		i;
+
+	i = 0;
+	while (line[i] != '\0')
+	{
+		if (ft_isdigit(line[i]) == 0)
+			return (0);
+		i++;
+	}
+	return (1);
 }

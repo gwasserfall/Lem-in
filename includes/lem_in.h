@@ -81,5 +81,7 @@ void				print_allocation_fail(void);
 void				print_invalid_input(void);
 void				pre_add_data(int type, char *line, t_anthill **anthill);
 int					check_line(char *line);
+int					only_digit(char *line);
+void				print_ant_error(void);
 
 #endif

@@ -24,7 +24,7 @@ int			verify_start_and_end(char *line)
 	if (ft_strcmp(line, "##start") == 0)
 		return (1);
 	if (ft_strcmp(line, "##end") == 0)
-		return (1);
+		return (2);
 	else
 		return (0);
 }
