@@ -21,7 +21,7 @@ typedef int roomtype;
 
 typedef struct		s_room
 {
-	struct s_room 	*linear_next;
+	struct s_room 	*next;
 	struct s_room	**links;
 	int				link_count;
 	int				x;
@@ -54,11 +54,12 @@ t_anthill			*create_anthill(void);
 /*
 ** Room prototypes
 */
-t_room				*new_room(roomtype rtype, char *name, int x, int y);
+void				new_room(roomtype rtype, char *line, t_anthill **anthill);
 void				append_room_linear(t_room *entry_point, t_room *new);
 void				init_roomlink_max(t_room *room, int max_links);
 t_room				*find_room_by_name(t_anthill *anthill, char *name);
 void				link_rooms(t_anthill *anthill, char *from, char *to);
+t_room				*init_room(void);
 
 /*
 ** Preflight prototypes.

@@ -4,26 +4,51 @@
 **	Create a new room link item.
 **
 **	roomtype rtype :: Distinguish between start (1), end (2), or normal (0) room types
-**	char *name     :: Name of this room
-**	int x          :: Visualiser x cord
-**	int y          :: Visualiser y cord
+**	char *line     :: will be split to get name, x, and y values
+**	t_anthill      :: The anthill struct whose lineat will get the new room.
 */
-t_room	*new_room(roomtype rtype, char *name, int x, int y)
+void	new_room(roomtype rtype, char *line, t_anthill **anthill)
+{
+	t_room	*new;
+	t_room	*current;
+	char	**data;
+
+	new = init_room();
+	current = (*anthill)->linear;
+	data = NULL;
+	if (rtype == START || rtype == END)
+	{
+		new->is_end = (rtype == END) ? true : false ;
+		new->is_start = (rtype == START) ? true : false;
+	}
+	else
+	{
+		data = ft_strsplit(line, ' ');
+		new->name = ft_strdup(data[0]);
+		new->x = ft_atoi(data[1]);
+		new->y = ft_atoi(data[2]);
+		free_array(data);
+	}
+	append_room_linear(current, new);
+}
+
+/*
+** initializes the rooms values and mallocs the struct.
+*/
+t_room	*init_room(void)
 {
 	t_room *new;
 
 	if (!(new = (t_room *)malloc(sizeof(t_room))))
 		return (NULL);
-	
-	new->linear_next = NULL;
+	new->next = NULL;
 	new->link_count = 0;
-	new->name = ft_strdup(name);
-	new->is_end = (rtype == END) ? true : false ;
-	new->is_start = (rtype == START) ? true : false;
-	new->x = x;
-	new->y = y;
+	new->name = NULL;
+	new->is_end = 0;
+	new->is_start = 0;
+	new->x = 0;
+	new->y = 0;
 	new->links = NULL;
-
 	return (new);
 }
 
@@ -35,10 +60,10 @@ t_room	*new_room(roomtype rtype, char *name, int x, int y)
 */
 void	append_room_linear(t_room *entry_point, t_room *new)
 {
-	while (entry_point->linear_next)
-		entry_point = entry_point->linear_next;
+	while (entry_point->next)
+		entry_point = entry_point->next;
 
-	entry_point->linear_next = new;
+	entry_point->next = new;
 }
 
 /*
@@ -56,7 +81,7 @@ void	set_start_room(t_anthill *hill, t_room *entry)
 			hill->start = entry;
 			return ;
 		}
-		entry = entry->linear_next;
+		entry = entry->next;
 	}
 }
 
@@ -76,7 +101,7 @@ t_room *find_room_by_name(t_anthill *anthill, char *name)
 	{
 		if (!(ft_strcmp(cursor->name, name)))
 			return (cursor);
-		cursor = cursor->linear_next;
+		cursor = cursor->next;
 	}
 	return (NULL);
 }

@@ -45,7 +45,7 @@ int		check_line(char *line)
 	int		i;
 
 	i = 0;
-	if (line[i] == '#' && line[i + 1] == '#')
+	if (line[i] == '#' && line[i + 1] != '#')
 		return (5);
 	else if (line[i] == '#' && line[i + 1] == '#')
 		return (2);
