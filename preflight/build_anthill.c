@@ -26,7 +26,7 @@ t_anthill	*build_anthill(void)
 	{
 		type = check_line(line);
 		pre_add_data(type, line, &anthill);
-
+		// INCOMPLETE
 	}
 
 }

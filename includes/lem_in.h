@@ -63,11 +63,16 @@ void				link_rooms(t_anthill *anthill, char *from, char *to);
 /*
 ** Preflight prototypes.
 */
-int					get_nb_rooms(void);
+t_anthill			*build_anthill(void);
+t_anthill			*init_anthill(void);
 int					word_count(char *str, char delim, int index);
 int					verify_start_and_end(char *line);
-t_anthill			*init_anthill(void);
-t_anthill			*build_anthill(void);
 void				verify_ants(char *line);
+void				verify_room(char *line);
+int					get_nb_rooms(void);
+void				verify_coordinates(char **data);
+void				verify_first_char(char **data);
+void				free_array(char **str);
+void				print_error(void);
 
 #endif
