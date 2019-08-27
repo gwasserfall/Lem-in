@@ -38,12 +38,12 @@ void		pre_add_data(int type, char *line, t_anthill **anthill)
 		else
 			return ;
 	}
-	// if (type == 3)
-	// {
-	// 	verify_room(line);
-	// 	new_room(0, line, anthill);
-	// 	(*anthill)->room_count++;
-	// }
+	if (type == 3)
+	{
+		verify_room(line);
+		new_room(0, line, anthill);
+		(*anthill)->room_count++;
+	}
 	// if (type == 4)
 	// {
 	// 	verify_links(line, anthill);
