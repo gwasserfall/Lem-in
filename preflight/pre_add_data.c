@@ -47,7 +47,7 @@ void		pre_add_data(int type, char *line, t_anthill **anthill)
 	if (type == 4)
 	{
 		verify_links(line, anthill);
-		link_rooms(line, anthill);
+		link_rooms(*anthill, line);
 	}
 	if (type == 5)
 		return ;

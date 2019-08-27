@@ -54,7 +54,7 @@ void		verify_coordinates(char **data)
 		if (ft_isdigit(data[1][i]) == 0)
 		{
 			free_array(data);
-			print_error();
+			print_error_room();
 		}
 		i++;
 	}

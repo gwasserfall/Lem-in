@@ -33,8 +33,8 @@ void	link_rooms(t_anthill *anthill, char *line)
 	char	**data;
 
 	data = ft_strsplit(line, '-');
-	from = find_room_by_name(anthill, data[0]);
-	to = find_room_by_name(anthill, data[1]);
+	from = find_room_by_name(&anthill, data[0]);
+	to = find_room_by_name(&anthill, data[1]);
 	if (from && to)
 	{
 		from->links[from->link_count] = to;
