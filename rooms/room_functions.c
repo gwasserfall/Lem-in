@@ -29,7 +29,7 @@ void	new_room(roomtype rtype, char *line, t_anthill **anthill)
 		new->y = ft_atoi(data[2]);
 		free_array(data);
 	}
-	append_room_linear(current, new);
+	append_room_linear(&(*anthill)->linear, new);
 }
 
 /*
@@ -58,13 +58,22 @@ t_room	*init_room(void)
 **	t_room *entry_point :: usually the first room ever created
 **	t_room *new :: A pointer to the newly created room
 */
-void	append_room_linear(t_room *entry_point, t_room *new)
+void	append_room_linear(t_room **entry_point, t_room *new)
 {
-	if (entry_point == NULL)
-		entry_point = new;
-	while (entry_point->next != NULL)
-		entry_point = entry_point->next;
-	entry_point->next = new;
+	t_room		*current;
+
+	current = (*entry_point);
+	if (current == NULL)
+	{
+		(*entry_point) = new;
+		return ;
+	}
+	else
+	{
+		while (current->next != NULL)
+			current = current->next;
+	}
+	current->next = new;
 }
 
 /*

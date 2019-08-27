@@ -29,15 +29,6 @@ t_anthill	*build_anthill(void)
 	}
 	if (anthill->nb_ants <= 0)
 		print_ant_error();
-	printf("%d\n", anthill->linear->is_end);
-	// t_room *cursor = anthill->linear;
-	// while (cursor)
-	// {
-	// printf("IM HERE\n");
-	// 	printf("START : %d\n", cursor->is_start);
-	// 	printf("END : %d\n", cursor->is_end);
-	// 	cursor = cursor->next;
-	// }
 	return (anthill);
 }
 

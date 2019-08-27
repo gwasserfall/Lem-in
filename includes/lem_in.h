@@ -55,7 +55,7 @@ t_anthill			*create_anthill(void);
 ** Room prototypes
 */
 void				new_room(roomtype rtype, char *line, t_anthill **anthill);
-void				append_room_linear(t_room *entry_point, t_room *new);
+void				append_room_linear(t_room **entry_point, t_room *new);
 void				init_roomlink_max(t_anthill **anthill);
 t_room				*find_room_by_name(t_anthill **anthill, char *name);
 void				link_rooms(t_anthill *anthill, char *line);
