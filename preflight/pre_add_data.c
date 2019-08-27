@@ -49,5 +49,19 @@ void		pre_add_data(int type, char *line, t_anthill **anthill)
 		verify_links(line, anthill);
 		link_rooms(line, anthill);
 	}
+	if (type == 5)
+		return ;
+	if (type == 6)
+		print_invalid_input();
+}
 
+/*
+** Seriously bro, its just and error message..
+*/
+void		print_invalid_input(void)
+{
+		ft_putstr(RED);
+		ft_putendl("Invalid Input.");
+		ft_putstr(RESET);
+		exit(1);
 }

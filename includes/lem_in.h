@@ -56,7 +56,7 @@ t_anthill			*create_anthill(void);
 */
 void				new_room(roomtype rtype, char *line, t_anthill **anthill);
 void				append_room_linear(t_room *entry_point, t_room *new);
-void				init_roomlink_max(t_room *room, int max_links);
+void				init_roomlink_max(t_anthill **anthill);
 t_room				*find_room_by_name(t_anthill **anthill, char *name);
 void				link_rooms(t_anthill *anthill, char *line);
 t_room				*init_room(void);
@@ -77,5 +77,7 @@ void				free_array(char **str);
 void				print_error_room(void);
 void				print_error_link(void);
 void				verify_links(char *line, t_anthill **anthill);
+void				print_allocation_fail(void);
+void				print_invalid_input(void);
 
 #endif

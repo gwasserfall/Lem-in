@@ -2,49 +2,50 @@
 
 /*
 **	Initialise the ->links array within a room if not previously set
-**
+**	Will initialize the links variable in all the linear nodes.
 **	t_room *room :: Pointer to the room to init
 **	int max_links :: Maximum number of possible links (should be room_count)
 */
-void	init_roomlink_max(t_room *room, int max_links)
+void	init_roomlink_max(t_anthill **anthill)
 {
-	// TODO :: This will fail silently, depending on implementation may need to change this
-	if (!room)
-		return ;
+	t_room	*current;
 
-	/*
-		Act only if the links have not yet been init'd
-	*/
-	if (!room->links)
+	current = (*anthill)->linear;
+	if (current->links == NULL && current)
 	{
-		if (!(room->links = (t_room **)malloc(sizeof(t_room *) * max_links)))
-			return ;
+		while (current != NULL)
+		{
+			if (!(current->links = (t_room **)malloc(sizeof(t_room *)
+											* ((*anthill)->room_count))))
+				print_allocation_fail();
+			current = current->next;
+		}
 	}
 }
 
 /*
 	Link one room to another, i.e append a pointer onto *from->links array
 */
-void	link_rooms(t_anthill *anthill, char *from, char *to)
+void	link_rooms(t_anthill *anthill, char *line)
 {
-	t_room *r_from;
-	t_room *r_to;
+	t_room 	*from;
+	t_room 	*to;
+	char	**data;
 
-	ft_putstr("link ");
-	ft_putstr(from);
-	ft_putstr(" to ");
-	ft_putstr(to);
-	ft_putstr("\n");
-
-
-	r_from = find_room_by_name(anthill, from);
-	r_to = find_room_by_name(anthill, to);
-
-	if (!r_from->links)
+	data = ft_strsplit(line, '-');
+	from = find_room_by_name(anthill, data[0]);
+	to = find_room_by_name(anthill, data[1]);
+	if (from && to)
 	{
-
+		from->links[from->link_count] = to;
+		from->link_count++;
 	}
+}
 
-	r_from->links[r_from->link_count] = r_to;
-	r_from->link_count++;
+void	print_allocation_fail(void)
+{
+	ft_putstr(RED);
+	ft_putendl("Allocation Failed.");
+	ft_putstr(RESET);
+	exit(1);
 }
