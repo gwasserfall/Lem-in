@@ -32,6 +32,7 @@ void	link_rooms(t_anthill *anthill, char *line)
 	t_room 	*to;
 	char	**data;
 
+	init_roomlink_max(&anthill);
 	data = ft_strsplit(line, '-');
 	from = find_room_by_name(&anthill, data[0]);
 	to = find_room_by_name(&anthill, data[1]);
