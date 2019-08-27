@@ -29,11 +29,6 @@ t_anthill	*build_anthill(void)
 	}
 	if (anthill->nb_ants <= 0)
 		print_ant_error();
-	while (anthill->linear)
-	{
-		printf("NAME : %s X : %d Y : %d\n", anthill->linear->name, anthill->linear->x, anthill->linear->y);
-		anthill->linear = anthill->linear->next;
-	}
 	return (anthill);
 }
 

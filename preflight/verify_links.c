@@ -25,8 +25,6 @@ void		verify_links(char *line, t_anthill **anthill)
 	if (!line || (word_count(line, '-', 0) != 2))
 		print_error_link();
 	data = ft_strsplit(line, '-');
-	// printf("%s\n", data[0]);
-	// printf("%s\n", data[1]);
 	from = find_room_by_name(anthill, data[0]);
 	to = find_room_by_name(anthill, data[1]);
 	if (!to || !from)

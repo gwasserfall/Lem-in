@@ -111,8 +111,6 @@ t_room *find_room_by_name(t_anthill **anthill, char *name)
 	{
 		if ((ft_strequ(name, cursor->name)) == 1)
 		{
-			ft_putendl("HERE");
-			ft_putendl(cursor->name);
 			return (cursor);
 		}
 		cursor = cursor->next;

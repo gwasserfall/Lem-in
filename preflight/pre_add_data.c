@@ -44,11 +44,11 @@ void		pre_add_data(int type, char *line, t_anthill **anthill)
 		new_room(0, line, anthill);
 		(*anthill)->room_count++;
 	}
-	// if (type == 4)
-	// {
-	// 	verify_links(line, anthill);
-	// 	link_rooms(*anthill, line);
-	// }
+	if (type == 4)
+	{
+		verify_links(line, anthill);
+		link_rooms(*anthill, line);
+	}
 	if (type == 5)
 		return ;
 	if (type == 6)
