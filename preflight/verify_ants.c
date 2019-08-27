@@ -17,15 +17,13 @@
 ** or it is incorrectly formatted or the number of ants is not given as the
 ** first line.
 */
-void		verify_ants(void)
+void		verify_ants(char *line)
 {
-	char	*line;
 	int		ants;
 	int		i;
 
 	i = 0;
 	ants = 0;
-	get_next_line(0, &line);
 	if (!line)
 		return ;
 	while (line[i] != '\0')

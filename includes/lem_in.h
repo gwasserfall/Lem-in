@@ -38,6 +38,7 @@ typedef struct		s_anthill
 	t_room			*start;
 	t_room			*end;
 	int				room_count;
+	int				nb_ants;
 }					t_anthill;
 
 /*
@@ -64,8 +65,9 @@ void				link_rooms(t_anthill *anthill, char *from, char *to);
 */
 int					get_nb_rooms(void);
 int					word_count(char *str, char delim, int index);
-void				verify_start_and_end(void);
-void				error_checks(void);
-void				verify_ants(void);
+int					verify_start_and_end(char *line);
+t_anthill			*init_anthill(void);
+t_anthill			*build_anthill(void);
+void				verify_ants(char *line);
 
 #endif
