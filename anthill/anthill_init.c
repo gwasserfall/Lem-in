@@ -3,6 +3,8 @@
 /*
 ** Create the master level "object" to contain all room and any other flags
 */
+
+/*
 t_anthill *create_anthill(void)
 {
 	char *line;
@@ -85,13 +87,14 @@ t_anthill *create_anthill(void)
 	}
 	return hill;
 }
-
+*/
 
 
 
 /*
 ** DEBUG FUNCTIONS :: TO BE DELETED
 */
+/*
 void db_print_linear(t_anthill *anthill)
 {
 	t_room *cursor;
@@ -110,3 +113,4 @@ void db_print_linear(t_anthill *anthill)
 		cursor = cursor->linear_next;
 	}
 }
+*/

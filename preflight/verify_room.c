@@ -37,7 +37,7 @@ void	verify_first_char(char **data)
 	if (data[0][0] == 'L' || data[0][0] == '#')
 	{
 		free_array(data);
-		print_error();
+		print_error_room();
 	}
 }
 
@@ -64,7 +64,7 @@ void		verify_coordinates(char **data)
 		if (ft_isdigit(data[2][i]) == 0)
 		{
 			free_array(data);
-			print_error();
+			print_error_room();
 		}
 		i++;
 	}
@@ -89,7 +89,7 @@ void		free_array(char **str)
 /*
 ** Seriousely bro, it just prints an error message.
 */
-void		print_error(void)
+void		print_error_room(void)
 {
 	ft_putstr(RED);
 	ft_putendl("Room is not formatted correctly.");

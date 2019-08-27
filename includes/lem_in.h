@@ -74,6 +74,7 @@ int					get_nb_rooms(void);
 void				verify_coordinates(char **data);
 void				verify_first_char(char **data);
 void				free_array(char **str);
-void				print_error(void);
+void				print_error_room(void);
+void				print_error_link(void);
 
 #endif
