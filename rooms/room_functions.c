@@ -91,11 +91,11 @@ void	set_start_room(t_anthill *hill, t_room *entry)
 
 	TODO :: Comments here, may not need this
 */
-t_room *find_room_by_name(t_anthill *anthill, char *name)
+t_room *find_room_by_name(t_anthill **anthill, char *name)
 {
 	t_room *cursor;
 
-	cursor = anthill->linear;
+	cursor = (*anthill)->linear;
 
 	while (cursor)
 	{

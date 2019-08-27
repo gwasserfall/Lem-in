@@ -12,12 +12,23 @@
 
 #include "../includes/lem_in.h"
 
-void		verify_links(char *line)
+/*
+** checks to see that it has both a from room and a to room and that they both
+** exist.
+*/
+void		verify_links(char *line, t_anthill **anthill)
 {
+	char		**data;
+	t_room		*from;
+	t_room		*to;
+
 	if (!line || (word_count(line, '-', 0) != 2))
 		print_error_link();
-
-
+	data = ft_strsplit(line, '-');
+	from = find_room_by_name(anthill, data[0]);
+	to = find_room_by_name(anthill, data[1]);
+	if (to == NULL || from == NULL)
+		print_error_link();
 }
 
 /*
