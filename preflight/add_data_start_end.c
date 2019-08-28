@@ -43,11 +43,11 @@ void	add_data_end(char *line, t_anthill **anthill)
 	data = ft_strsplit(line, ' ');
 	while (current->next != NULL)
 	{
-		if (current->is_end == 1){
-	printf("\n\nHERE\n\n");
-			break ;}
+		if (current->is_end == 1)
+			break ;
 		current = current->next;
 	}
+	printf("ASJRGNRSH\n");
 	current->name = ft_strdup(data[0]);
 	current->x = ft_atoi(data[1]);
 	current->y = ft_atoi(data[2]);

@@ -30,16 +30,18 @@ t_anthill	*build_anthill(void)
 			add_data_start(line, &anthill);
 			free(line);
 			get_next_line(0, &line);
+			temp = ft_strdup(line);
 		}
 		if (ft_strcmp(temp, "##end") == 0)
 		{
 			add_data_end(line, &anthill);
 			free(line);
 			get_next_line(0, &line);
+			temp = ft_strdup(line);
 		}
 		type = check_line(line);
-		pre_add_data(type, line, &anthill);
 		temp = ft_strdup(line);
+		pre_add_data(type, line, &anthill);
 		free(line);
 	}
 	if (anthill->nb_ants <= 0)

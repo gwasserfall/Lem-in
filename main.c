@@ -10,6 +10,8 @@ int main()
 	printf("ROOM COUNT : %d\n\n", anthill->room_count);
 	while (cursor->next != NULL)
 	{
+		if (cursor->is_end == 1 || cursor->is_start == 1)
+		{
 		printf("NAME : %s\n", cursor->name);
 		printf("X POS : %d\n", cursor->x);
 		printf("Y POS : %d\n", cursor->y);
@@ -17,6 +19,7 @@ int main()
 		printf("IS_START : %d\n", cursor->is_start);
 		printf("LINK COUNT : %d\n", cursor->link_count);
 		printf("\n\n");
+		}
 		cursor = cursor->next;
 	}
 	return 1;
