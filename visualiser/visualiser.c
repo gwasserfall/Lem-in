@@ -1,16 +1,4 @@
-#include <SDL2/SDL.h>
-#include <stdbool.h>
-
-typedef	struct		s_state
-{
-	SDL_Window		*window;
-	SDL_Renderer	*renderer;
-	SDL_Event		event;
-	bool			running;
-	SDL_Rect		*rect;
-	int				width;
-	int				height;
-}					t_state;
+#include "visualiser.h"
 
 t_state *init_state()
 {
@@ -39,9 +27,13 @@ void	update_state(t_state *s)
 
 	if (s->rect->x > 800)
 		s->rect->x = 0;
+	else if (s->rect->y < 0)
+		s->rect->y = 600;
 	else
+	{
 		s->rect->x++;
-
+		s->rect->y--;
+	}
 }
 
 void	render_state(t_state *s)
@@ -63,6 +55,7 @@ void	render_state(t_state *s)
 int main(void)
 {
 	t_state *state = init_state();
+	state->anthill = init();
 
 	SDL_Init(SDL_INIT_EVERYTHING);
 
