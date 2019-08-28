@@ -83,5 +83,7 @@ void				pre_add_data(int type, char *line, t_anthill **anthill);
 int					check_line(char *line);
 int					only_digit(char *line);
 void				print_ant_error(void);
+void				add_data_start(char *line, t_anthill **anthill);
+void				add_data_end(char *line, t_anthill **anthill);
 
 #endif
