@@ -1,4 +1,7 @@
 #include "visualiser.h"
+#include <time.h>
+#include <stdlib.h>
+
 
 t_state *init_state()
 {
@@ -31,19 +34,20 @@ void	update_state(t_state *s)
 		s->rect->y = 600;
 	else
 	{
-		s->rect->x++;
-		s->rect->y--;
+		s->rect->x += rand() % 5;
+		s->rect->y -= rand() % 5;
 	}
 }
 
 void	render_state(t_state *s)
 {
 	SDL_RenderClear(s->renderer);
-	// Draw links
 
+	// Draw links
+	draw_links(s);
 
 	// Draw nodes
-
+	//draw_nodes(s);
 
 	// Draw lemmings
 	SDL_SetRenderDrawColor(s->renderer, 255, 0, 0, 255);

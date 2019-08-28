@@ -3,6 +3,7 @@
 #include <stdbool.h>
 #include <stdlib.h>
 #include <SDL2/SDL.h>
+#include <SDL2/SDL2_gfxPrimitives.h>
 
 typedef struct svector
 {
@@ -38,5 +39,6 @@ typedef	struct		s_state
 }					t_state;
 
 t_anthill *init();
+void draw_links(t_state *s);
 
 #endif
