@@ -1,2 +1,2 @@
 all:
-	gcc visualiser.c -lSDL2 -lSDL2_gfx
+	gcc visualiser.c -lSDL2
