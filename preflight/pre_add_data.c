@@ -32,9 +32,19 @@ void		pre_add_data(int type, char *line, t_anthill **anthill)
 	if (type == 2)
 	{
 		if (verify_start_and_end(line) == 1)
+		{
 			new_room(START, line, anthill);
+			get_next_line(0, &line);
+			printf("LINE : %s\n", line);
+			add_data_start(line, anthill);
+		}
 		else if (verify_start_and_end(line) == 2)
+		{
 			new_room(END, line, anthill);
+			get_next_line(0, &line);
+			printf("LINE : %s\n", line);
+			add_data_end(line, anthill);
+		}
 		else
 			return ;
 	}
