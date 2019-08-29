@@ -12,6 +12,9 @@
 
 #include "../includes/lem_in.h"
 
+/*
+** Takes line and finds the start room then sets its name x and y position.
+*/
 void	add_data_start(char *line, t_anthill **anthill)
 {
 	char	**data;
@@ -33,8 +36,12 @@ void	add_data_start(char *line, t_anthill **anthill)
 	free_array(data);
 }
 
+/*
+** Takes line and finds the end room then sets its name x and y position.
+*/
 void	add_data_end(char *line, t_anthill **anthill)
 {
+	ft_putendl(line);
 	char	**data;
 	t_room	*current;
 
@@ -43,13 +50,13 @@ void	add_data_end(char *line, t_anthill **anthill)
 	data = ft_strsplit(line, ' ');
 	while (current->next != NULL)
 	{
-		if (current->is_end == 1){
-	printf("\n\nHERE\n\n");
-			break ;}
+		if (current->is_end == 1)
+			break ;
 		current = current->next;
 	}
 	current->name = ft_strdup(data[0]);
 	current->x = ft_atoi(data[1]);
+	ft_putendl("here");
 	current->y = ft_atoi(data[2]);
 	(*anthill)->end = current;
 	free_array(data);
