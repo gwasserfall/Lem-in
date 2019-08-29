@@ -27,6 +27,8 @@ t_anthill	*build_anthill(void)
 	anthill = init_anthill();
 	while (get_next_line(0, &line))
 	{
+		if (line[0] == '\0')
+			print_invalid_input();
 		if (ft_strcmp(temp, "##start") == 0)
 		{
 			add_data_start(line, &anthill);
