@@ -43,12 +43,10 @@ t_anthill	*build_anthill(void)
 		type = check_line(line);
 		temp = ft_strdup(line);
 		pre_add_data(type, line, &anthill);
-		// printf("LINE : %s\n", line);
 		free(line);
 	}
 	if (anthill->nb_ants <= 0)
 		print_ant_error();
-		printf("ROOMS : %d\n", anthill->room_count);
 	return (anthill);
 }
 
