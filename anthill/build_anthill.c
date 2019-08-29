@@ -25,13 +25,30 @@ t_anthill	*build_anthill(void)
 	anthill = init_anthill();
 	while (get_next_line(0, &line))
 	{
+		if (ft_strcmp(temp, "##start") == 0)
+		{
+			add_data_start(line, &anthill);
+			free(line);
+			get_next_line(0, &line);
+			temp = ft_strdup(line);
+		}
+		if (ft_strcmp(temp, "##end") == 0)
+		{
+			add_data_end(line, &anthill);
+			free(line);
+			get_next_line(0, &line);
+			temp = ft_strdup(line);
+		}
+		
 		type = check_line(line);
+		temp = ft_strdup(line);
 		pre_add_data(type, line, &anthill);
-		printf("LINE : %s\n", line);
+		// printf("LINE : %s\n", line);
 		free(line);
 	}
 	if (anthill->nb_ants <= 0)
 		print_ant_error();
+		printf("ROOMS : %d\n", anthill->room_count);
 	return (anthill);
 }
 
@@ -41,7 +58,7 @@ t_anthill	*build_anthill(void)
 **     : 2 == identifier.
 **	   : 3 == room.
 **     : 4 == links.
-**     : 5 == comment.
+**     : 5 == comment. 
 **	   : 6 == error/invalid input.
 */
 int		check_line(char *line)
