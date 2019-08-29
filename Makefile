@@ -5,3 +5,9 @@ all:
 
 test:
 	./lemon < test_hill1.txt
+
+rm:
+	$(RM) visi
+
+visi:
+	gcc ./visualiser/*.c -lSDL2 -o visi
