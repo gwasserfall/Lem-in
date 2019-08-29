@@ -85,5 +85,6 @@ int					only_digit(char *line);
 void				print_ant_error(void);
 void				add_data_start(char *line, t_anthill **anthill);
 void				add_data_end(char *line, t_anthill **anthill);
+void				print_start_end_error(void);
 
 #endif

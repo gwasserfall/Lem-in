@@ -6,6 +6,8 @@ int main()
 	t_room		*cursor;
 	anthill = build_anthill();
 	cursor = anthill->linear;
+	if (anthill->start == NULL || anthill->end == NULL)
+		print_start_end_error();
 	printf("ANTS : %d\n", anthill->nb_ants);
 	printf("ROOM COUNT : %d\n\n", anthill->room_count);
 	while (cursor != NULL)

@@ -34,7 +34,7 @@ t_anthill	*build_anthill(void)
 			add_data_start(line, &anthill);
 			free(line);
 			get_next_line(0, &line);
-			temp = ft_strdup(line);
+			// temp = ft_strdup(line);
 		}
 		if (ft_strcmp(temp, "##end") == 0)
 		{

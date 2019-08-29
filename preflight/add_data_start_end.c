@@ -41,6 +41,7 @@ void	add_data_start(char *line, t_anthill **anthill)
 */
 void	add_data_end(char *line, t_anthill **anthill)
 {
+	ft_putendl(line);
 	char	**data;
 	t_room	*current;
 
@@ -55,6 +56,7 @@ void	add_data_end(char *line, t_anthill **anthill)
 	}
 	current->name = ft_strdup(data[0]);
 	current->x = ft_atoi(data[1]);
+	ft_putendl("here");
 	current->y = ft_atoi(data[2]);
 	(*anthill)->end = current;
 	free_array(data);
