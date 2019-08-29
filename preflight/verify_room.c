@@ -20,6 +20,8 @@ void		verify_room(char *line)
 	char	**data;
 	int		i;
 
+	if (word_count(line, '-', 0) == 2)
+		print_invalid_input();
 	data = ft_strsplit(line, ' ');
 	i = 0;
 	if (!line || (word_count(line, ' ', 0) != 3))

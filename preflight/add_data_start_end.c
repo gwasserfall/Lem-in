@@ -53,7 +53,6 @@ void	add_data_end(char *line, t_anthill **anthill)
 			break ;
 		current = current->next;
 	}
-	printf("ASJRGNRSH\n");
 	current->name = ft_strdup(data[0]);
 	current->x = ft_atoi(data[1]);
 	current->y = ft_atoi(data[2]);
