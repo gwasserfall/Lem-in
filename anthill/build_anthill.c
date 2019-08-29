@@ -21,7 +21,9 @@ t_anthill	*build_anthill(void)
 	char		*line;
 	int			type;
 	char		*temp;
+	int			link;
 
+	link = 0;
 	anthill = init_anthill();
 	while (get_next_line(0, &line))
 	{
@@ -39,8 +41,11 @@ t_anthill	*build_anthill(void)
 			get_next_line(0, &line);
 			temp = ft_strdup(line);
 		}
-		
 		type = check_line(line);
+		if (type == 4)
+			link = 1;
+		if (type == 3 && link == 1)
+			print_invalid_input();
 		temp = ft_strdup(line);
 		pre_add_data(type, line, &anthill);
 		free(line);
