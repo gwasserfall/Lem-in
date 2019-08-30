@@ -29,6 +29,9 @@ int			verify_start_and_end(char *line)
 		return (0);
 }
 
+/*
+** Seriousely bro, it just prints an error.
+*/
 void	print_start_end_error(void)
 {
 		ft_putstr(RED);

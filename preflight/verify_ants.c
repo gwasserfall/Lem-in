@@ -43,6 +43,9 @@ void		verify_ants(char *line)
 	}
 }
 
+/*
+** Seriousely bro, it just prints an error.
+*/
 void		print_ant_error(void)
 {
 		ft_putstr(RED);

@@ -49,7 +49,6 @@ void				db_print_linear(t_anthill *anthill);
 /*
 ** Anthill prototypes
 */
-t_anthill			*create_anthill(void);
 t_anthill			*build_anthill(void);
 t_anthill			*init_anthill(void);
 
