@@ -14,5 +14,14 @@
 
 void		check_end_route_head(t_anthill **anthill)
 {
-	
+	t_room	*t_start;
+	int		i;
+
+	t_start = (*anthill)->start;
+	i = 0;
+	if (i < t_start->link_count)
+	{
+		
+	}
+
 }
