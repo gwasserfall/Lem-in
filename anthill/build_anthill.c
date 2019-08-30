@@ -18,13 +18,23 @@
 t_anthill	*build_anthill(void)
 {
 	t_anthill	*anthill;
-	char		*line;
-	int			type;
-	char		*temp;
-	int			link;
 
-	link = 0;
 	anthill = init_anthill();
+	read_loop(anthill);
+	
+	if (anthill->nb_ants <= 0)
+		print_ant_error();
+	// check_end_route_head(&anthill);
+	return (anthill);
+}
+
+void	read_loop(t_anthill *anthill)
+{
+	char	*line;
+	char	*temp;
+	int		link;
+	int		type;
+
 	while (get_next_line(0, &line))
 	{
 		if (line[0] == '\0')
@@ -51,9 +61,6 @@ t_anthill	*build_anthill(void)
 		pre_add_data(type, line, &anthill);
 		free(line);
 	}
-	if (anthill->nb_ants <= 0)
-		print_ant_error();
-	return (anthill);
 }
 
 /*
