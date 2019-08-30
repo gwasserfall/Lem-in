@@ -51,6 +51,7 @@ void				db_print_linear(t_anthill *anthill);
 */
 t_anthill			*build_anthill(void);
 t_anthill			*init_anthill(void);
+void				read_loop(t_anthill *anthill);
 
 /*
 ** Room prototypes
@@ -93,5 +94,10 @@ void				verify_coordinates(char **data);
 void				verify_first_char(char **data);
 void				verify_links(char *line, t_anthill **anthill);
 void				verify_room(char *line);
+
+/*
+** Pathing prototypes.
+*/
+void				check_end_route_head(t_anthill **anthill);
 
 #endif
