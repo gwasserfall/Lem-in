@@ -50,6 +50,8 @@ void				db_print_linear(t_anthill *anthill);
 ** Anthill prototypes
 */
 t_anthill			*create_anthill(void);
+t_anthill			*build_anthill(void);
+t_anthill			*init_anthill(void);
 
 /*
 ** Room prototypes
@@ -62,6 +64,21 @@ void				link_rooms(t_anthill *anthill, char *line);
 t_room				*init_room(void);
 
 /*
+** Error prints.
+*/
+void				print_allocation_fail(void);
+void				print_ant_error(void);
+void				print_error_link(void);
+void				print_invalid_input(void);
+void				print_error_room(void);
+void				print_start_end_error(void);
+
+/*
+** (Leaks). Freeing prototypes.
+*/
+void				free_array(char **str);
+
+/*
 ** Preflight prototypes.
 */
 int					check_line(char *line);
@@ -69,18 +86,9 @@ int					get_nb_rooms(void);
 int					only_digit(char *line);
 int					verify_start_and_end(char *line);
 int					word_count(char *str, char delim, int index);
-t_anthill			*build_anthill(void);
-t_anthill			*init_anthill(void);
 void				add_data_end(char *line, t_anthill **anthill);
 void				add_data_start(char *line, t_anthill **anthill);
-void				free_array(char **str);
 void				pre_add_data(int type, char *line, t_anthill **anthill);
-void				print_allocation_fail(void);
-void				print_ant_error(void);
-void				print_error_link(void);
-void				print_error_room(void);
-void				print_invalid_input(void);
-void				print_start_end_error(void);
 void				verify_ants(char *line);
 void				verify_coordinates(char **data);
 void				verify_first_char(char **data);
