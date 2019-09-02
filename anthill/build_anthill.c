@@ -6,7 +6,7 @@
 /*   By: ayano <ayano@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 16:19:36 by ayano             #+#    #+#             */
-/*   Updated: 2019/09/02 14:40:30 by ayano            ###   ########.fr       */
+/*   Updated: 2019/09/02 15:22:36 by ayano            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	read_loop(t_anthill *anthill)
 	int		link;
 	int		type;
 
+	// temp = "arata";
 	while (get_next_line(0, &line))
 	{
 		if (line[0] == '\0')
@@ -44,6 +45,7 @@ void	read_loop(t_anthill *anthill)
 			add_data_start(line, &anthill);
 			free(line);
 			get_next_line(0, &line);
+			free(temp);
 		}
 		if (ft_strcmp(temp, "##end") == 0)
 		{
@@ -58,6 +60,8 @@ void	read_loop(t_anthill *anthill)
 			link = 1;
 		if (type == 3 && link == 1)
 			print_invalid_input();
+		// if (temp != NULL)
+			// free(temp);
 		temp = ft_strdup(line);
 		pre_add_data(type, line, &anthill);
 		free(line);
