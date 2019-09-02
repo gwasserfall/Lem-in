@@ -5,26 +5,26 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL2_gfxPrimitives.h>
 
-typedef struct svector
-{
-	int x;
-	int y;
-}	vector;
+// typedef struct svector
+// {
+// 	int x;
+// 	int y;
+// }	vector;
 
-typedef struct sroom
-{
-	struct sroom *next;
-	struct sroom **links;
-	int link_count;
-	char *name;
-	vector pos;
-}				room;
+// typedef struct sroom
+// {
+// 	struct sroom *next;
+// 	struct sroom **links;
+// 	int link_count;
+// 	char *name;
+// 	vector pos;
+// }				room;
 
-typedef struct s_hill
-{
-	room *start;
-	room *end;
-}			t_anthill;
+// typedef struct s_hill
+// {
+// 	room *start;
+// 	room *end;
+// }			t_anthill;
 
 typedef	struct		s_state
 {
@@ -38,6 +38,8 @@ typedef	struct		s_state
     t_anthill       *anthill;
 }					t_state;
 
+
+t_anthill *get_infos();
 t_anthill *init();
 void draw_links(t_state *s);
 
