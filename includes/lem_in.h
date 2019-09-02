@@ -98,6 +98,6 @@ void				verify_room(char *line);
 /*
 ** Pathing prototypes.
 */
-void				check_end_route_head(t_anthill **anthill);
+int					check_end_route_head(t_anthill **anthill);
 
 #endif

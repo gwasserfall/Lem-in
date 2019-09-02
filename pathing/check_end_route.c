@@ -12,16 +12,27 @@
 
 #include "../includes/lem_in.h"
 
-void		check_end_route_head(t_anthill **anthill)
+int		check_end_route_head(t_anthill **anthill)
 {
 	t_room	*t_start;
+	t_room	*current;
 	int		i;
 
 	t_start = (*anthill)->start;
 	i = 0;
-	if (i < t_start->link_count)
+	
+	while (i < t_start->link_count)
 	{
-		
 	}
+}
 
+int		check_room(t_anthill **anthill, t_room *room, int i)
+{
+	// t_room	*current;
+
+	// current = room;
+	// if (current->links[i] == (*anthill)->end)
+	// 	return (1);
+	// if (current->links[i] != '\0')
+	// 	check_room(anthill, current->links[i], i);
 }
