@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error_checks.c                                     :+:      :+:    :+:   */
+/*   build_anthill.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayano <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: ayano <ayano@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 16:19:36 by ayano             #+#    #+#             */
-/*   Updated: 2019/08/26 16:19:37 by ayano            ###   ########.fr       */
+/*   Updated: 2019/09/02 14:40:30 by ayano            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ void	read_loop(t_anthill *anthill)
 			add_data_end(line, &anthill);
 			free(line);
 			get_next_line(0, &line);
+			free(temp);
 			temp = ft_strdup(line);
 		}
 		type = check_line(line);
