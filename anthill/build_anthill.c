@@ -6,7 +6,7 @@
 /*   By: ayano <ayano@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 16:19:36 by ayano             #+#    #+#             */
-/*   Updated: 2019/09/02 15:22:36 by ayano            ###   ########.fr       */
+/*   Updated: 2019/09/02 15:51:37 by ayano            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,9 @@ void	read_loop(t_anthill *anthill)
 	char	*temp;
 	int		link;
 	int		type;
+	int		leak;
 
-	// temp = "arata";
+	leak = 0;
 	while (get_next_line(0, &line))
 	{
 		if (line[0] == '\0')
@@ -60,9 +61,10 @@ void	read_loop(t_anthill *anthill)
 			link = 1;
 		if (type == 3 && link == 1)
 			print_invalid_input();
-		// if (temp != NULL)
-			// free(temp);
+		if (leak == 1)
+			free(temp);
 		temp = ft_strdup(line);
+		leak = 1;
 		pre_add_data(type, line, &anthill);
 		free(line);
 	}
