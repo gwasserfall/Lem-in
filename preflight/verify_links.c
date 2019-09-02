@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   verify_links.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayano <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: ayano <ayano@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 12:16:50 by ayano             #+#    #+#             */
-/*   Updated: 2019/08/27 12:16:51 by ayano            ###   ########.fr       */
+/*   Updated: 2019/09/02 14:56:23 by ayano            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void		verify_links(char *line, t_anthill **anthill)
 	to = find_room_by_name(anthill, data[1]);
 	if (!to || !from)
 		print_error_link();
+	free_array(data);
 }
 
 /*
