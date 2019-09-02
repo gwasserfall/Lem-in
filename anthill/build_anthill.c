@@ -24,7 +24,7 @@ t_anthill	*build_anthill(void)
 	
 	if (anthill->nb_ants <= 0)
 		print_ant_error();
-	check_end_route_head(&anthill);
+	// check_end_route_head(&anthill);
 	return (anthill);
 }
 
