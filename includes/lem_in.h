@@ -7,6 +7,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "../libft/libft.h"
+#include <SDL2/SDL.h>
+#include <SDL2/SDL2_gfxPrimitives.h>
 
 # define RESET "\033[00m"
 # define GREEN "\033[32m"
@@ -16,6 +18,13 @@
 # define YELLOW "\033[33m"
 # define CYAN "\033[36m"
 # define PURPLE "\033[35m"
+
+#define ZOOM_DEFAULT 40
+
+#define ZOOM 18
+#define X(state, value) calc_x(state, value)
+#define Y(state, value) calc_y(state, value)
+
 
 typedef int roomtype;
 
@@ -32,14 +41,69 @@ typedef struct		s_room
 	
 }					t_room;
 
+typedef struct		s_ant
+{
+	int				x;
+	int				y;
+	char 			*name;
+	t_room			*current;
+	t_room			*following;
+	struct s_ant	*next;
+}					t_ant;
+
+typedef struct s_walking
+{
+	struct s_walking *next;
+	
+	
+}				t_walking;
+
+
 typedef struct		s_anthill
 {
 	t_room			*linear;
 	t_room			*start;
 	t_room			*end;
+	t_ant			*colony;
 	int				room_count;
 	int				nb_ants;
 }					t_anthill;
+
+typedef struct		s_path
+{
+	t_room			*room;
+	int				index;
+	struct s_path	*next;
+	struct s_path	*prev;
+}					t_path;
+
+typedef	struct		s_state
+{
+	SDL_Window		*window;
+	SDL_Renderer	*renderer;
+	SDL_Event		event;
+	t_path			*path;
+	bool			running;
+	bool			click;
+	int				offset_x;
+	int				offset_y;
+	SDL_Rect		*rect;
+	int				width;
+	int				height;
+	int				zoom;
+    t_anthill       *anthill;
+}					t_state;
+
+int calc_y(t_state *state, int value);
+int calc_x(t_state *state, int value);
+
+t_anthill *get_infos();
+t_anthill *init();
+void draw_links(t_state *s);
+void draw_nodes(t_state *s);
+void draw_stats(t_state *s);
+void	draw_ants(t_state *s);
+bool visited(t_path *path, t_room *room);
 
 /*
 ** Debug 
@@ -86,5 +150,9 @@ void				verify_coordinates(char **data);
 void				verify_first_char(char **data);
 void				verify_links(char *line, t_anthill **anthill);
 void				verify_room(char *line);
+
+
+void				join_colony(t_anthill *anthill, t_ant *larvae);
+int				hatch_ant(t_anthill *anthill, int x, int y, char *name);
 
 #endif
