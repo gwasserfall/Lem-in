@@ -26,6 +26,7 @@ typedef struct		s_room
 	int				link_count;
 	int				x;
 	int				y;
+	int				index;
 	char			*name;
 	bool			is_start;
 	bool			is_end;
@@ -94,6 +95,7 @@ void				verify_coordinates(char **data);
 void				verify_first_char(char **data);
 void				verify_links(char *line, t_anthill **anthill);
 void				verify_room(char *line);
+void				index_rooms(t_anthill **anthill);
 
 /*
 ** Pathing prototypes.

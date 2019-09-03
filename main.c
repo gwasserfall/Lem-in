@@ -20,6 +20,7 @@ int main()
 		printf("Y POS : %d\n", cursor->y);
 		printf("IS_END : %d\n", cursor->is_end);
 		printf("IS_START : %d\n", cursor->is_start);
+		printf("INDEX : %d\n", cursor->index);
 		printf("LINK COUNT : %d\n", cursor->link_count);
 		printf("\n\n");
 		// }
