@@ -22,6 +22,7 @@ t_anthill	*init_anthill(void)
 	anthill->colony = NULL;
 	anthill->start = NULL;
 	anthill->nb_ants = 0;
+	anthill->connectors = NULL;
 	anthill->end = NULL;
 	return (anthill);
 }
@@ -134,9 +135,34 @@ void	assign_link(t_anthill *ah, char *str)
 	t_room *from;
 	t_room *to;
 
+
 	line = ft_strsplit(str, '-');
 	from = get_room(ah, line[0]);
 	to = get_room(ah, line[1]);
+
+
+	// Updated code for BFS
+	t_link *link;
+	t_link *cursor;
+	
+	link = malloc(sizeof(t_link));
+	link->to = to;
+	link->from = from;
+	link->next = NULL;
+
+
+	cursor = ah->connectors;
+
+	if (!cursor)
+		ah->connectors = link;
+	else
+	{
+		while (cursor->next)
+			cursor = cursor->next;
+		cursor->next = link;
+	}
+	// End of update
+
 	free(line[0]);
 	free(line[1]);
 	free(line);

@@ -130,12 +130,36 @@ void	draw_path(t_state *s)
 	}
 }
 
+void 	draw_links_list(t_state *s)
+{
+	int y = 20;
+	t_link *cur = s->anthill->connectors;
+	char *str;
+	char *str2;
+
+	while (cur)
+	{
+		str = ft_strjoin(cur->from->name, " => ");
+		str2 = ft_strjoin(str, cur->to->name);
+		stringRGBA(s->renderer, 5, y, str2, 255, 255, 255, 255);
+		free(str);
+		free(str2);
+		y += 10;
+		cur = cur->next;
+	}
+}
+
+void	levels(t_state *s)
+{
+
+}
+
 void	render_state(t_state *s)
 {
 	SDL_RenderClear(s->renderer);
 
 	// Draw links
-	draw_links(s);
+	//draw_links(s);
 	draw_nodes(s);
 
 	// Draw Stats
@@ -147,11 +171,15 @@ void	render_state(t_state *s)
 	// Draw current path
 	draw_path(s);
 
+	// Devy
+	draw_links_list(s);
+	levels(s);
+	
+
 	//SDL_RenderFillRect(s->renderer, s->rect);
 	SDL_SetRenderDrawColor(s->renderer, 0, 0, 0, 255);
 	// SDL_SetRenderDrawColor(s->renderer, 0, 0, 0, 255);
 	SDL_RenderPresent(s->renderer);
-
 }
 
 void change_zoom(t_state *s, int z)
@@ -190,7 +218,6 @@ void handle_events(t_state *s)
 				s->zoom--;
 			}
 		}
-
 		if (s->event.type == SDL_MOUSEBUTTONDOWN)
 		{
 			if (s->event.button.button == SDL_BUTTON_LEFT)
@@ -198,22 +225,14 @@ void handle_events(t_state *s)
 				s->click = true;	
 			}
 		}
-
 		if (s->click)
 		{
 			if (s->event.type == SDL_MOUSEMOTION)
 			{
 				s->offset_x += s->event.motion.xrel;
 				s->offset_y += s->event.motion.yrel;
-
-				// printf("Xrel = %d\n", s->event.motion.xrel);
-				// printf("Yrel = %d\n", s->event.motion.xrel);
-
 			}
 		}
-
-
-
 		if (s->event.type == SDL_MOUSEBUTTONUP)
 		{
 			s->click = false;
