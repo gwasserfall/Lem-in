@@ -21,10 +21,9 @@ t_anthill	*build_anthill(void)
 
 	anthill = init_anthill();
 	read_loop(anthill);
-	
+	create_map(&anthill);
 	if (anthill->nb_ants <= 0)
 		print_ant_error();
-	// check_end_route_head(&anthill);
 	return (anthill);
 }
 
@@ -61,8 +60,8 @@ void	read_loop(t_anthill *anthill)
 			link = 1;
 		if (type == 3 && link == 1)
 			print_invalid_input();
-		if (leak == 1)
-			free(temp);
+		// if (leak == 1)
+		// 	free(temp);
 		temp = ft_strdup(line);
 		leak = 1;
 		pre_add_data(type, line, &anthill);

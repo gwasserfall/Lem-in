@@ -99,5 +99,6 @@ void				verify_room(char *line);
 ** Pathing prototypes.
 */
 int					check_end_route_head(t_anthill **anthill);
+int					create_map(t_anthill **anthill);
 
 #endif

@@ -12,27 +12,37 @@
 
 #include "../includes/lem_in.h"
 
-int		check_end_route_head(t_anthill **anthill)
+int		create_map(t_anthill **anthill)
 {
-	t_room	*t_start;
-	t_room	*current;
+	char	**map;
 	int		i;
+	int 	j;
 
-	t_start = (*anthill)->start;
 	i = 0;
-	
-	while (i < t_start->link_count)
+	map = (char **)malloc(sizeof(char *) * ((*anthill)->room_count + 1));
+	map[(*anthill)->room_count + 1] = 0;
+	while (i <= (*anthill)->room_count)
 	{
+		map[i] = ft_strnew((*anthill)->room_count + 1);
+		i++;
 	}
-}
-
-int		check_room(t_anthill **anthill, t_room *room, int i)
-{
-	// t_room	*current;
-
-	// current = room;
-	// if (current->links[i] == (*anthill)->end)
-	// 	return (1);
-	// if (current->links[i] != '\0')
-	// 	check_room(anthill, current->links[i], i);
+	i = 0;
+	while (i <= (*anthill)->room_count)
+	{
+		j = 0;
+		while (j <= (*anthill)->room_count)
+		{
+			map[i][j] = 'A';
+			j++;
+		}
+		i++;
+	}
+	i = 0;
+	while (i <= (*anthill)->room_count)
+	{
+		ft_putendl(map[i]);
+		i++;
+	}
+	ft_putchar('\n');
+	return (1);
 }
