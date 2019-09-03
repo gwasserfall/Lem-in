@@ -27,6 +27,7 @@ typedef struct		s_room
 	int				x;
 	int				y;
 	int				index;
+	int				level;
 	char			*name;
 	bool			is_start;
 	bool			is_end;
