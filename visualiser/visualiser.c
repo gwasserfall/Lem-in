@@ -86,7 +86,7 @@ void explore_map(t_state *s, t_path *path)
 		path->next->index = 0;
 		path->next->room = path->room->links[path->index];
 	}
-	//SDL_Delay(1);
+	SDL_Delay(300);
 }
 
 void	update_state(t_state *s)
@@ -103,6 +103,7 @@ void	update_state(t_state *s)
 		army = army->next;
 	}
 	explore_map(s, s->path);
+
 }
 
 void	draw_path(t_state *s)

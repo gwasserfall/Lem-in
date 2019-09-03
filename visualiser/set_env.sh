@@ -16,6 +16,3 @@ fi
 
 export LIBRARY_PATH="/goinfre/gwasserf/.brew/lib"
 export C_INCLUDE_PATH="/goinfre/gwasserf/.brew/include"
-
-
-
