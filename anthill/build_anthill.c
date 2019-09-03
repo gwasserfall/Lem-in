@@ -34,9 +34,7 @@ void	read_loop(t_anthill *anthill)
 	char	*temp;
 	int		link;
 	int		type;
-	int		leak;
-
-	leak = 0;
+	
 	while (get_next_line(0, &line))
 	{
 		if (line[0] == '\0')
@@ -61,10 +59,7 @@ void	read_loop(t_anthill *anthill)
 			link = 1;
 		if (type == 3 && link == 1)
 			print_invalid_input();
-		// if (leak == 1)
-		// 	free(temp);
 		temp = ft_strdup(line);
-		leak = 1;
 		pre_add_data(type, line, &anthill);
 		free(line);
 	}

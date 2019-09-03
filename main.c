@@ -6,6 +6,8 @@ int main()
 	t_room		*cursor;
 
 	anthill = build_anthill();
+	index_rooms(&anthill);
+	// create_map(&anthill);
 	cursor = anthill->linear;
 	if (anthill->start == NULL || anthill->end == NULL)
 		print_start_end_error();
