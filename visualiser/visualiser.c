@@ -1,4 +1,4 @@
-#include "../includes/lem_in.h"
+#include <lem_in.h>
 #include <time.h>
 #include <stdlib.h>
 
@@ -6,7 +6,7 @@ void	join_colony(t_anthill *anthill, t_ant *larvae)
 {
 	t_ant	*nurse;
 	
-	printf("%p\n", anthill->colony);
+	//printf("%p\n", anthill->colony);
 
 	if (!anthill->colony)
 		anthill->colony = larvae;
@@ -67,15 +67,12 @@ void explore_map(t_state *s, t_path *path)
 	if (path->room == s->anthill->end)
 		return;
 
-	// printf("Path at this point is %s index[%d] linkcount[%d]\n", path->room->name, path->index, path->room->link_count);
 
-	// Backtrack if needed
 	if (path->room->link_count <= path->index || visited(s->path, path->room->links[path->index]))
 	{
 		path->prev->index++;
 		path->prev->next = NULL;
 		free(path);
-		
 	}
 	else
 	{
@@ -91,18 +88,19 @@ void explore_map(t_state *s, t_path *path)
 
 void	update_state(t_state *s)
 {
-	t_ant *army;
+	// t_ant *army;
 
-	army = s->anthill->colony;
-	while (army)
-	{
-		if (!army->x)
-			army->x = s->anthill->start->x;
-		if (!army->y)
-			army->y = s->anthill->start->y;
-		army = army->next;
-	}
-	explore_map(s, s->path);
+	// army = s->anthill->colony;
+	// while (army)
+	// {
+	// 	if (!army->x)
+	// 		army->x = s->anthill->start->x;
+	// 	if (!army->y)
+	// 		army->y = s->anthill->start->y;
+	// 	army = army->next;
+	// }
+	// explore_map(s, s->path);
+
 
 }
 
@@ -150,144 +148,19 @@ void 	draw_links_list(t_state *s)
 }
 
 
-typedef struct s_frontier
+void	draw_parents(t_state *s)
 {
-	t_room				*room;
-	struct s_frontier	*next;
-}	t_frontier;
+	t_room *baby;
 
+	baby = s->anthill->end;
 
-/*
-level = {s : 0}
-parent = {s : None}
-
-i = 1
-frontier = [s]
-
-while frontier:
-	next = []
-	for u in frontier:
-
-		for v in u.neighbours:
-
-			if v not in level:
-				level[v] = i
-				parent[v] = u
-				next.append(v)
-
-	frontier = next
-	i += 1
-*/
-
-void append_roomz(t_frontier **front, t_room *room)
-{
-	t_frontier *cur;
-	t_frontier *new;
-
-	cur = *front;
-
-	if (!cur)
+	while (baby->parent)
 	{
-		*front = malloc(sizeof(t_frontier));
-		(*front)->next = NULL;
-		(*front)->room = room;
+
+		SDL_RenderDrawLine(s->renderer, X(s, baby->x), Y(s, baby->y), X(s, baby->parent->x), Y(s, baby->parent->y));
+		baby = baby->parent;
 	}
-	else
-	{
-		while (cur->next)
-		{
-			cur = cur->next;
-		}
-		new =  malloc(sizeof(t_frontier));
-		new->room = room;
-		new->next = NULL;
-		cur->next = new;
-	}
-}
 
-bool has_vertices(t_frontier *frontier)
-{
-	if (frontier)
-		return true;
-	return false;
-}
-
-
-void	append_frontier(t_frontier **current, t_frontier *next)
-{
-	t_frontier *cur;
-
-	cur = *current;
-
-	if (!cur)
-		*current = next;
-	else
-	{
-		while (cur->next)
-			cur = cur->next;
-		cur->next = next;
-		next->next = NULL;
-	}
-}
-
-
-t_frontier *get_neighbours(t_link *links, t_frontier *front)
-{
-	t_room *room = front->room;
-	t_frontier *neighs;
-	t_frontier *neigh1;
-	t_frontier *neigh2;
-
-	neighs = NULL;
-
-	while (links)
-	{
-		if (links->from == front->room)
-		{
-			append_roomz(&neighs, links->to);
-		}	
-		else if (links->to == front->room)
-		{
-			append_roomz(&neighs, links->from);
-		}
-		links = links->next;
-	}
-	return neighs;
-}
-
-
-void	set_levels(t_state *s)
-{
-	t_frontier *frontier;
-	t_frontier *next;
-	t_frontier *neighbour;
-	int i = 1;
-
-	frontier = NULL;
-
-	append_roomz(&frontier, s->anthill->start);
-
-	while (has_vertices(frontier))
-	{
-		next = NULL;
-		while (frontier)
-		{
-			neighbour = get_neighbours(s->anthill->connectors, frontier);
-			while (neighbour)
-			{
-				if (neighbour->room->level == -1)
-				{
-					neighbour->room->level = i;
-					neighbour->room->parent = frontier->room;
-					append_frontier(&next, neighbour);
-				}
-				neighbour = neighbour->next;
-			}
-			frontier = frontier->next;
-		}
-		i++;
-		frontier = next;
-	}
 }
 
 void	render_state(t_state *s)
@@ -305,7 +178,10 @@ void	render_state(t_state *s)
 	draw_ants(s);
 
 	// Draw current path
-	draw_path(s);
+	//draw_path(s);
+
+
+	draw_parents(s);
 
 	// Devy
 	draw_links_list(s);
