@@ -32,49 +32,33 @@ t_anthill	*build_anthill(void)
 void		read_loop(t_anthill *anthill)
 {
 	char	*line;
-	char	*temp;
 	int		link;
 	int		type;
 
+	link = 0;
 	while (get_next_line(0, &line))
 	{
-		ft_putendl("HERE10");
-		if (line[0] != '\0')
-			temp = ft_strdup(line);
-		ft_putendl("HERE");
-		if (line[0] == '\0')
-			print_invalid_input();
-		ft_putendl("HERE1");
-		if (ft_strcmp(temp, "##start") == 0 && ft_strcmp(line, "##start") != 0)
-		{
-			add_start_data(line, &anthill);
-			free(temp);
-		}
-		ft_putendl("HERE2");
-		if (ft_strcmp(temp, "##end") == 0 && ft_strcmp(line, "##end") != 0)
-		{
-			add_data_end(line, &anthill);
-			free(line);
-			get_next_line(0, &line);
-			free(temp);
-			temp = ft_strdup(line);
-		}
-		ft_putendl("HERE3");
 		type = check_line(line);
-		ft_putendl("HERE4");
 		if (type == 4)
 			link = 1;
-		ft_putendl("HERE5");
 		if (type == 3 && link == 1)
 			print_invalid_input();
-		ft_putendl("HERE6");
-		free(temp);
-		ft_putendl("HERE7");
-		// temp = ft_strdup(line);
 		pre_add_data(type, line, &anthill);
-		ft_putendl("HERE8");
+		if (ft_strcmp(line, "##start") == 0)
+		{
+			free(line);
+			get_next_line(0, &line);
+			add_data_start(line, &anthill);	
+		}
+		if (ft_strcmp(line, "##end") == 0)
+		{
+			free(line);
+			get_next_line(0, &line);
+			add_data_end(line, &anthill);	
+		}
+		printf("LINK : %d\n", link);
+		printf("TYPE : %d\n", type);
 		free(line);
-		ft_putendl("HERE9");
 	}
 }
 
