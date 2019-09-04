@@ -38,36 +38,35 @@ t_anthill	*build_anthill(void)
 		printf("%s\n", data->line);
 		data = data->next;
 	}
-}
+}	
 
 void		read_loop(t_anthill *anthill, t_data **data)
 {
-	char	*line;
+	t_data	*current;
 	int		link;
 	int		type;
 
 	link = 0;
-	while (get_next_line(0, &line))
+	current = (*data);
+	while (current)
 	{
-		type = check_line(line);
+		type = check_line(current->line);
 		if (type == 4)
 			link = 1;
-		if ((type == 3 && link == 1) || line[0] == '\0')
+		if ((type == 3 && link == 1) || current->line[0] == '\0')
 			print_invalid_input();
-		pre_add_data(type, line, &anthill);
-		if (ft_strcmp(line, "##start") == 0)
+		pre_add_data(type, current->line, &anthill);
+		if (ft_strcmp(current->line, "##start") == 0)
 		{
-			free(line);
-			get_next_line(0, &line);
-			add_data_start(line, &anthill);	
+			current = current->next;
+			add_data_start(current->line, &anthill);	
 		}
-		if (ft_strcmp(line, "##end") == 0)
+		if (ft_strcmp(current->line, "##end") == 0)
 		{
-			free(line);
-			get_next_line(0, &line);
-			add_data_end(line, &anthill);	
+			current = current->next;
+			add_data_end(current->line, &anthill);	
 		}
-		free(line);
+		current = current->next;
 	}
 }
 
