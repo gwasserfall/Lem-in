@@ -106,4 +106,11 @@ void				add_end_data(char *line, t_anthill **anthill);
 int					check_end_route_head(t_anthill **anthill);
 int					create_map(t_anthill **anthill);
 
+/*
+** Output prototypes.
+*/
+void				display_ants(t_anthill **anthill);
+void				display_output(t_anthill **anthill);
+void				display_rooms(t_anthill **anthill);
+void				display_links(t_anthill **anthill);
 #endif
