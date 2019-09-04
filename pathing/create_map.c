@@ -44,19 +44,19 @@ int		create_map(t_anthill **anthill)
 		i++;
 	}
 	ft_putchar('\n');
-	map_links(map, anthill);
+	// map_links(map, anthill);
 	return (1);
 }
 
-void		map_links(char **map, t_anthill **anthill)
-{
-	t_room	*current;
-	int		room_index;
-	int		room_link_index;
-	int		room_link_count;
+// void		map_links(char **map, t_anthill **anthill)
+// {
+// 	t_room	*current;
+// 	int		room_index;
+// 	int		room_link_index;
+// 	int		room_link_count;
 
-	current = (*anthill)->linear;
-	room_index = current->index;
-	room_link_index = current->links[room_link_count]->index;
-	room_link_count = 0;
-}
+// 	current = (*anthill)->linear;
+// 	room_index = current->index;
+// 	room_link_index = current->links[room_link_count]->index;
+// 	room_link_count = 0;
+// }

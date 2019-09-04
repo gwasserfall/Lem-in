@@ -97,6 +97,8 @@ void				verify_first_char(char **data);
 void				verify_links(char *line, t_anthill **anthill);
 void				verify_room(char *line);
 void				index_rooms(t_anthill **anthill);
+void				add_start_data(char *line, t_anthill **anthill);
+void				add_end_data(char *line, t_anthill **anthill);
 
 /*
 ** Pathing prototypes.

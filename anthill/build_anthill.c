@@ -15,6 +15,7 @@
 /*
 ** This will create the anthills first node and then add nodes for each room.
 */
+
 t_anthill	*build_anthill(void)
 {
 	t_anthill	*anthill;
@@ -22,31 +23,35 @@ t_anthill	*build_anthill(void)
 	anthill = init_anthill();
 	read_loop(anthill);
 	index_rooms(&anthill);
-	create_map(&anthill);
+	// create_map(&anthill);
 	if (anthill->nb_ants <= 0)
 		print_ant_error();
 	return (anthill);
 }
 
-void	read_loop(t_anthill *anthill)
+void		read_loop(t_anthill *anthill)
 {
 	char	*line;
 	char	*temp;
 	int		link;
 	int		type;
-	
+
 	while (get_next_line(0, &line))
 	{
+		ft_putendl("HERE10");
+		if (line[0] != '\0')
+			temp = ft_strdup(line);
+		ft_putendl("HERE");
 		if (line[0] == '\0')
 			print_invalid_input();
-		if (ft_strcmp(temp, "##start") == 0)
+		ft_putendl("HERE1");
+		if (ft_strcmp(temp, "##start") == 0 && ft_strcmp(line, "##start") != 0)
 		{
-			add_data_start(line, &anthill);
-			free(line);
-			get_next_line(0, &line);
+			add_start_data(line, &anthill);
 			free(temp);
 		}
-		if (ft_strcmp(temp, "##end") == 0)
+		ft_putendl("HERE2");
+		if (ft_strcmp(temp, "##end") == 0 && ft_strcmp(line, "##end") != 0)
 		{
 			add_data_end(line, &anthill);
 			free(line);
@@ -54,14 +59,22 @@ void	read_loop(t_anthill *anthill)
 			free(temp);
 			temp = ft_strdup(line);
 		}
+		ft_putendl("HERE3");
 		type = check_line(line);
+		ft_putendl("HERE4");
 		if (type == 4)
 			link = 1;
+		ft_putendl("HERE5");
 		if (type == 3 && link == 1)
 			print_invalid_input();
-		temp = ft_strdup(line);
+		ft_putendl("HERE6");
+		free(temp);
+		ft_putendl("HERE7");
+		// temp = ft_strdup(line);
 		pre_add_data(type, line, &anthill);
+		ft_putendl("HERE8");
 		free(line);
+		ft_putendl("HERE9");
 	}
 }
 
@@ -71,10 +84,11 @@ void	read_loop(t_anthill *anthill)
 **     : 2 == identifier.
 **	   : 3 == room.
 **     : 4 == links.
-**     : 5 == comment. 
+**     : 5 == comment.
 **	   : 6 == error/invalid input.
 */
-int		check_line(char *line)
+
+int			check_line(char *line)
 {
 	int		i;
 
@@ -94,14 +108,16 @@ int		check_line(char *line)
 }
 
 /*
-** This will malloc and set the initial values to all the data held in the struct.
+** This will malloc and set the initial values to all
+** the data held in the struct.
 */
+
 t_anthill	*init_anthill(void)
 {
 	t_anthill	*anthill;
 
 	if (!(anthill = malloc(sizeof(t_anthill))))
-		return false;
+		return (false);
 	anthill->room_count = 0;
 	anthill->linear = NULL;
 	anthill->start = NULL;
@@ -113,7 +129,8 @@ t_anthill	*init_anthill(void)
 /*
 ** checks if the only info in the line is digits.
 */
-int		only_digit(char *line)
+
+int			only_digit(char *line)
 {
 	int		i;
 
