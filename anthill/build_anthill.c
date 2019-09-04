@@ -19,12 +19,20 @@
 t_anthill	*build_anthill(void)
 {
 	t_anthill	*anthill;
+	t_data		*data;
 
 	anthill = init_anthill();
-	read_loop(anthill);
-	if (anthill->nb_ants <= 0)
-		print_ant_error();
+	data = allocate_space();
+	read_into_data(data);
+	// read_loop(anthill);
+	// if (anthill->nb_ants <= 0)
+	// 	print_ant_error();
 	return (anthill);
+	while (data)
+	{
+		printf("%s\n", data->line);
+		data = data->next;
+	}
 }
 
 void		read_loop(t_anthill *anthill)

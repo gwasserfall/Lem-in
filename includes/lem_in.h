@@ -43,6 +43,12 @@ typedef struct		s_anthill
 	int				nb_ants;
 }					t_anthill;
 
+typedef struct		s_data
+{
+	char			*line;
+	struct s_data	*next;
+}					t_data;
+
 /*
 ** Debug 
 */
@@ -113,4 +119,12 @@ void				display_ants(t_anthill **anthill);
 void				display_output(t_anthill **anthill);
 void				display_rooms(t_anthill **anthill);
 void				display_links(t_anthill **anthill);
+
+/*
+** Data prototypes.
+*/
+t_data				init_data(void);
+t_data				*allocate_space(void);
+void				read_into_data(t_data *data);
+
 #endif

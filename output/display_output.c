@@ -16,5 +16,5 @@ void		display_output(t_anthill **anthill)
 {
 	display_ants(anthill);
 	display_rooms(anthill);
-	display_links(anthill);
+	// display_links(anthill);
 }
