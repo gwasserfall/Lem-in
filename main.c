@@ -9,14 +9,14 @@ int main()
 	if (anthill->start == NULL || anthill->end == NULL)
 		print_start_end_error();
 	index_rooms(&anthill);
-	display_output(&anthill);
+	// display_output(&anthill);
 	cursor = anthill->linear;
 	printf("ANTS : %d\n", anthill->nb_ants);
 	printf("ROOM COUNT : %d\n\n", anthill->room_count);
 	while (cursor != NULL)
 	{
-		if (cursor->is_end == 1 || cursor->is_start == 1)
-		{
+		// if (cursor->is_end == 1 || cursor->is_start == 1)
+		// {
 		printf("NAME : %s\n", cursor->name);
 		printf("X POS : %d\n", cursor->x);
 		printf("Y POS : %d\n", cursor->y);
@@ -25,7 +25,7 @@ int main()
 		printf("INDEX : %d\n", cursor->index);
 		printf("LINK COUNT : %d\n", cursor->link_count);
 		printf("\n\n");
-		}
+		// }
 		cursor = cursor->next;
 	}
 	while (1);

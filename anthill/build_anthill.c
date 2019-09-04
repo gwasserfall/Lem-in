@@ -48,7 +48,7 @@ void		read_loop(t_anthill *anthill, t_data **data)
 
 	link = 0;
 	current = (*data);
-	while (current)
+	while (current->next)
 	{
 		type = check_line(current->line);
 		if (type == 4)
