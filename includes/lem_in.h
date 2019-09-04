@@ -123,8 +123,8 @@ void				display_links(t_anthill **anthill);
 /*
 ** Data prototypes.
 */
-t_data				init_data(void);
-t_data				*allocate_space(void);
-void				read_into_data(t_data *data);
+t_data				*init_data(void);
+void				read_into_data(t_data **data);
+void				add_data_node(t_data **data);
 
 #endif

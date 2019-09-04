@@ -12,18 +12,7 @@
 
 #include "../includes/lem_in.h"
 
-t_data		init_data(void)
-{
-	t_data		*data;
-
-	data = allocate_space();
-	// read_into_data(data);
-	return (*data);
-
-
-}
-
-t_data		*allocate_space(void)
+t_data		*init_data(void)
 {
 	t_data		*new;
 
@@ -34,17 +23,30 @@ t_data		*allocate_space(void)
 	return (new);
 }
 
-void		read_into_data(t_data *data)
+void		read_into_data(t_data **data)
 {
 	char		*line;
-	t_data		*head;
+	t_data		*current;
 
-	head = data;
+	current = (*data);
 	while (get_next_line(0, &line))
 	{
-		data->next = allocate_space();
-		data->line = ft_strdup(line);
-		data = data->next;
+		add_data_node(&current);
+		current->line = ft_strdup(line);
+		// ft_putendl(current->line);
+		current = current->next;
 		free(line);
-	}		
+	}
+}
+
+void		add_data_node(t_data **data)
+{
+	t_data	*current;
+	t_data	*new;
+
+	new = init_data();
+	current = (*data);
+	while (current->next != NULL)
+		current = current->next;
+	current->next = new;
 }

@@ -22,8 +22,13 @@ t_anthill	*build_anthill(void)
 	t_data		*data;
 
 	anthill = init_anthill();
-	data = allocate_space();
-	read_into_data(data);
+	data = init_data();
+	read_into_data(&data);
+	while (data->next != NULL)
+	{
+		ft_putendl(data->line);
+		data = data->next;
+	}
 	// read_loop(anthill);
 	// if (anthill->nb_ants <= 0)
 	// 	print_ant_error();
