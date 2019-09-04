@@ -41,7 +41,7 @@ void		read_loop(t_anthill *anthill)
 		type = check_line(line);
 		if (type == 4)
 			link = 1;
-		if (type == 3 && link == 1)
+		if ((type == 3 && link == 1) || line[0] == '\0')
 			print_invalid_input();
 		pre_add_data(type, line, &anthill);
 		if (ft_strcmp(line, "##start") == 0)
@@ -56,8 +56,6 @@ void		read_loop(t_anthill *anthill)
 			get_next_line(0, &line);
 			add_data_end(line, &anthill);	
 		}
-		printf("LINK : %d\n", link);
-		printf("TYPE : %d\n", type);
 		free(line);
 	}
 }
