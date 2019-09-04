@@ -22,8 +22,6 @@ t_anthill	*build_anthill(void)
 
 	anthill = init_anthill();
 	read_loop(anthill);
-	index_rooms(&anthill);
-	// create_map(&anthill);
 	if (anthill->nb_ants <= 0)
 		print_ant_error();
 	return (anthill);

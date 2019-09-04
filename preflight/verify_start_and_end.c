@@ -35,7 +35,7 @@ int			verify_start_and_end(char *line)
 void	print_start_end_error(void)
 {
 		ft_putstr(RED);
-		ft_putendl("No Start or End oom given.");
+		ft_putendl("No Start or End room given.");
 		ft_putstr(RESET);
 		exit(1);
 }
