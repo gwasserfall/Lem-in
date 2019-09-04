@@ -8,14 +8,14 @@
 			"name": "(lldb) Launch",
 			"type": "cppdbg",
 			"request": "launch",
-			"program": "${workspaceFolder}/lemon",
+			"program": "${workspaceFolder}/visualiser/a.out",
 			"args": ["<", "./maps/test_20_rooms.map"],
 			"stopAtEntry": false,
 			"cwd": "${workspaceFolder}",
 			"environment": [],
 			"externalConsole": false,
 			"MIMode": "lldb",
-			"preLaunchTask": "build"
+			//"preLaunchTask": "build"
 		}
 	]
 }

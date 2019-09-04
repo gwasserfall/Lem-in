@@ -32,6 +32,8 @@ typedef struct		s_room
 {
 	struct s_room 	*next;
 	struct s_room	**links;
+	struct s_room	*parent;
+	int				level;
 	int				link_count;
 	int				x;
 	int				y;
@@ -59,11 +61,19 @@ typedef struct s_walking
 }				t_walking;
 
 
+typedef struct		s_link
+{
+	t_room			*to;
+	t_room			*from;
+	struct s_link	*next;
+}					t_link;
+
 typedef struct		s_anthill
 {
 	t_room			*linear;
 	t_room			*start;
 	t_room			*end;
+	t_link			*connectors;
 	t_ant			*colony;
 	int				room_count;
 	int				nb_ants;

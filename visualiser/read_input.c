@@ -46,6 +46,8 @@ t_room	*init_room_g(char *name, int x, int y)
 	new->next = NULL;
 	new->link_count = 0;
 	new->name = ft_strdup(name);
+	new->level = -1;
+	new->parent = NULL;
 	new->is_end = 0;
 	new->is_start = 0;
 	new->x = x;
@@ -102,6 +104,8 @@ void	assign_room(t_anthill *ah, char *str, bool *s, bool *e)
 	ah->start = (*s) ? room : ah->start;
 	ah->end = (*e) ? room : ah->end;
 	room->is_start = *s;
+	if (room->is_start)
+		room->level = 0;
 	room->is_end = *e;
 	ah->room_count++;
 	if (!ah->linear)

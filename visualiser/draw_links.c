@@ -42,6 +42,7 @@ void draw_nodes(t_state *s)
 
 	while (room)
 	{
+		stringRGBA(s->renderer, X(s, room->x) - 5, Y(s, room->y) + 35, ft_itoa(room->level), 255, 255, 255, 255);
 		if (room->is_start)
 		{
 			stringRGBA(s->renderer, X(s, room->x) + 5, Y(s, room->y) - 24, "START", 255, 255, 255, 255);

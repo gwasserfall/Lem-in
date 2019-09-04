@@ -149,9 +149,145 @@ void 	draw_links_list(t_state *s)
 	}
 }
 
-void	levels(t_state *s)
-{
 
+typedef struct s_frontier
+{
+	t_room				*room;
+	struct s_frontier	*next;
+}	t_frontier;
+
+
+/*
+level = {s : 0}
+parent = {s : None}
+
+i = 1
+frontier = [s]
+
+while frontier:
+	next = []
+	for u in frontier:
+
+		for v in u.neighbours:
+
+			if v not in level:
+				level[v] = i
+				parent[v] = u
+				next.append(v)
+
+	frontier = next
+	i += 1
+*/
+
+void append_roomz(t_frontier **front, t_room *room)
+{
+	t_frontier *cur;
+	t_frontier *new;
+
+	cur = *front;
+
+	if (!cur)
+	{
+		*front = malloc(sizeof(t_frontier));
+		(*front)->next = NULL;
+		(*front)->room = room;
+	}
+	else
+	{
+		while (cur->next)
+		{
+			cur = cur->next;
+		}
+		new =  malloc(sizeof(t_frontier));
+		new->room = room;
+		new->next = NULL;
+		cur->next = new;
+	}
+}
+
+bool has_vertices(t_frontier *frontier)
+{
+	if (frontier)
+		return true;
+	return false;
+}
+
+
+void	append_frontier(t_frontier **current, t_frontier *next)
+{
+	t_frontier *cur;
+
+	cur = *current;
+
+	if (!cur)
+		*current = next;
+	else
+	{
+		while (cur->next)
+			cur = cur->next;
+		cur->next = next;
+		next->next = NULL;
+	}
+}
+
+
+t_frontier *get_neighbours(t_link *links, t_frontier *front)
+{
+	t_room *room = front->room;
+	t_frontier *neighs;
+	t_frontier *neigh1;
+	t_frontier *neigh2;
+
+	neighs = NULL;
+
+	while (links)
+	{
+		if (links->from == front->room)
+		{
+			append_roomz(&neighs, links->to);
+		}	
+		else if (links->to == front->room)
+		{
+			append_roomz(&neighs, links->from);
+		}
+		links = links->next;
+	}
+	return neighs;
+}
+
+
+void	set_levels(t_state *s)
+{
+	t_frontier *frontier;
+	t_frontier *next;
+	t_frontier *neighbour;
+	int i = 1;
+
+	frontier = NULL;
+
+	append_roomz(&frontier, s->anthill->start);
+
+	while (has_vertices(frontier))
+	{
+		next = NULL;
+		while (frontier)
+		{
+			neighbour = get_neighbours(s->anthill->connectors, frontier);
+			while (neighbour)
+			{
+				if (neighbour->room->level == -1)
+				{
+					neighbour->room->level = i;
+					neighbour->room->parent = frontier->room;
+					append_frontier(&next, neighbour);
+				}
+				neighbour = neighbour->next;
+			}
+			frontier = frontier->next;
+		}
+		i++;
+		frontier = next;
+	}
 }
 
 void	render_state(t_state *s)
@@ -173,7 +309,6 @@ void	render_state(t_state *s)
 
 	// Devy
 	draw_links_list(s);
-	levels(s);
 	
 
 	//SDL_RenderFillRect(s->renderer, s->rect);
@@ -260,6 +395,8 @@ int main(void)
 	SDL_SetRenderDrawColor(state->renderer, 0, 0, 0, 255);
 	SDL_RenderClear(state->renderer);
 	SDL_RenderPresent(state->renderer);
+
+	set_levels(state);
 
 	while (state->running)
 	{

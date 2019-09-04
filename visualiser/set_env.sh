@@ -1,8 +1,8 @@
-if [ -d "~/.brew" ]; then
+if [ ! -d "~/.brew" ]; then
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/Tolsadus/42homebrewfix/master/install.sh)"
 fi
 
-if [ -d "~/.brew" ]; then
+if [ ! -d "~/.brew" ]; then
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/Tolsadus/42homebrewfix/master/install.sh)"
 fi
 
