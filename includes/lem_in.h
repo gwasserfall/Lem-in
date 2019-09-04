@@ -59,7 +59,7 @@ void				db_print_linear(t_anthill *anthill);
 */
 t_anthill			*build_anthill(void);
 t_anthill			*init_anthill(void);
-void				read_loop(t_anthill *anthill);
+void				read_loop(t_anthill *anthill, t_data **data);
 
 /*
 ** Room prototypes

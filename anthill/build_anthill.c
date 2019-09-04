@@ -24,14 +24,14 @@ t_anthill	*build_anthill(void)
 	anthill = init_anthill();
 	data = init_data();
 	read_into_data(&data);
-	while (data->next != NULL)
-	{
-		ft_putendl(data->line);
-		data = data->next;
-	}
-	// read_loop(anthill);
-	// if (anthill->nb_ants <= 0)
-	// 	print_ant_error();
+	// while (data->next != NULL)
+	// {
+	// 	ft_putendl(data->line);
+	// 	data = data->next;
+	// }
+	read_loop(anthill, &data);
+	if (anthill->nb_ants <= 0)
+		print_ant_error();
 	return (anthill);
 	while (data)
 	{
@@ -40,7 +40,7 @@ t_anthill	*build_anthill(void)
 	}
 }
 
-void		read_loop(t_anthill *anthill)
+void		read_loop(t_anthill *anthill, t_data **data)
 {
 	char	*line;
 	int		link;
