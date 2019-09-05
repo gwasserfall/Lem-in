@@ -31,9 +31,9 @@ void		read_into_data(t_data **data)
 	current = (*data);
 	while (get_next_line(0, &line))
 	{
+		current->line = ft_strdup(line);
 		add_data_node(&current);
 		current = current->next;
-		current->line = ft_strdup(line);
 		free(line);
 	}
 }

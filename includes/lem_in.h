@@ -85,6 +85,7 @@ void				print_start_end_error(void);
 ** (Leaks). Freeing prototypes.
 */
 void				free_array(char **str);
+void				free_data(t_data **data);
 
 /*
 ** Preflight prototypes.

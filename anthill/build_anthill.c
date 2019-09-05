@@ -29,10 +29,11 @@ t_anthill	*build_anthill(void)
 	// 	ft_putendl(data->line);
 	// 	data = data->next;
 	// }
-	// read_loop(anthill, &data);
-	// if (anthill->nb_ants <= 0)
-	// 	print_ant_error();
-	// return (anthill);
+	read_loop(anthill, &data);
+	if (anthill->nb_ants <= 0)
+		print_ant_error();
+	free_data(&data);
+	return (anthill);
 	// while (data)
 	// {
 	// 	printf("%s\n", data->line);
@@ -59,12 +60,12 @@ void		read_loop(t_anthill *anthill, t_data **data)
 		if (ft_strcmp(current->line, "##start") == 0)
 		{
 			current = current->next;
-			add_data_start(current->line, &anthill);	
+			add_data_start(current->line, &anthill);
 		}
 		if (ft_strcmp(current->line, "##end") == 0)
 		{
 			current = current->next;
-			add_data_end(current->line, &anthill);	
+			add_data_end(current->line, &anthill);
 		}
 		current = current->next;
 	}
