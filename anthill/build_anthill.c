@@ -16,29 +16,15 @@
 ** This will create the anthills first node and then add nodes for each room.
 */
 
-t_anthill	*build_anthill(void)
+t_anthill	*build_anthill(t_data **data)
 {
 	t_anthill	*anthill;
-	t_data		*data;
 
 	anthill = init_anthill();
-	data = init_data();
-	read_into_data(&data);
-	// while (data->next != NULL)
-	// {
-	// 	ft_putendl(data->line);
-	// 	data = data->next;
-	// }
-	read_loop(anthill, &data);
+	read_loop(anthill, data);
 	if (anthill->nb_ants <= 0)
 		print_ant_error();
-	free_data(&data);
 	return (anthill);
-	// while (data)
-	// {
-	// 	printf("%s\n", data->line);
-	// 	data = data->next;
-	// }
 }	
 
 void		read_loop(t_anthill *anthill, t_data **data)
