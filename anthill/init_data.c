@@ -32,9 +32,8 @@ void		read_into_data(t_data **data)
 	while (get_next_line(0, &line))
 	{
 		add_data_node(&current);
-		current->line = ft_strdup(line);
-		// ft_putendl(current->line);
 		current = current->next;
+		current->line = ft_strdup(line);
 		free(line);
 	}
 }
