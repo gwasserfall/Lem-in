@@ -120,6 +120,7 @@ void				display_ants(t_anthill **anthill);
 void				display_output(t_anthill **anthill);
 void				display_rooms(t_anthill **anthill);
 void				display_links(t_anthill **anthill);
+void				display_input(t_data **data);
 
 /*
 ** Data prototypes.
