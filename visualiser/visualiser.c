@@ -157,7 +157,8 @@ void	draw_parents(t_state *s)
 	while (baby->parent)
 	{
 
-		SDL_RenderDrawLine(s->renderer, X(s, baby->x), Y(s, baby->y), X(s, baby->parent->x), Y(s, baby->parent->y));
+		//SDL_RenderDrawLine(s->renderer, X(s, baby->x), Y(s, baby->y), X(s, baby->parent->x), Y(s, baby->parent->y));
+		thickLineRGBA(s->renderer, X(s, baby->x), Y(s, baby->y), X(s, baby->parent->x), Y(s, baby->parent->y), 3, 0, 255, 0, 255);
 		baby = baby->parent;
 	}
 
@@ -167,8 +168,11 @@ void	render_state(t_state *s)
 {
 	SDL_RenderClear(s->renderer);
 
+
+	draw_parents(s);
+
 	// Draw links
-	//draw_links(s);
+	draw_links(s);
 	draw_nodes(s);
 
 	// Draw Stats
@@ -181,7 +185,7 @@ void	render_state(t_state *s)
 	//draw_path(s);
 
 
-	draw_parents(s);
+	
 
 	// Devy
 	draw_links_list(s);

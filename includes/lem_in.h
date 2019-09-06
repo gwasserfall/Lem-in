@@ -164,5 +164,6 @@ void				verify_room(char *line);
 
 void				join_colony(t_anthill *anthill, t_ant *larvae);
 int				hatch_ant(t_anthill *anthill, int x, int y, char *name);
+bool set_levels(t_state *s);
 
 #endif

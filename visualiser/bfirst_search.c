@@ -22,84 +22,81 @@ while frontier:
 
 #include <lem_in.h>
 
-typedef struct			s_frontier
+typedef struct			s_lstpath
+{
+	struct s_lstpath 	*next;
+	t_path				*path;	
+}						t_lstpath;
+
+typedef struct			s_rlist
 {
 	t_room				*room;
-	struct s_frontier	*next;
-}						t_frontier;
+	struct s_rlist		*next;
+}						t_rlist;
 
-void append_roomz(t_frontier **front, t_room *room)
+t_lstpath *create_path_list()
 {
-	t_frontier *cur;
-	t_frontier *new;
+	t_lstpath *new;
 
-	cur = *front;
+	if (!(new = malloc(sizeof(t_lstpath))))
+		return NULL;
+	new->path = NULL;
+	new->next = NULL;
+	return new;
+}
 
-	if (!cur)
+t_rlist *make_item(t_room *room)
+{
+	t_rlist *new;
+
+	if (!(new = malloc(sizeof(t_rlist))))
+		return NULL;
+	new->next = NULL;
+	new->room = room;
+	return new;
+}
+
+void append_list(t_rlist **start, t_rlist *new)
+{
+	t_rlist *list;
+
+	list = *start;
+
+	if (!list)
 	{
-		*front = malloc(sizeof(t_frontier));
-		(*front)->next = NULL;
-		(*front)->room = room;
+		//printf("List was empty attaching list_item with room '%s'\n", new->room->name);
+		*start = new;
 	}
 	else
 	{
-		while (cur->next)
-		{
-			cur = cur->next;
-		}
-		new =  malloc(sizeof(t_frontier));
-		new->room = room;
-		new->next = NULL;
-		cur->next = new;
+		while (list->next)
+			list = list->next;
+		//printf("Attaching list_item with room '%s'\n", new->room->name);
+		list->next = new;
 	}
 }
 
-bool has_vertices(t_frontier *frontier)
+t_rlist *get_neighbours(t_room *room, t_link *links)
 {
-	if (frontier)
-		return true;
-	return false;
-}
+	t_rlist *start;
 
-
-void	append_frontier(t_frontier **current, t_frontier *next)
-{
-	t_frontier *cur;
-
-	cur = *current;
-
-	if (!cur)
-		*current = next;
-	else
-	{
-		while (cur->next)
-			cur = cur->next;
-		cur->next = next;
-		next->next = NULL;
-	}
-}
-
-
-t_frontier *get_neighbours(t_link *links, t_frontier *front)
-{
-	t_room *room = front->room;
-	t_frontier *neighs;
-
-	neighs = NULL;
+	start = NULL;
 
 	while (links)
 	{
-		if (links->from == front->room)
+		if (room == links->from)
 		{
-			append_roomz(&neighs, links->to);
-		}	
-		else if (links->to == front->room)
+			printf("Found room '%s' in link '%s'=>'%s'\n", room->name, links->from->name, links->to->name);
+			append_list(&start, make_item(links->to));
+		}
+		else if (room == links->to)
 		{
-			append_roomz(&neighs, links->from);
+			printf("Found room '%s' in link '%s'=>'%s'\n", room->name, links->from->name, links->to->name);
+			append_list(&start, make_item(links->from));
 		}
 		links = links->next;
 	}
-	return neighs;
+	return start;
 }
 
 
@@ -112,7 +109,7 @@ t_frontier *get_neighbours(t_link *links, t_frontier *front)
 
 // 	frontier = NULL;
 
-// 	append_roomz(&frontier, s->anthill->start);
+// 	Iappend_roomz(&frontier, s->anthill->start);
 
 // 	while (has_vertices(frontier))
 // 	{
@@ -137,146 +134,204 @@ t_frontier *get_neighbours(t_link *links, t_frontier *front)
 // 	}
 // }
 
-int	main()
+typedef struct s_debug
 {
-	t_frontier *frontier;
-	t_frontier *next;
-	t_frontier *neighbour;
-
-	t_link *lone = malloc(sizeof(t_link));
-	t_link *ltwo = malloc(sizeof(t_link));
-	t_link *lthr = malloc(sizeof(t_link));
-	t_link *lfou = malloc(sizeof(t_link));
-	t_link *lfiv = malloc(sizeof(t_link));
-	t_link *lsix = malloc(sizeof(t_link));
-	t_link *lsev = malloc(sizeof(t_link));
-	t_link *leig = malloc(sizeof(t_link));
-
-	lone->next = ltwo;
-	ltwo->next = lthr;
-	lthr->next = lfou;
-	lfou->next = lfiv;
-	lfiv->next = lsix;
-	lsix->next = lsev;
-	lsev->next = leig;
-
-	t_room *one = malloc(sizeof(t_room));
-	t_room *two = malloc(sizeof(t_room));
-	t_room *thr = malloc(sizeof(t_room));
-	t_room *fou = malloc(sizeof(t_room));
-	t_room *fiv = malloc(sizeof(t_room));
-	t_room *six = malloc(sizeof(t_room));
-	t_room *sev = malloc(sizeof(t_room));
-	t_room *eig = malloc(sizeof(t_room));
-	t_room *nin = malloc(sizeof(t_room));
-
-	one->next = two;
-	one->level = 0;
-	one->is_start = true;
-	one->name = ft_strdup("One");
-
-	two->next = thr;
-	two->level = -1;
-	two->name = ft_strdup("Two");
-
-	thr->next = fou;
-	thr->level = -1;
-	thr->name = ft_strdup("Three");
-
-	fou->next = fiv;
-	fou->level = -1;
-	fou->name = ft_strdup("Four");
-
-	fiv->next = six;
-	fiv->level = -1;
-	fiv->name = ft_strdup("Five");
-
-	six->next = sev;
-	six->level = -1;
-	six->name = ft_strdup("Six");
-
-	sev->next = eig;
-	sev->level = -1;
-	sev->name = ft_strdup("Seven");
-
-	eig->next = nin;
-	eig->level = -1;
-	eig->name = ft_strdup("Eight");
-
-	nin->next = NULL;
-	nin->level = -1;
-	nin->name = ft_strdup("Nine");
+	t_room *rooms;
+	t_room *start;
+	t_room *end;
+	t_link *links;
+}	t_debug;
 
 
-// 	3
-// ##start
-// 1 3 15
-// 2 10 10
-// 3 10 15
-// 4 10 20
-// 5 20 10
-// 6 20 15
-// 7 20 20
-// 8 30 15
-// ##end
-// 9 55 15
-// 1-2
-// 1-3
-// 1-4
-// 4-5
-// 4-6
-// 4-7
-// 7-8
-// 8-9%     
+t_link *make_link(t_room *from, t_room *to)
+{
+	t_link *new;
+
+	if (!(new = malloc(sizeof(t_link))))
+		return NULL;
+	new->from = from;
+	new->to = to;
+	new->next = NULL;
+	return new;
+}
+
+void append_link(t_link **start, t_link *new)
+{
+	t_link *link;
+
+	link = *start;
+	if (!link)
+	{
+		printf("t_debug->links was empty attaching link '%s'=>'%s'\n", new->from->name, new->to->name);
+		*start = new;
+	}
+	else
+	{
+		while (link->next)
+			link = link->next;
+		printf("Attaching link '%s'=>'%s'\n", new->from->name, new->to->name);
+		link->next = new;
+	}
+}
+
+t_room *make_room(char *name, bool start, bool end)
+{
+	t_room *new;
+
+	if (!(new = malloc(sizeof(t_room))))
+		return NULL;
+	new->name = ft_strdup(name);
+	new->is_end = end;
+	new->is_start = start;
+	new->next = NULL;
+	new->parent = NULL;
+	new->level = -1;
+	return new;
+}
+
+void	Iappend_room(t_room **start, t_room *new)
+{
+	t_room *room;
+
+	room = *start;
+
+	if (!room)
+	{
+		printf("t_debug->rooms was empty, attaching room '%s'\n", new->name);
+		*start = new;
+	}
+	else
+	{
+		while (room->next)
+			room = room->next;
+		printf("Room '%s' attached to '%s'\n", new->name, room->name);
+		room->next = new;
+	}
+}
 
 
+t_room *get(t_room *start, char *name)
+{
+	while (start)
+	{
+		if (!(ft_strcmp(start->name, name)))
+			return start;
+		start = start->next;
+	}
+	return NULL;
+}
 
-	lone->from = one;
-	lone->to = two;
 
-	ltwo->from = one;
-	ltwo->to = thr;
-	
-	lthr->from = one;
-	lthr->to = fou;
-	
-	lfou->from = fou;
-	lfou->to = fiv;
-	
-	lfiv->from = fou;
-	lfiv->to = six;
-
-	lsix->from = fou;
-	lsix->to = sev;
-
-	lsev->from = sev;
-	lsev->to = eig;
-
-	leig->from = eig;
-	leig->to = nin;
-
+bool set_levels(t_state *s)
+{
 	int i = 1;
 
-	frontier = NULL;
+	t_rlist *frontier = NULL;
 
-	append_roomz(&frontier, one);
+	s->anthill->start->level = 0;
 
-	while (has_vertices(frontier))
+	append_list(&frontier, make_item(s->anthill->start));
+
+	t_rlist *next;
+	t_rlist *neighbour;
+
+	while (frontier)
 	{
 		next = NULL;
 		while (frontier)
 		{
-			printf("Frontier = %s\n", frontier->room->name);
-			neighbour = get_neighbours(lone, frontier);
+			neighbour = get_neighbours(frontier->room, s->anthill->connectors);
 			while (neighbour)
 			{
 				if (neighbour->room->level == -1)
 				{
 					neighbour->room->level = i;
 					neighbour->room->parent = frontier->room;
-					append_frontier(&next, neighbour);
+					append_list(&next, make_item(neighbour->room));
 				}
-				printf("\tNeighbour = %s [%d]\n", neighbour->room->name, neighbour->room->level);
+				neighbour = neighbour->next;
+			}
+			frontier = frontier->next;
+		}
+		i++;
+		frontier = next;
+	}
+	return true;
+}
+
+
+
+int	main_debug()
+{
+	t_debug *s;
+
+	s = malloc(sizeof(t_debug));
+
+	s->rooms = NULL;
+	s->links = NULL;
+	s->start = NULL;
+	s->end = NULL;
+
+	if (!s)
+		return 1;
+
+	Iappend_room(&s->rooms, make_room("Start", true, false));
+	Iappend_room(&s->rooms, make_room("One", false, false));
+	Iappend_room(&s->rooms, make_room("Two", false, false));
+	Iappend_room(&s->rooms, make_room("Three", false, false));
+	Iappend_room(&s->rooms, make_room("Four", false, false));
+	Iappend_room(&s->rooms, make_room("Five", false, false));
+	Iappend_room(&s->rooms, make_room("Six", false, false));
+	Iappend_room(&s->rooms, make_room("Seven", false, false));
+	Iappend_room(&s->rooms, make_room("Eight", false, false));
+	Iappend_room(&s->rooms, make_room("End", false, false));
+
+
+	append_link(&s->links, make_link(get(s->rooms, "Start"), get(s->rooms, "One")));
+	append_link(&s->links, make_link(get(s->rooms, "Start"), get(s->rooms, "Two")));
+	append_link(&s->links, make_link(get(s->rooms, "Start"), get(s->rooms, "Three")));
+	append_link(&s->links, make_link(get(s->rooms, "Start"), get(s->rooms, "Four")));
+	append_link(&s->links, make_link(get(s->rooms, "Four"),  get(s->rooms, "Five")));
+
+	append_link(&s->links, make_link(get(s->rooms, "Four"),  get(s->rooms, "Six")));
+	append_link(&s->links, make_link(get(s->rooms, "Four"),  get(s->rooms, "Seven")));
+	append_link(&s->links, make_link(get(s->rooms, "Seven"),  get(s->rooms, "Eight")));
+	append_link(&s->links, make_link(get(s->rooms, "Eight"),  get(s->rooms, "End")));
+
+
+	s->end =   get(s->rooms, "End");
+	s->start = get(s->rooms, "Start");
+
+	
+	
+
+	int i = 1;
+
+	t_rlist *frontier = NULL;
+
+	(get(s->rooms, "Start"))->level = 0;
+
+
+	append_list(&frontier, make_item(s->start));
+
+
+	t_rlist *next;
+	t_rlist *neighbour;
+
+	while (frontier)
+	{
+		next = NULL;
+		while (frontier)
+		{
+			neighbour = get_neighbours(frontier->room, s->links);
+			while (neighbour)
+			{
+				if (neighbour->room->level == -1)
+				{
+					neighbour->room->level = i;
+					neighbour->room->parent = frontier->room;
+					append_list(&next, make_item(neighbour->room));
+				}
 				neighbour = neighbour->next;
 			}
 			frontier = frontier->next;
@@ -285,13 +340,12 @@ int	main()
 		frontier = next;
 	}
 
-
-	t_room *c = one;
+	t_room *c = s->end;
 
 	while (c)
 	{
 		printf("name : %s ,level %d\n", c->name, c->level);
-		c = c->next;
+		c = c->parent;
 	}
 
 	return 1;
