@@ -1,30 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   add_data_start_end.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ayano <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/05 10:25:54 by ayano             #+#    #+#             */
-/*   Updated: 2019/09/05 10:25:56 by ayano            ###   ########.fr       */
+/*   Created: 2019/09/04 11:07:50 by ayano             #+#    #+#             */
+/*   Updated: 2019/09/04 11:07:51 by ayano            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lem_in.h"
+#include "../includes/lem_in.h"
 
-int main()
+void        add_start_data(char *line, t_anthill **anthill)
+{	
+    add_data_start(line, anthill);
+	free(line);
+	get_next_line(0, &line);
+}
+
+void        add_end_data(char *line, t_anthill **anthill)
 {
-	t_anthill	*anthill;
-	t_data		*data;
-
-	data = init_data();
-	read_into_data(&data);
-	anthill = build_anthill(&data);
-	if (anthill->start == NULL || anthill->end == NULL)
-		print_start_end_error();
-	index_rooms(&anthill);
-	display_input(&data);
-	// display_output(&anthill);
-	free_data(&data);
-	return (1);
+ 		add_data_end(line, anthill);
+		free(line);
+		get_next_line(0, &line);
 }

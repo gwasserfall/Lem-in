@@ -1,30 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   display_input.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ayano <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/05 10:25:54 by ayano             #+#    #+#             */
-/*   Updated: 2019/09/05 10:25:56 by ayano            ###   ########.fr       */
+/*   Created: 2019/09/05 10:28:40 by ayano             #+#    #+#             */
+/*   Updated: 2019/09/05 10:28:41 by ayano            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lem_in.h"
+#include "../includes/lem_in.h"
 
-int main()
+void		display_input(t_data **data)
 {
-	t_anthill	*anthill;
-	t_data		*data;
+	t_data	*current;
 
-	data = init_data();
-	read_into_data(&data);
-	anthill = build_anthill(&data);
-	if (anthill->start == NULL || anthill->end == NULL)
-		print_start_end_error();
-	index_rooms(&anthill);
-	display_input(&data);
-	// display_output(&anthill);
-	free_data(&data);
-	return (1);
+	current = (*data);
+	while (current->next)
+	{
+		ft_putendl(current->line);
+		current = current->next;
+	}
 }

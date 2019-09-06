@@ -1,30 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   display_ants.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ayano <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/05 10:25:54 by ayano             #+#    #+#             */
-/*   Updated: 2019/09/05 10:25:56 by ayano            ###   ########.fr       */
+/*   Created: 2019/09/04 12:32:04 by ayano             #+#    #+#             */
+/*   Updated: 2019/09/04 12:32:06 by ayano            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lem_in.h"
+#include "../includes/lem_in.h"
 
-int main()
+void	display_ants(t_anthill **anthill)
 {
-	t_anthill	*anthill;
-	t_data		*data;
-
-	data = init_data();
-	read_into_data(&data);
-	anthill = build_anthill(&data);
-	if (anthill->start == NULL || anthill->end == NULL)
-		print_start_end_error();
-	index_rooms(&anthill);
-	display_input(&data);
-	// display_output(&anthill);
-	free_data(&data);
-	return (1);
+	ft_putnbr((*anthill)->nb_ants);
+	ft_putchar('\n');
 }

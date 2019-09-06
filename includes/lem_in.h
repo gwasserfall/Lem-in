@@ -37,6 +37,8 @@ typedef struct		s_room
 	int				link_count;
 	int				x;
 	int				y;
+	int				index;
+	int				level;
 	char			*name;
 	bool			is_start;
 	bool			is_end;
@@ -114,6 +116,11 @@ void draw_nodes(t_state *s);
 void draw_stats(t_state *s);
 void	draw_ants(t_state *s);
 bool visited(t_path *path, t_room *room);
+typedef struct		s_data
+{
+	char			*line;
+	struct s_data	*next;
+}					t_data;
 
 /*
 ** Debug 
@@ -123,7 +130,9 @@ void				db_print_linear(t_anthill *anthill);
 /*
 ** Anthill prototypes
 */
-t_anthill			*create_anthill(void);
+t_anthill			*build_anthill(t_data **data);
+t_anthill			*init_anthill(void);
+void				read_loop(t_anthill *anthill, t_data **data);
 
 /*
 ** Room prototypes
@@ -136,6 +145,22 @@ void				link_rooms(t_anthill *anthill, char *line);
 t_room				*init_room(void);
 
 /*
+** Error prints.
+*/
+void				print_allocation_fail(void);
+void				print_ant_error(void);
+void				print_error_link(void);
+void				print_invalid_input(void);
+void				print_error_room(void);
+void				print_start_end_error(void);
+
+/*
+** (Leaks). Freeing prototypes.
+*/
+void				free_array(char **str);
+void				free_data(t_data **data);
+
+/*
 ** Preflight prototypes.
 */
 int					check_line(char *line);
@@ -143,23 +168,39 @@ int					get_nb_rooms(void);
 int					only_digit(char *line);
 int					verify_start_and_end(char *line);
 int					word_count(char *str, char delim, int index);
-t_anthill			*build_anthill(void);
-t_anthill			*init_anthill(void);
 void				add_data_end(char *line, t_anthill **anthill);
 void				add_data_start(char *line, t_anthill **anthill);
-void				free_array(char **str);
 void				pre_add_data(int type, char *line, t_anthill **anthill);
-void				print_allocation_fail(void);
-void				print_ant_error(void);
-void				print_error_link(void);
-void				print_error_room(void);
-void				print_invalid_input(void);
-void				print_start_end_error(void);
 void				verify_ants(char *line);
 void				verify_coordinates(char **data);
 void				verify_first_char(char **data);
 void				verify_links(char *line, t_anthill **anthill);
 void				verify_room(char *line);
+void				index_rooms(t_anthill **anthill);
+void				add_start_data(char *line, t_anthill **anthill);
+void				add_end_data(char *line, t_anthill **anthill);
+
+/*
+** Pathing prototypes.
+*/
+int					check_end_route_head(t_anthill **anthill);
+int					create_map(t_anthill **anthill);
+
+/*
+** Output prototypes.
+*/
+void				display_ants(t_anthill **anthill);
+void				display_output(t_anthill **anthill);
+void				display_rooms(t_anthill **anthill);
+void				display_links(t_anthill **anthill);
+void				display_input(t_data **data);
+
+/*
+** Data prototypes.
+*/
+t_data				*init_data(void);
+void				read_into_data(t_data **data);
+void				add_data_node(t_data **data);
 
 
 void				join_colony(t_anthill *anthill, t_ant *larvae);

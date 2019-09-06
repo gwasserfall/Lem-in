@@ -1,30 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   display_links.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ayano <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/05 10:25:54 by ayano             #+#    #+#             */
-/*   Updated: 2019/09/05 10:25:56 by ayano            ###   ########.fr       */
+/*   Created: 2019/09/04 12:44:59 by ayano             #+#    #+#             */
+/*   Updated: 2019/09/04 12:45:00 by ayano            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lem_in.h"
+#include "../includes/lem_in.h"
 
-int main()
-{
-	t_anthill	*anthill;
-	t_data		*data;
+// void		display_links(t_anthill **anthill)
+// {
+// 	t_room	*current;
+// 	int		i;
 
-	data = init_data();
-	read_into_data(&data);
-	anthill = build_anthill(&data);
-	if (anthill->start == NULL || anthill->end == NULL)
-		print_start_end_error();
-	index_rooms(&anthill);
-	display_input(&data);
-	// display_output(&anthill);
-	free_data(&data);
-	return (1);
-}
+// 	current = (*anthill)->linear;
+// 	i = 0;
+// 	while (current)
+// 	{
+// 		while (current->links[i] != '\0')
+// 		{
+// 			ft_putstr
+// 		}
+// 	}
+// }

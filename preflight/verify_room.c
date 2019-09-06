@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   verify_room.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayano <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: ayano <ayano@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 09:21:01 by ayano             #+#    #+#             */
-/*   Updated: 2019/08/27 09:21:02 by ayano            ###   ########.fr       */
+/*   Updated: 2019/09/02 15:09:26 by ayano            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void		verify_room(char *line)
 		return ;
 	verify_coordinates(data);
 	verify_first_char(data);
+	free_array(data);
 }
 
 /*
@@ -80,7 +81,7 @@ void		free_array(char **str)
 	int		i;
 
 	i = 0;
-	while (str[i] != '\0')
+	while (str[i])
 	{
 		free(str[i]);
 		i++;

@@ -41,6 +41,7 @@ void	link_rooms(t_anthill *anthill, char *line)
 		from->links[from->link_count] = to;
 		from->link_count++;
 	}
+	free_array(data);
 }
 
 void	print_allocation_fail(void)
