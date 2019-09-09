@@ -25,8 +25,8 @@ void	new_room(roomtype rtype, char *line, t_anthill **anthill)
 	{
 		data = ft_strsplit(line, ' ');
 		new->name = ft_strdup(data[0]);
-		new->x = ft_atoi(data[1]);
-		new->y = ft_atoi(data[2]);
+		new->x = ft_atod(data[1]);
+		new->y = ft_atod(data[2]);
 		free_array(data);
 	}
 	append_room_linear(&(*anthill)->linear, new);

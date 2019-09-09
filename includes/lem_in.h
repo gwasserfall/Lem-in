@@ -26,8 +26,8 @@ typedef struct		s_room
 	struct s_room	*parent;
 	int				level;
 	int				link_count;
-	int				x;
-	int				y;
+	double			x;
+	double			y;
 	int				index;
 	char			*name;
 	bool			is_start;

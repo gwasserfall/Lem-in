@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   add_data_start_end.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayano <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: ayano <ayano@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 11:58:31 by ayano             #+#    #+#             */
-/*   Updated: 2019/08/28 11:58:32 by ayano            ###   ########.fr       */
+/*   Updated: 2019/09/09 15:32:47 by ayano            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ void	add_data_start(char *line, t_anthill **anthill)
 		current = current->next;
 	}
 	current->name = ft_strdup(data[0]);
-	current->x = ft_atoi(data[1]);
-	current->y = ft_atoi(data[2]);
+	current->x = ft_atod(data[1]);
+	current->y = ft_atod(data[2]);
 	(*anthill)->start = current;
 	free_array(data);
 }
@@ -54,8 +54,8 @@ void	add_data_end(char *line, t_anthill **anthill)
 		current = current->next;
 	}
 	current->name = ft_strdup(data[0]);
-	current->x = ft_atoi(data[1]);
-	current->y = ft_atoi(data[2]);
+	current->x = ft_atod(data[1]);
+	current->y = ft_atod(data[2]);
 	(*anthill)->end = current;
 	free_array(data);
 }

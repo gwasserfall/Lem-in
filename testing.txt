@@ -19,3 +19,13 @@
 		cursor = cursor->next;
 	}
 	while (1);
+
+	t_link	*current;
+	current = anthill->connectors;
+	while (current)
+	{
+		ft_putendl(current->from->name);
+		ft_putendl(current->to->name);
+		ft_putchar('\n');
+		current = current->next;
+	}

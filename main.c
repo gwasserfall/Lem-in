@@ -6,7 +6,7 @@
 /*   By: ayano <ayano@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/05 10:25:54 by ayano             #+#    #+#             */
-/*   Updated: 2019/09/09 15:18:38 by ayano            ###   ########.fr       */
+/*   Updated: 2019/09/09 15:36:07 by ayano            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,15 +26,5 @@ int main()
 	display_input(&data);
 	// display_output(&anthill);
 	free_data(&data);
-	t_link	*current;
-
-	current = anthill->connectors;
-	while (current)
-	{
-		ft_putendl(current->from->name);
-		ft_putendl(current->to->name);
-		ft_putchar('\n');
-		current = current->next;
-	}
 	return (1);
 }
