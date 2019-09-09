@@ -9,17 +9,6 @@
 #include <stdio.h>
 #include "../libft/libft.h"
 
-#if _has_include(<SDL2/SDL.h>)
-# include <SDL2/SDL.h>
-#endif
-
-#if _has_include(<SDL2/SDL2_gfxPrimitives.h>)
-#include <SDL2/SDL2_gfxPrimitives.h>
-#endif
-
-#if _has_include(<SDL2/SDL_image.h>)
-#include <SDL2/SDL_image.h>
-#endif
 
 # define RESET "\033[00m"
 # define GREEN "\033[32m"
@@ -104,34 +93,8 @@ typedef struct 			s_pathlist
 	struct s_pathlist	*next;
 }						t_pathlist;
 
-typedef	struct		s_state
-{
-	SDL_Window		*window;
-	SDL_Renderer	*renderer;
-	SDL_Event		event;
-	t_path			*path;
-	t_pathlist		*paths;
-	bool			running;
-	bool			click;
-	int				offset_x;
-	int				offset_y;
-	SDL_Rect		*rect;
-	int				width;
-	int				height;
-	int				zoom;
-    t_anthill       *anthill;
-}					t_state;
 
-int calc_y(t_state *state, int value);
-int calc_x(t_state *state, int value);
 
-t_anthill *get_infos();
-t_anthill *init();
-void draw_links(t_state *s);
-void draw_nodes(t_state *s);
-void draw_stats(t_state *s);
-void	draw_ants(t_state *s);
-bool visited(t_path *path, t_room *room);
 typedef struct		s_data
 {
 	char			*line;
@@ -219,8 +182,6 @@ void				read_into_data(t_data **data);
 void				add_data_node(t_data **data);
 
 
-void				join_colony(t_anthill *anthill, t_ant *larvae);
-int				hatch_ant(t_anthill *anthill, int x, int y, char *name);
-bool set_levels(t_state *s);
+
 
 #endif
