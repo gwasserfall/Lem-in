@@ -3,12 +3,14 @@
 # define NORMAL 0
 # define START 1
 # define END 2
+# define SPEED 10
 #include <stdbool.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include "../libft/libft.h"
 #include <SDL2/SDL.h>
 #include <SDL2/SDL2_gfxPrimitives.h>
+#include <SDL2/SDL_image.h>
 
 # define RESET "\033[00m"
 # define GREEN "\033[32m"
@@ -38,30 +40,11 @@ typedef struct		s_room
 	int				x;
 	int				y;
 	int				index;
-	int				level;
 	char			*name;
 	bool			is_start;
 	bool			is_end;
 	
 }					t_room;
-
-typedef struct		s_ant
-{
-	int				x;
-	int				y;
-	char 			*name;
-	t_room			*current;
-	t_room			*following;
-	struct s_ant	*next;
-}					t_ant;
-
-typedef struct s_walking
-{
-	struct s_walking *next;
-	
-	
-}				t_walking;
-
 
 typedef struct		s_link
 {
@@ -69,6 +52,30 @@ typedef struct		s_link
 	t_room			*from;
 	struct s_link	*next;
 }					t_link;
+
+
+
+typedef struct		s_path
+{
+	t_room			*room;
+	int				index;
+	struct s_path	*next;
+	struct s_path	*prev;
+}					t_path;
+
+typedef struct		s_ant
+{
+	int				x;
+	int				y;
+	char 			*name;
+	t_path			*path;
+	t_room			*current;
+	t_room			*following;
+	bool			is_moving;
+	double			gradient;
+	double			distance;
+	struct s_ant	*next;
+}					t_ant;
 
 typedef struct		s_anthill
 {
@@ -81,13 +88,12 @@ typedef struct		s_anthill
 	int				nb_ants;
 }					t_anthill;
 
-typedef struct		s_path
+typedef struct 			s_pathlist
 {
-	t_room			*room;
-	int				index;
-	struct s_path	*next;
-	struct s_path	*prev;
-}					t_path;
+	t_path				*path;
+	int					length;
+	struct s_pathlist	*next;
+}						t_pathlist;
 
 typedef	struct		s_state
 {
@@ -95,6 +101,7 @@ typedef	struct		s_state
 	SDL_Renderer	*renderer;
 	SDL_Event		event;
 	t_path			*path;
+	t_pathlist		*paths;
 	bool			running;
 	bool			click;
 	int				offset_x;

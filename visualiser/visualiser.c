@@ -1,6 +1,7 @@
 #include <lem_in.h>
 #include <time.h>
 #include <stdlib.h>
+#include <math.h>
 
 void	join_colony(t_anthill *anthill, t_ant *larvae)
 {
@@ -27,7 +28,11 @@ int		hatch_ant(t_anthill *anthill, int x, int y, char *name)
 		return (0);
 	egg->x = x;
 	egg->y = y;
+	egg->is_moving = false;
+	egg->path = NULL;
 	egg->next = NULL;
+	egg->following = NULL;
+	egg->current = NULL;
 	egg->name = ft_strdup(name);
 	join_colony(anthill, egg);
 	return (1);
@@ -45,13 +50,10 @@ t_state *init_state()
 	state->width = 0;
 	state->height = 0;
 	state->path = NULL;
+	state->paths = NULL;
 	state->click = false;
 	state->rect = malloc(sizeof(SDL_Rect));
 	state->zoom = ZOOM_DEFAULT;
-	state->rect->h = 20;
-	state->rect->w = 20;
-	state->rect->x = 600 / 2;
-	state->rect->y = 800 / 2;
 	state->offset_x = 0;
 	state->offset_y = 0;
 
@@ -88,20 +90,53 @@ void explore_map(t_state *s, t_path *path)
 
 void	update_state(t_state *s)
 {
-	// t_ant *army;
+	t_ant *army;
 
-	// army = s->anthill->colony;
-	// while (army)
-	// {
-	// 	if (!army->x)
-	// 		army->x = s->anthill->start->x;
-	// 	if (!army->y)
-	// 		army->y = s->anthill->start->y;
-	// 	army = army->next;
-	// }
-	// explore_map(s, s->path);
+	double gradient;
+	double distance;
+	double diffx;
+	double diffy;
 
+	double anty;
+	double antx;
 
+	army = s->anthill->colony;
+	while (army)
+	{
+		if (!army->x)
+			army->x = s->anthill->start->x;
+		if (!army->y)
+			army->y = s->anthill->start->y;
+
+		if (army->path)
+		{
+			anty = (double)army->y;
+			printf("StartingY : %d, ", army->y);
+			antx = (double)army->x;
+			
+			antx = 1;
+			// Got one ant here set on a path
+			if (!(army->x > army->following->x))
+			{
+				
+				army->is_moving = false;
+			
+				diffy = (double)(army->following->y - army->current->y);
+				diffx = (double)(army->following->x - army->current->x);
+				gradient = diffy / diffx;
+				distance = pow((pow(diffy, 2.0) + pow(diffx, 2.0)), 0.5);
+				
+				army->x++;
+				anty = army->x * gradient;
+				army->y = army->y + (int)anty;
+				SDL_Delay(200);
+				printf("gradient : %lf, distance : %lf, diffyx : %lf, diffy : %lf, x : %d, y : %d\n", gradient, distance, diffx, diffy, army->x, army->y);
+			}
+			
+		}
+
+		army = army->next;
+	}
 }
 
 void	draw_path(t_state *s)
@@ -148,28 +183,48 @@ void 	draw_links_list(t_state *s)
 }
 
 
-void	draw_parents(t_state *s)
+void	draw_paths(t_state *s)
 {
-	t_room *baby;
+	t_pathlist *list;
+	t_path *path;
 
-	baby = s->anthill->end;
+	int i = 0;
+	list = s->paths;
 
-	while (baby->parent)
+	while (list)
 	{
-
-		//SDL_RenderDrawLine(s->renderer, X(s, baby->x), Y(s, baby->y), X(s, baby->parent->x), Y(s, baby->parent->y));
-		thickLineRGBA(s->renderer, X(s, baby->x), Y(s, baby->y), X(s, baby->parent->x), Y(s, baby->parent->y), 3, 0, 255, 0, 255);
-		baby = baby->parent;
+		path = list->path;
+		while (path && path->next)
+		{
+			thickLineRGBA(s->renderer, X(s, path->room->x), Y(s, path->room->y), X(s, path->next->room->x), Y(s, path->next->room->y), 3, 0, 255, 0, 255);
+			path = path->next;
+		}
+		i++;
+		list = list->next;
 	}
+	char *str = ft_strjoin("Path count : ", ft_itoa(i));
+	stringRGBA(s->renderer, 5, 20, str, 255, 255, 255, 255);
+	free(str);
 
+	// t_room *baby;
+
+	// baby = s->anthill->end;
+
+	// while (baby->parent)
+	// {
+
+	// 	//SDL_RenderDrawLine(s->renderer, X(s, baby->x), Y(s, baby->y), X(s, baby->parent->x), Y(s, baby->parent->y));
+	// 	thickLineRGBA(s->renderer, X(s, baby->x), Y(s, baby->y), X(s, baby->parent->x), Y(s, baby->parent->y), 3, 0, 255, 0, 255);
+	// 	baby = baby->parent;
+	// }
 }
 
 void	render_state(t_state *s)
 {
 	SDL_RenderClear(s->renderer);
 
-
-	draw_parents(s);
+	draw_paths(s);
+	//draw_parents(s);
 
 	// Draw links
 	draw_links(s);
@@ -182,13 +237,12 @@ void	render_state(t_state *s)
 	draw_ants(s);
 
 	// Draw current path
-	//draw_path(s);
 
 
 	
 
 	// Devy
-	draw_links_list(s);
+	//draw_links_list(s);
 	
 
 	//SDL_RenderFillRect(s->renderer, s->rect);
@@ -261,6 +315,7 @@ int main(void)
 	state->anthill = get_infos();
 
 	SDL_Init(SDL_INIT_EVERYTHING);
+	//IMG_Init(IMG_INIT_PNG);
 
 	state->window = SDL_CreateWindow("Lem-in", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1280, 960, SDL_WINDOW_SHOWN);
 	state->renderer = SDL_CreateRenderer(state->window, -1, SDL_RENDERER_ACCELERATED);
@@ -276,7 +331,11 @@ int main(void)
 	SDL_RenderClear(state->renderer);
 	SDL_RenderPresent(state->renderer);
 
-	set_levels(state);
+	while (set_levels(state));
+
+	state->anthill->colony->current = state->anthill->start;
+	state->anthill->colony->following = state->paths->path->next->next->room;
+	state->anthill->colony->path = state->paths->path;
 
 	while (state->running)
 	{

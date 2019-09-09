@@ -9,13 +9,18 @@
 			"type": "cppdbg",
 			"request": "launch",
 			"program": "${workspaceFolder}/visualiser/a.out",
-			"args": ["<", "./maps/test_20_rooms.map"],
+			"args": [],
 			"stopAtEntry": false,
 			"cwd": "${workspaceFolder}",
 			"environment": [],
 			"externalConsole": false,
 			"MIMode": "lldb",
-			//"preLaunchTask": "build"
+			"setupCommands": [
+                {
+                    "text": "settings set target.input-path ./maps/test_glen.map"
+                }
+            ],
+			"preLaunchTask": "build"
 		}
 	]
 }

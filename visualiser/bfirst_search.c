@@ -22,27 +22,46 @@ while frontier:
 
 #include <lem_in.h>
 
-typedef struct			s_lstpath
-{
-	struct s_lstpath 	*next;
-	t_path				*path;	
-}						t_lstpath;
-
 typedef struct			s_rlist
 {
 	t_room				*room;
 	struct s_rlist		*next;
 }						t_rlist;
 
-t_lstpath *create_path_list()
+t_pathlist *create_pathlist_item(t_path *path_start)
 {
-	t_lstpath *new;
+	t_pathlist *new;
 
-	if (!(new = malloc(sizeof(t_lstpath))))
+	if (!path_start)
 		return NULL;
-	new->path = NULL;
+
+	if (!(new = malloc(sizeof(t_pathlist))))
+		return NULL;
+	new->path = path_start;
 	new->next = NULL;
 	return new;
+}
+
+
+bool	append_to_pathlist(t_pathlist **start, t_pathlist *item)
+{
+	t_pathlist *list;
+
+	if (!item)
+		return false;
+
+	list = *start;
+	if (!list)
+	{
+		*start = item;
+	}
+	else
+	{
+		while (list->next)
+			list = list->next;
+		list->next = item;
+	}
+	return true;
 }
 
 t_rlist *make_item(t_room *room)
@@ -98,41 +117,6 @@ t_rlist *get_neighbours(t_room *room, t_link *links)
 	}
 	return start;
 }
-
-
-// void	set_levels(t_state *s)
-// {
-// 	t_frontier *frontier;
-// 	t_frontier *next;
-// 	t_frontier *neighbour;
-// 	int i = 1;
-
-// 	frontier = NULL;
-
-// 	Iappend_roomz(&frontier, s->anthill->start);
-
-// 	while (has_vertices(frontier))
-// 	{
-// 		next = NULL;
-// 		while (frontier)
-// 		{
-// 			neighbour = get_neighbours(s->anthill->connectors, frontier);
-// 			while (neighbour)
-// 			{
-// 				if (neighbour->room->level == -1)
-// 				{
-// 					neighbour->room->level = i;
-// 					neighbour->room->parent = frontier->room;
-// 					append_frontier(&next, neighbour);
-// 				}
-// 				neighbour = neighbour->next;
-// 			}
-// 			frontier = frontier->next;
-// 		}
-// 		i++;
-// 		frontier = next;
-// 	}
-// }
 
 typedef struct s_debug
 {
@@ -222,9 +206,101 @@ t_room *get(t_room *start, char *name)
 }
 
 
+t_path *make_path_item(t_room *room)
+{
+	t_path *new;
+
+	if (!(new = malloc(sizeof(t_path))))
+		return NULL;
+	new->next = NULL;
+	new->prev = NULL;
+	new->room = room;
+	return new;
+}
+
+
+void append_to_path(t_path **start, t_path *item)
+{
+	t_path *path;
+
+	path = *start;
+
+	if (!path)
+	{
+		*start = item;
+	}
+	else
+	{
+		while (path->next)
+			path = path->next;
+		path->next = item;
+		item->prev = path;
+	}
+}
+
+bool room_in_pathlist(t_pathlist *pathlist, t_room *room)
+{
+	t_path *path;
+	while (pathlist)
+	{
+		path = pathlist->path;
+		while (path)
+		{
+			if (path->room->is_start || path->room->is_end)
+			{
+				path = path->next;
+				continue;
+			}
+			if (path->room == room)
+				return true;
+			path = path->next;
+		}
+		pathlist = pathlist->next;
+	}
+	return false;
+}
+
+t_path *map_path(t_room *end)
+{
+	t_path *path;
+
+	path = NULL;
+	append_to_path(&path, make_path_item(end));
+	while (end->parent)
+	{
+		printf("\tAdding room '%s' to path\n", end->name);
+		append_to_path(&path, make_path_item(end->parent));
+		end = end->parent;
+	}
+	if (!end->is_start)
+	{
+		printf("African Rain Stick\n");
+		return NULL;
+	}
+	return path;
+}
+
+void	reset_rooms(t_state *s)
+{
+	t_room *room;
+
+	room = s->anthill->linear;
+
+	while (room)
+	{
+		room->parent = NULL;
+		room->level = -1;
+		if (room->is_start)
+			room->level = 0;
+		room = room->next;
+	}
+}
+
 bool set_levels(t_state *s)
 {
+	ft_putendl("Setting levels");
 	int i = 1;
+	reset_rooms(s);
 
 	t_rlist *frontier = NULL;
 
@@ -243,7 +319,12 @@ bool set_levels(t_state *s)
 			neighbour = get_neighbours(frontier->room, s->anthill->connectors);
 			while (neighbour)
 			{
-				if (neighbour->room->level == -1)
+				if (neighbour->room->is_end && frontier->room->is_start)
+				{
+					neighbour = neighbour->next;
+					continue;
+				}
+				if (neighbour->room->level == -1 && !room_in_pathlist(s->paths, neighbour->room))
 				{
 					neighbour->room->level = i;
 					neighbour->room->parent = frontier->room;
@@ -256,7 +337,7 @@ bool set_levels(t_state *s)
 		i++;
 		frontier = next;
 	}
-	return true;
+	return append_to_pathlist(&s->paths, create_pathlist_item(map_path(s->anthill->end)));
 }
 
 

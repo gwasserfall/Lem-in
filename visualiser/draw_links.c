@@ -76,12 +76,18 @@ void	draw_ants(t_state *s)
 	army = s->anthill->colony;
 
 	SDL_SetRenderDrawColor(s->renderer, 200, 200, 200, 255);
+	
+	
+	stringRGBA(s->renderer, X(s, army->x), Y(s, army->y) - 50, "x:", 255, 255, 255, 255);
+	stringRGBA(s->renderer, X(s, army->x) + 20, Y(s, army->y) - 50, ft_itoa(X(s, army->x)), 255, 255, 255, 255);
+	stringRGBA(s->renderer, X(s, army->x), Y(s, army->y) - 38, "y:", 255, 255, 255, 255);
+	stringRGBA(s->renderer, X(s, army->x) + 20, Y(s, army->y) - 38, ft_itoa(X(s, army->y)), 255, 255, 255, 255);
 	while (army)
 	{
-		r.x = X(s, army->x) - 10;
-		r.y = Y(s, army->y) - 10;
-		r.h = 20;
-		r.w = 20;
+		r.x = X(s, army->x);
+		r.y = Y(s, army->y);
+		r.h = 38;
+		r.w = 28;
 
 		SDL_RenderFillRect(s->renderer, &r);
 		army = army->next;
