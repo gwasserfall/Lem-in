@@ -22,12 +22,6 @@ while frontier:
 
 #include <lem_in.h>
 
-typedef struct			s_rlist
-{
-	t_room				*room;
-	struct s_rlist		*next;
-}						t_rlist;
-
 t_pathlist *create_pathlist_item(t_path *path_start)
 {
 	t_pathlist *new;
@@ -296,49 +290,7 @@ void	reset_rooms(t_state *s)
 	}
 }
 
-bool set_levels(t_state *s)
-{
-	ft_putendl("Setting levels");
-	int i = 1;
-	reset_rooms(s);
 
-	t_rlist *frontier = NULL;
-
-	s->anthill->start->level = 0;
-
-	append_list(&frontier, make_item(s->anthill->start));
-
-	t_rlist *next;
-	t_rlist *neighbour;
-
-	while (frontier)
-	{
-		next = NULL;
-		while (frontier)
-		{
-			neighbour = get_neighbours(frontier->room, s->anthill->connectors);
-			while (neighbour)
-			{
-				if (neighbour->room->is_end && frontier->room->is_start)
-				{
-					neighbour = neighbour->next;
-					continue;
-				}
-				if (neighbour->room->level == -1 && !room_in_pathlist(s->paths, neighbour->room))
-				{
-					neighbour->room->level = i;
-					neighbour->room->parent = frontier->room;
-					append_list(&next, make_item(neighbour->room));
-				}
-				neighbour = neighbour->next;
-			}
-			frontier = frontier->next;
-		}
-		i++;
-		frontier = next;
-	}
-	return append_to_pathlist(&s->paths, create_pathlist_item(map_path(s->anthill->end)));
-}
 
 
 

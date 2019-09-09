@@ -138,25 +138,18 @@ void	assign_link(t_anthill *ah, char *str)
 	char **line;
 	t_room *from;
 	t_room *to;
-
+	t_link *link;
+	t_link *cursor;
 
 	line = ft_strsplit(str, '-');
 	from = get_room(ah, line[0]);
 	to = get_room(ah, line[1]);
-
-
-	// Updated code for BFS
-	t_link *link;
-	t_link *cursor;
 	
 	link = malloc(sizeof(t_link));
 	link->to = to;
 	link->from = from;
 	link->next = NULL;
-
-
 	cursor = ah->connectors;
-
 	if (!cursor)
 		ah->connectors = link;
 	else
@@ -164,18 +157,6 @@ void	assign_link(t_anthill *ah, char *str)
 		while (cursor->next)
 			cursor = cursor->next;
 		cursor->next = link;
-	}
-	// End of update
-
-	free(line[0]);
-	free(line[1]);
-	free(line);
-	if (from && to)
-	{
-		if (!from->links)
-			from->links = malloc(sizeof(t_room *) * ah->room_count);
-		from->links[from->link_count] = to;
-		from->link_count++;
 	}
 }
 

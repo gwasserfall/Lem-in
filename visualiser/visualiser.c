@@ -1,4 +1,5 @@
 #include <lem_in.h>
+#include <visualiser.h>
 #include <time.h>
 #include <stdlib.h>
 #include <math.h>
