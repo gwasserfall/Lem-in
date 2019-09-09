@@ -175,6 +175,14 @@ t_data				*init_data(void);
 void				read_into_data(t_data **data);
 void				add_data_node(t_data **data);
 
+/*
+** links.
+*/
+t_link  		    *init_link(void);
+t_link 				*make_link(t_room *from, t_room *to);
+void 				append_link(t_link **start, t_link *new);
+void				assign_link(t_anthill *ah, char *str);
+
 
 
 

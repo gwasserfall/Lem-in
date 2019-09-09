@@ -6,7 +6,7 @@
 /*   By: ayano <ayano@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 16:19:36 by ayano             #+#    #+#             */
-/*   Updated: 2019/09/02 15:51:37 by ayano            ###   ########.fr       */
+/*   Updated: 2019/09/09 14:19:42 by ayano            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,11 +102,13 @@ t_anthill	*init_anthill(void)
 
 	if (!(anthill = malloc(sizeof(t_anthill))))
 		return (false);
-	anthill->room_count = 0;
 	anthill->linear = NULL;
 	anthill->start = NULL;
-	anthill->nb_ants = 0;
 	anthill->end = NULL;
+	anthill->connectors = NULL;
+	anthill->colony = NULL;
+	anthill->room_count = 0;
+	anthill->nb_ants = 0;
 	return (anthill);
 }
 

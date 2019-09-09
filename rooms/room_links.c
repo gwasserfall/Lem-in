@@ -28,20 +28,28 @@ void	init_roomlink_max(t_anthill **anthill)
 */
 void	link_rooms(t_anthill *anthill, char *line)
 {
-	t_room 	*from;
-	t_room 	*to;
-	char	**data;
+	t_link		*link;
+	char		**data;
 
-	init_roomlink_max(&anthill);
+	link = init_link();
 	data = ft_strsplit(line, '-');
-	from = find_room_by_name(&anthill, data[0]);
-	to = find_room_by_name(&anthill, data[1]);
-	if (from && to)
-	{
-		from->links[from->link_count] = to;
-		from->link_count++;
-	}
-	free_array(data);
+	link->from = find_room_by_name(&anthill, data[0]);
+	link->to = find_room_by_name(&anthill, data[1]);
+	append_link(&anthill->connectors, link);
+	// t_room 	*from;
+	// t_room 	*to;
+	// char	**data;
+
+	// init_roomlink_max(&anthill);
+	// data = ft_strsplit(line, '-');
+	// from = find_room_by_name(&anthill, data[0]);
+	// to = find_room_by_name(&anthill, data[1]);
+	// if (from && to)
+	// {
+	// 	from->links[from->link_count] = to;
+	// 	from->link_count++;
+	// }
+	// free_array(data);
 }
 
 /*
