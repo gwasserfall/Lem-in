@@ -1,6 +1,14 @@
 
 # include <SDL2/SDL.h>
 # include <lem_in.h>
+
+#define ZOOM_DEFAULT 40
+
+#define ZOOM 18
+#define X(state, value) calc_x(state, value)
+#define Y(state, value) calc_y(state, value)
+
+
 typedef	struct		s_state
 {
 	SDL_Window		*window;

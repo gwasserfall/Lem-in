@@ -8,8 +8,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "../libft/libft.h"
-
-
 # define RESET "\033[00m"
 # define GREEN "\033[32m"
 # define BLUE "\033[34m"
@@ -18,13 +16,6 @@
 # define YELLOW "\033[33m"
 # define CYAN "\033[36m"
 # define PURPLE "\033[35m"
-
-#define ZOOM_DEFAULT 40
-
-#define ZOOM 18
-#define X(state, value) calc_x(state, value)
-#define Y(state, value) calc_y(state, value)
-
 
 typedef int roomtype;
 
@@ -51,8 +42,6 @@ typedef struct		s_link
 	struct s_link	*next;
 }					t_link;
 
-
-
 typedef struct		s_path
 {
 	t_room			*room;
@@ -61,30 +50,30 @@ typedef struct		s_path
 	struct s_path	*prev;
 }					t_path;
 
-typedef struct		s_ant
+typedef struct			s_ant
 {
-	int				x;
-	int				y;
-	char 			*name;
-	t_path			*path;
-	t_room			*current;
-	t_room			*following;
-	bool			is_moving;
-	double			gradient;
-	double			distance;
-	struct s_ant	*next;
-}					t_ant;
+	int					x;
+	int					y;
+	char 				*name;
+	t_path				*path;
+	t_room				*current;
+	t_room				*following;
+	bool				is_moving;
+	double				gradient;
+	double				distance;
+	struct s_ant		*next;
+}						t_ant;
 
-typedef struct		s_anthill
+typedef struct			s_anthill
 {
-	t_room			*linear;
-	t_room			*start;
-	t_room			*end;
-	t_link			*connectors;
-	t_ant			*colony;
-	int				room_count;
-	int				nb_ants;
-}					t_anthill;
+	t_room				*linear;
+	t_room				*start;
+	t_room				*end;
+	t_link				*connectors;
+	t_ant				*colony;
+	int					room_count;
+	int					nb_ants;
+}						t_anthill;
 
 typedef struct 			s_pathlist
 {
@@ -94,12 +83,17 @@ typedef struct 			s_pathlist
 }						t_pathlist;
 
 
-
-typedef struct		s_data
+typedef struct			s_data
 {
-	char			*line;
-	struct s_data	*next;
-}					t_data;
+	char				*line;
+	struct s_data		*next;
+}						t_data;
+
+typedef struct			s_roomlist
+{
+	t_room				*room;
+	struct s_roomlist	*next;
+}						t_roomlist;
 
 /*
 ** Debug 
