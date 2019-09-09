@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/lem_in.h"
+#include <lem_in.h>
 
 /*
 ** This will create the anthills first node and then add nodes for each room.

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/lem_in.h"
+#include <lem_in.h>
 
 /*
 ** This function will check to see if there is either a start or an end room.

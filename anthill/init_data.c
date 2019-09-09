@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/lem_in.h"
+#include <lem_in.h>
 
 /*
 ** Mallocs the data struct and sets all the variables to NULL

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/lem_in.h"
+#include <lem_in.h>
 
 /*
 ** Displays the rooms in the correct format

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/lem_in.h"
+#include <lem_in.h>
 
 /*
 ** Checks to see if the data given for the specific room is correctly formatted.
