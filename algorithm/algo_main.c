@@ -24,7 +24,6 @@ bool set_levels(t_anthill *anthill)
 
 	// Reset allrooms before running (allows mutiple paths)
 	reset_rooms(anthill->linear);
-
 	t_roomlist *frontier = NULL;
 
 	anthill->start->level = 0;
