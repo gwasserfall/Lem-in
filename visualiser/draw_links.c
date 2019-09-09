@@ -1,12 +1,11 @@
-#include <lem_in.h>
+#include <visualiser.h>
 
-
-int calc_x(t_state *state, int value)
+int calc_x(t_state *state, double value)
 {
 	return (state->zoom * value / 2 + state->offset_x) ;
 }
 
-int calc_y(t_state *state, int value)
+int calc_y(t_state *state, double value)
 {
 	return (state->zoom * value / 2 + state->offset_y);
 }
@@ -57,7 +56,7 @@ void draw_nodes(t_state *s)
 			stringRGBA(s->renderer, X(s, room->x) + 5, Y(s, room->y) - 24, room->name, 255, 255, 255, 255);
 			filledCircleRGBA(s->renderer, X(s, room->x), Y(s, room->y), 10, 255, 255, 0, 255);
 		}
-		stringRGBA(s->renderer, X(s, room->x) - 3, Y(s, room->y) - 3, ft_itoa(room->level), 0, 0, 0, 255);
+		//stringRGBA(s->renderer, X(s, room->x) - 3, Y(s, room->y) - 3, ft_itoa(room->level), 0, 0, 0, 255);
 		room = room->next;
 	}
 }
@@ -77,19 +76,35 @@ void	draw_ants(t_state *s)
 
 	SDL_SetRenderDrawColor(s->renderer, 200, 200, 200, 255);
 	
-	
-	stringRGBA(s->renderer, X(s, army->x), Y(s, army->y) - 50, "x:", 255, 255, 255, 255);
-	stringRGBA(s->renderer, X(s, army->x) + 20, Y(s, army->y) - 50, ft_itoa(X(s, army->x)), 255, 255, 255, 255);
-	stringRGBA(s->renderer, X(s, army->x), Y(s, army->y) - 38, "y:", 255, 255, 255, 255);
-	stringRGBA(s->renderer, X(s, army->x) + 20, Y(s, army->y) - 38, ft_itoa(X(s, army->y)), 255, 255, 255, 255);
+	stringRGBA(s->renderer, 5, 40, ft_itoa(s->frame), 255, 255, 255, 255);
+
+	stringRGBA(s->renderer, X(s, army->x) - 35, Y(s, army->y) - SPRITE_H - 10, army->name, 255, 255, 255, 255);
 	while (army)
 	{
-		r.x = X(s, army->x);
-		r.y = Y(s, army->y);
-		r.h = 38;
-		r.w = 28;
-
-		SDL_RenderFillRect(s->renderer, &r);
+		r.x = X(s, army->x) - SPRITE_W / 2;
+		r.y = Y(s, army->y) - SPRITE_H;
+		// r.h = 38;
+		// r.w = 28;
+		r.h = SPRITE_H;
+		r.w = SPRITE_W;
+		
+		if (army->sprite)
+		{
+			if (s->frame % 5 == 0)
+			{
+				printf("Swappy\n");
+				if (army->sprite->next)
+				{
+					army->sprite = army->sprite->next;
+				}
+				else
+				{
+					army->sprite = s->walk_right;
+				}
+			}
+			SDL_RenderCopy(s->renderer, army->sprite->img, NULL, &r);
+		}
+		//SDL_RenderFillRect(s->renderer, &r);
 		army = army->next;
 	}
 }

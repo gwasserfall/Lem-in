@@ -2,6 +2,7 @@
 	"files.associations": {
 		"sdl2_gfxprimitives.h": "c",
 		"libft.h": "c",
-		"lem_in.h": "c"
+		"lem_in.h": "c",
+		"visualiser.h": "c"
 	}
 }

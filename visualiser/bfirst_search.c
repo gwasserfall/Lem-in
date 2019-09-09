@@ -1,26 +1,4 @@
-/*
-level = {s : 0}
-parent = {s : None}
-
-i = 1
-frontier = [s]
-
-while frontier:
-	next = []
-	for u in frontier:
-
-		for v in u.neighbours:
-
-			if v not in level:
-				level[v] = i
-				parent[v] = u
-				next.append(v)
-
-	frontier = next
-	i += 1
-*/
-
-#include <lem_in.h>
+#include <visualiser.h>
 
 t_pathlist *create_pathlist_item(t_path *path_start)
 {
@@ -36,7 +14,6 @@ t_pathlist *create_pathlist_item(t_path *path_start)
 	return new;
 }
 
-
 bool	append_to_pathlist(t_pathlist **start, t_pathlist *item)
 {
 	t_pathlist *list;
@@ -46,9 +23,7 @@ bool	append_to_pathlist(t_pathlist **start, t_pathlist *item)
 
 	list = *start;
 	if (!list)
-	{
 		*start = item;
-	}
 	else
 	{
 		while (list->next)
@@ -58,68 +33,48 @@ bool	append_to_pathlist(t_pathlist **start, t_pathlist *item)
 	return true;
 }
 
-t_rlist *make_item(t_room *room)
+t_roomlist *make_item(t_room *room)
 {
-	t_rlist *new;
+	t_roomlist *new;
 
-	if (!(new = malloc(sizeof(t_rlist))))
+	if (!(new = malloc(sizeof(t_roomlist))))
 		return NULL;
 	new->next = NULL;
 	new->room = room;
 	return new;
 }
 
-void append_list(t_rlist **start, t_rlist *new)
+void append_list(t_roomlist **start, t_roomlist *new)
 {
-	t_rlist *list;
+	t_roomlist *list;
 
 	list = *start;
 
 	if (!list)
-	{
-		//printf("List was empty attaching list_item with room '%s'\n", new->room->name);
 		*start = new;
-	}
 	else
 	{
 		while (list->next)
 			list = list->next;
-		//printf("Attaching list_item with room '%s'\n", new->room->name);
 		list->next = new;
 	}
 }
 
-t_rlist *get_neighbours(t_room *room, t_link *links)
+t_roomlist *get_neighbours(t_room *room, t_link *links)
 {
-	t_rlist *start;
+	t_roomlist *start;
 
 	start = NULL;
-
 	while (links)
 	{
 		if (room == links->from)
-		{
-			printf("Found room '%s' in link '%s'=>'%s'\n", room->name, links->from->name, links->to->name);
 			append_list(&start, make_item(links->to));
-		}
 		else if (room == links->to)
-		{
-			printf("Found room '%s' in link '%s'=>'%s'\n", room->name, links->from->name, links->to->name);
 			append_list(&start, make_item(links->from));
-		}
 		links = links->next;
 	}
 	return start;
 }
-
-typedef struct s_debug
-{
-	t_room *rooms;
-	t_room *start;
-	t_room *end;
-	t_link *links;
-}	t_debug;
-
 
 t_link *make_link(t_room *from, t_room *to)
 {
@@ -139,15 +94,11 @@ void append_link(t_link **start, t_link *new)
 
 	link = *start;
 	if (!link)
-	{
-		printf("t_debug->links was empty attaching link '%s'=>'%s'\n", new->from->name, new->to->name);
 		*start = new;
-	}
 	else
 	{
 		while (link->next)
 			link = link->next;
-		printf("Attaching link '%s'=>'%s'\n", new->from->name, new->to->name);
 		link->next = new;
 	}
 }
@@ -174,19 +125,14 @@ void	Iappend_room(t_room **start, t_room *new)
 	room = *start;
 
 	if (!room)
-	{
-		printf("t_debug->rooms was empty, attaching room '%s'\n", new->name);
 		*start = new;
-	}
 	else
 	{
 		while (room->next)
 			room = room->next;
-		printf("Room '%s' attached to '%s'\n", new->name, room->name);
 		room->next = new;
 	}
 }
-
 
 t_room *get(t_room *start, char *name)
 {
@@ -220,9 +166,7 @@ void append_to_path(t_path **start, t_path *item)
 	path = *start;
 
 	if (!path)
-	{
 		*start = item;
-	}
 	else
 	{
 		while (path->next)
@@ -262,15 +206,11 @@ t_path *map_path(t_room *end)
 	append_to_path(&path, make_path_item(end));
 	while (end->parent)
 	{
-		printf("\tAdding room '%s' to path\n", end->name);
 		append_to_path(&path, make_path_item(end->parent));
 		end = end->parent;
 	}
 	if (!end->is_start)
-	{
-		printf("African Rain Stick\n");
 		return NULL;
-	}
 	return path;
 }
 
@@ -279,7 +219,6 @@ void	reset_rooms(t_state *s)
 	t_room *room;
 
 	room = s->anthill->linear;
-
 	while (room)
 	{
 		room->parent = NULL;
@@ -290,76 +229,36 @@ void	reset_rooms(t_state *s)
 	}
 }
 
-
-
-
-
-int	main_debug()
+bool set_levels(t_state *s)
 {
-	t_debug *s;
-
-	s = malloc(sizeof(t_debug));
-
-	s->rooms = NULL;
-	s->links = NULL;
-	s->start = NULL;
-	s->end = NULL;
-
-	if (!s)
-		return 1;
-
-	Iappend_room(&s->rooms, make_room("Start", true, false));
-	Iappend_room(&s->rooms, make_room("One", false, false));
-	Iappend_room(&s->rooms, make_room("Two", false, false));
-	Iappend_room(&s->rooms, make_room("Three", false, false));
-	Iappend_room(&s->rooms, make_room("Four", false, false));
-	Iappend_room(&s->rooms, make_room("Five", false, false));
-	Iappend_room(&s->rooms, make_room("Six", false, false));
-	Iappend_room(&s->rooms, make_room("Seven", false, false));
-	Iappend_room(&s->rooms, make_room("Eight", false, false));
-	Iappend_room(&s->rooms, make_room("End", false, false));
-
-
-	append_link(&s->links, make_link(get(s->rooms, "Start"), get(s->rooms, "One")));
-	append_link(&s->links, make_link(get(s->rooms, "Start"), get(s->rooms, "Two")));
-	append_link(&s->links, make_link(get(s->rooms, "Start"), get(s->rooms, "Three")));
-	append_link(&s->links, make_link(get(s->rooms, "Start"), get(s->rooms, "Four")));
-	append_link(&s->links, make_link(get(s->rooms, "Four"),  get(s->rooms, "Five")));
-
-	append_link(&s->links, make_link(get(s->rooms, "Four"),  get(s->rooms, "Six")));
-	append_link(&s->links, make_link(get(s->rooms, "Four"),  get(s->rooms, "Seven")));
-	append_link(&s->links, make_link(get(s->rooms, "Seven"),  get(s->rooms, "Eight")));
-	append_link(&s->links, make_link(get(s->rooms, "Eight"),  get(s->rooms, "End")));
-
-
-	s->end =   get(s->rooms, "End");
-	s->start = get(s->rooms, "Start");
-
-	
-	
 
 	int i = 1;
 
-	t_rlist *frontier = NULL;
+	// Reset allrooms before running (allows mutiple paths)
+	reset_rooms(s);
+	t_roomlist *frontier = NULL;
 
-	(get(s->rooms, "Start"))->level = 0;
+	s->anthill->start->level = 0;
 
+	append_list(&frontier, make_item(s->anthill->start));
 
-	append_list(&frontier, make_item(s->start));
-
-
-	t_rlist *next;
-	t_rlist *neighbour;
+	t_roomlist *next;
+	t_roomlist *neighbour;
 
 	while (frontier)
 	{
 		next = NULL;
 		while (frontier)
 		{
-			neighbour = get_neighbours(frontier->room, s->links);
+			neighbour = get_neighbours(frontier->room, s->anthill->connectors);
 			while (neighbour)
 			{
-				if (neighbour->room->level == -1)
+				if (neighbour->room->is_end && frontier->room->is_start)
+				{
+					neighbour = neighbour->next;
+					continue;
+				}
+				if (neighbour->room->level == -1 && !room_in_pathlist(s->paths, neighbour->room))
 				{
 					neighbour->room->level = i;
 					neighbour->room->parent = frontier->room;
@@ -372,14 +271,5 @@ int	main_debug()
 		i++;
 		frontier = next;
 	}
-
-	t_room *c = s->end;
-
-	while (c)
-	{
-		printf("name : %s ,level %d\n", c->name, c->level);
-		c = c->parent;
-	}
-
-	return 1;
+	return append_to_pathlist(&s->paths, create_pathlist_item(map_path(s->anthill->end)));
 }

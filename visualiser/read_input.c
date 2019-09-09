@@ -1,4 +1,4 @@
-#include <lem_in.h>
+#include <visualiser.h>
 
 #define ANT_COUNT 1
 #define IDENT 2
@@ -9,7 +9,6 @@
 #define MOVE 7
 #define EMPTY 8
 
-// http://pythontutor.com/c.html#code=%23include%20%3Cstdlib.h%3E%0A%0Atypedef%20struct%20%20s_room%0A%7B%0A%20%20struct%20s_room%20**links%3B%0A%20%20int%20%20%20%20%20%20%20%20%20%20%20count%3B%0A%20%20int%20%20%20%20%20%20%20%20%20%20%20end%3B%0A%20%20struct%20s_room%20*next%3B%0A%7D%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20t_room%3B%0A%0Atypedef%20struct%20%20s_hill%0A%7B%0A%20%20t_room%20%20%20%20%20%20%20%20*start%3B%0A%7D%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20t_hill%3B%0A%0A%0At_room%20*new%28%29%0A%7B%0A%20%20t_room%20*n%20%3D%20malloc%28sizeof%28t_room%29%29%3B%0A%0A%20%20n-%3Ecount%20%3D%200%3B%0A%20%20n-%3Enext%20%3D%20NULL%3B%0A%20%20n-%3Eend%20%3D%200%3B%0A%20%20n-%3Elinks%20%3D%20malloc%28sizeof%28t_room%20*%29%20*%205%29%3B%0A%20%20return%20n%3B%0A%7D%0A%0Atypedef%20struct%20%20s_path%0A%7B%0A%20%20struct%20s_path%20*next%3B%0A%20%20t_room%20%20%20%20%20%20%20%20*room%3B%0A%7D%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20t_path%3B%0A%0Aint%20visited%28t_path%20*path,%20t_room%20*room%29%0A%7B%0A%20%20while%20%28path%29%0A%20%20%7B%0A%20%20%20%20if%20%28path-%3Eroom%20%3D%3D%20room%29%0A%20%20%20%20%20%20return%201%3B%0A%20%20%20%20path%20%3D%20path-%3Enext%3B%20%20%0A%20%20%7D%0A%20%20return%200%3B%0A%7D%0A%0Avoid%20link%28t_room%20*from,%20t_room%20*to%29%0A%7B%0A%20%20from-%3Elinks%5Bfrom-%3Ecount%5D%20%3D%20to%3B%0A%20%20from-%3Ecount%2B%2B%3B%0A%7D%0A%0Avoid%20append%28t_path%20*main,%20t_path%20*elem%29%0A%7B%0A%20%20while%20%28main-%3Enext%29%0A%20%20%20%20main%20%3D%20main-%3Enext%3B%0A%20%20main-%3Enext%20%3D%20elem%3B%0A%7D%0A%0Avoid%20traverse%28t_path%20*path,%20t_room%20*from,%20t_room%20*to,%20int%20room%29%0A%7B%0A%20%20t_path%20*next%20%3D%20malloc%28sizeof%28t_path%29%29%3B%0A%20%20%0A%20%20if%20%28to-%3Eend%29%0A%20%20%7B%0A%20%20%20%20next-%3Eroom%20%3D%20to%3B%0A%20%20%20%20append%28path,%20next%29%3B%0A%20%20%20%20return%20%3B%0A%20%20%7D%0A%20%20if%20%28room%20%3E%3D%20to-%3Ecount%29%0A%20%20%7B%0A%20%20%20%20return%20%3B%0A%20%20%7D%0A%20%20%0A%20%20next-%3Eroom%20%3D%20to%3B%0A%20%20append%28path,%20next%29%3B%0A%20%20%0A%20%20%0A%20%20traverse%28path,%20to,%20to-%3Elinks%5Broom%5D,%20room%20%2B%201%29%3B%0A%7D%0A%0A%0Aint%20main%28%29%20%7B%0A%0A%20%20t_hill%20*hill%20%3D%20malloc%28sizeof%28t_hill%29%29%3B%0A%20%20t_room%20*start%20%3D%20new%28%29%3B%0A%20%20t_room%20*one%20%3D%20new%28%29%3B%0A%20%20t_room%20*two%20%3D%20new%28%29%3B%0A%20%20t_room%20*three%20%3D%20new%28%29%3B%0A%20%20t_room%20*four%20%3D%20new%28%29%3B%0A%20%20t_room%20*five%20%3D%20new%28%29%3B%0A%20%20t_room%20*six%20%3D%20new%28%29%3B%0A%20%20t_room%20*end%20%3D%20new%28%29%3B%0A%20%20t_path%20*path%20%3D%20malloc%28sizeof%28t_path%29%29%3B%0A%20%20end-%3Eend%20%3D%201%3B%0A%0A%20%20link%28start,%20one%29%3B%0A%20%20%0A%20%20link%28one,%20two%29%3B%0A%20%20link%28two,%20three%29%3B%0A%20%20link%28two,%20four%29%3B%0A%20%20link%28four,%20five%29%3B%0A%20%20link%28five,%20six%29%3B%0A%20%20%0A%20%20link%28six,%20end%29%3B%0A%20%20%0A%20%20path-%3Enext%20%3D%20NULL%3B%0A%20%20path-%3Eroom%20%3D%20start%3B%0A%20%20traverse%28path,%20start,%20start-%3Elinks%5B0%5D,%200%29%3B%0A%0A%0A%20%20return%200%3B%0A%7D&curInstr=127&mode=display&origin=opt-frontend.js&py=c&rawInputLstJSON=%5B%5D
 
 t_anthill	*init_anthill(void)
 {
@@ -157,31 +156,6 @@ void	assign_link(t_anthill *ah, char *str)
 		while (cursor->next)
 			cursor = cursor->next;
 		cursor->next = link;
-	}
-}
-
-void	print_hill(t_anthill *anthill)
-{
-	t_room *cursor;
-	cursor = anthill->linear;
-	int link;
-	while (cursor)
-	{
-		link = 0;
-		if (cursor->is_end)
-			printf("End   ");
-		else if (cursor->is_start)
-			printf("Start ");
-		else
-			printf("      ");
-		
-		printf("Room : '%s', [%d], [%d]\n", cursor->name, cursor->x, cursor->y);
-		while (link < cursor->link_count)
-		{
-			printf("            Linked to '%s'\n", cursor->links[link]->name);
-			link++;
-		}
-		cursor = cursor->next;
 	}
 }
 

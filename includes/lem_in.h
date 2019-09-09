@@ -3,7 +3,7 @@
 # define NORMAL 0
 # define START 1
 # define END 2
-# define SPEED 10
+
 #include <stdbool.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -18,6 +18,13 @@
 # define PURPLE "\033[35m"
 
 typedef int roomtype;
+
+typedef struct			s_img
+{
+	SDL_Texture 		*img;
+	struct s_img		*next;
+
+}						t_img;
 
 typedef struct		s_room
 {
@@ -52,12 +59,13 @@ typedef struct		s_path
 
 typedef struct			s_ant
 {
-	int					x;
-	int					y;
+	double				x;
+	double				y;
 	char 				*name;
 	t_path				*path;
 	t_room				*current;
 	t_room				*following;
+	t_img				*sprite;
 	bool				is_moving;
 	double				gradient;
 	double				distance;
@@ -182,8 +190,5 @@ t_link  		    *init_link(void);
 t_link 				*make_link(t_room *from, t_room *to);
 void 				append_link(t_link **start, t_link *new);
 void				assign_link(t_anthill *ah, char *str);
-
-
-
 
 #endif

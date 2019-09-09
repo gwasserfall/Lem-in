@@ -26,22 +26,6 @@ t_pathlist *create_pathlist_item(t_path *path_start)
 	return new;
 }
 
-void	reset_rooms(t_anthill **anthill)
-{
-	t_room *room;
-
-	room = (*anthill)->linear;
-
-	while (room)
-	{
-		room->parent = NULL;
-		room->level = -1;
-		if (room->is_start)
-			room->level = 0;
-		room = room->next;
-	}
-}
-
 bool	append_to_pathlist(t_pathlist **start, t_pathlist *item)
 {
 	t_pathlist *list;
@@ -116,15 +100,6 @@ t_roomlist *get_neighbours(t_room *room, t_link *links)
 	}
 	return start;
 }
-
-typedef struct s_debug
-{
-	t_room *rooms;
-	t_room *start;
-	t_room *end;
-	t_link *links;
-}	t_debug;
-
 
 t_link *make_link(t_room *from, t_room *to)
 {
