@@ -27,6 +27,11 @@ t_anthill	*build_anthill(t_data **data)
 	return (anthill);
 }	
 
+
+/*
+** Read loop reads from the data structs line variable and then adds information
+** to the room struct.
+*/
 void		read_loop(t_anthill *anthill, t_data **data)
 {
 	t_data	*current;

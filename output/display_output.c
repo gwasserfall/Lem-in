@@ -12,6 +12,9 @@
 
 #include "../includes/lem_in.h"
 
+/*
+** MIGHT NOT NEED, DUPLICATE OF THE DISPLAY INPUT FUCNTION
+*/
 void		display_output(t_anthill **anthill)
 {
 	display_ants(anthill);
