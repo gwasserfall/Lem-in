@@ -6,12 +6,15 @@
 /*   By: ayano <ayano@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 14:31:16 by ayano             #+#    #+#             */
-/*   Updated: 2019/09/09 15:11:05 by ayano            ###   ########.fr       */
+/*   Updated: 2019/09/09 15:24:23 by ayano            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <lem_in.h>
 
+/*
+** Initialize the link struct.
+*/
 t_link      *init_link(void)
 {
 	t_link	*new;
@@ -24,7 +27,9 @@ t_link      *init_link(void)
 	return (new);
 }
 
-
+/*
+** MEH, Glens function idk what it does, pretty sure its useless.
+*/
 t_link *make_link(t_room *from, t_room *to)
 {
 	t_link *new;
@@ -37,6 +42,9 @@ t_link *make_link(t_room *from, t_room *to)
 	return new;
 }
 
+/*
+** adds the node new to the end of the linked list start.
+*/
 void append_link(t_link **start, t_link *new)
 {
 	t_link *link;

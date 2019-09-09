@@ -6,7 +6,7 @@
 /*   By: ayano <ayano@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 09:45:33 by ayano             #+#    #+#             */
-/*   Updated: 2019/06/13 16:03:01 by ayano            ###   ########.fr       */
+/*   Updated: 2019/09/09 15:27:22 by ayano            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ typedef struct		s_list
 	struct s_list	*next;
 }					t_list;
 
+double				ft_atod(const char *str);
 int					ft_atoi(const char *str);
 int					ft_isalpha(int c);
 int					ft_isalnum(int c);

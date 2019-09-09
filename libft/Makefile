@@ -60,6 +60,7 @@ SOURCE = ft_atoi.c \
 		ft_lstadd.c \
 		ft_lstiter.c \
 		ft_lstmap.c \
+        ft_atod.c \
 		get_next_line.c \
 
 OPTIONS = -c -I.
