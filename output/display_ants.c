@@ -12,6 +12,10 @@
 
 #include "../includes/lem_in.h"
 
+/*
+** Displays the number of ants
+** MIGHT NOT NEED.
+*/
 void	display_ants(t_anthill **anthill)
 {
 	ft_putnbr((*anthill)->nb_ants);

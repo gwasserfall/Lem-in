@@ -12,6 +12,9 @@
 
 #include "../includes/lem_in.h"
 
+/*
+** Adds the name, x and y data to the room that is start
+*/
 void        add_start_data(char *line, t_anthill **anthill)
 {	
     add_data_start(line, anthill);
@@ -19,6 +22,9 @@ void        add_start_data(char *line, t_anthill **anthill)
 	get_next_line(0, &line);
 }
 
+/*
+** Adds the name, x and y data to the room that is end
+*/
 void        add_end_data(char *line, t_anthill **anthill)
 {
  		add_data_end(line, anthill);

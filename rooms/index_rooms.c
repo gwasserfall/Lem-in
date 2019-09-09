@@ -12,6 +12,9 @@
 
 #include "../includes/lem_in.h"
 
+/*
+** Indexes all the rooms with start being 0 and end being the max rooms
+*/
 void        index_rooms(t_anthill **anthill)
 {
     t_room  *current;

@@ -12,6 +12,9 @@
 
 #include "../includes/lem_in.h"
 
+/*
+** Mallocs the data struct and sets all the variables to NULL
+*/
 t_data		*init_data(void)
 {
 	t_data		*new;
@@ -23,6 +26,10 @@ t_data		*init_data(void)
 	return (new);
 }
 
+/*
+** uses get_next_line and set the line variable in data to be the same as the
+** line variable in the data struct
+*/
 void		read_into_data(t_data **data)
 {
 	char		*line;
@@ -38,6 +45,9 @@ void		read_into_data(t_data **data)
 	}
 }
 
+/*
+** Adds a data node to the end of the current linked list using the data struct
+*/
 void		add_data_node(t_data **data)
 {
 	t_data	*current;

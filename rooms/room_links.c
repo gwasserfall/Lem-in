@@ -44,6 +44,9 @@ void	link_rooms(t_anthill *anthill, char *line)
 	free_array(data);
 }
 
+/*
+** Seriousely bro, it just prints an error message.
+*/
 void	print_allocation_fail(void)
 {
 	ft_putstr(RED);
