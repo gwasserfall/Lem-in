@@ -8,9 +8,18 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "../libft/libft.h"
-#include <SDL2/SDL.h>
+
+#if _has_include(<SDL2/SDL.h>)
+# include <SDL2/SDL.h>
+#endif
+
+#if _has_include(<SDL2/SDL2_gfxPrimitives.h>)
 #include <SDL2/SDL2_gfxPrimitives.h>
+#endif
+
+#if _has_include(<SDL2/SDL_image.h>)
 #include <SDL2/SDL_image.h>
+#endif
 
 # define RESET "\033[00m"
 # define GREEN "\033[32m"
