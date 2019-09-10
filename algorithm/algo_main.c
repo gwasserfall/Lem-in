@@ -1,5 +1,6 @@
 #include <lem_in.h>
 
+// We have find room by name so we need to remove this or that.
 t_room *get_room(t_anthill *anthill, char *name)
 {
 	t_room *cursor;
@@ -19,20 +20,17 @@ t_room *get_room(t_anthill *anthill, char *name)
 
 bool set_levels(t_anthill *anthill)
 {
-	t_path	*paths;
-	int i = 1;
-
-	// Reset allrooms before running (allows mutiple paths)
-	reset_rooms(anthill->linear);
-	t_roomlist *frontier = NULL;
-
-	anthill->start->level = 0;
-
-	append_list(&frontier, make_item(anthill->start));
-
+	int i;
+	t_roomlist *frontier;
 	t_roomlist *next;
 	t_roomlist *neighbour;
 
+	i = 1;
+	frontier = NULL;
+	// frontier = init_roomlist();
+	reset_rooms(anthill->linear);
+	anthill->start->level = 0;
+	append_list(&frontier, make_item(anthill->start));
 	while (frontier)
 	{
 		next = NULL;
@@ -42,11 +40,8 @@ bool set_levels(t_anthill *anthill)
 			while (neighbour)
 			{
 				if (neighbour->room->is_end && frontier->room->is_start)
-				{
 					neighbour = neighbour->next;
-					continue;
-				}
-				if (neighbour->room->level == -1 && !room_in_pathlist(paths, neighbour->room))
+				if (neighbour->room->level == -1 && !room_in_pathlist(anthill->paths, neighbour->room))
 				{
 					neighbour->room->level = i;
 					neighbour->room->parent = frontier->room;
@@ -59,5 +54,5 @@ bool set_levels(t_anthill *anthill)
 		i++;
 		frontier = next;
 	}
-	return append_to_pathlist(paths, create_pathlist_item(map_path(anthill->end)));
+	return (append_to_pathlist(anthill->paths, create_pathlist_item(map_path(anthill->end))));
 }

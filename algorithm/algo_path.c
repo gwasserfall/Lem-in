@@ -12,6 +12,114 @@
 
 #include <lem_in.h>
 
+/*
+** Checks to see if the room is in the pathlist, ie room has been visited
+*/
+bool	room_in_pathlist(t_pathlist *pathlist, t_room *room)
+{
+	t_path		*path;
+	
+	while (pathlist)
+	{
+		path = pathlist->path;
+		while (path)
+		{
+			if (path->room->is_start || path->room->is_end)
+			{
+				path = path->next;
+				continue;
+			}
+			if (path->room == room)
+				return (true);
+			path = path->next;
+		}
+		pathlist = pathlist->next;
+	}
+	return (false);
+}
+
+/*
+** Adds item to the end of the pathlist linked list named start.
+** Adding a new node to the visited nodes.
+*/
+bool	append_to_pathlist(t_pathlist **start, t_pathlist *item)
+{
+	t_pathlist *list;
+
+	if (!item)
+		return (false);
+	list = *start;
+	if (!list)
+		*start = item;
+	else
+	{
+		while (list->next)
+			list = list->next;
+		list->next = item;
+	}
+	return (true);
+}
+
+/*
+** Works from end and adds nodes to the struct pathlist.
+*/
+t_path		*map_path(t_room *end)
+{
+	t_path *path;
+
+	path = NULL;
+	append_to_path(&path, make_path_item(end));
+	while (end->parent)
+	{
+		append_to_path(&path, make_path_item(end->parent));
+		end = end->parent;
+	}
+	if (!end->is_start)
+		return (NULL);
+	return (path);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 t_pathlist *create_pathlist_item(t_path *path_start)
 {
 	t_pathlist *new;
@@ -26,27 +134,10 @@ t_pathlist *create_pathlist_item(t_path *path_start)
 	return new;
 }
 
-bool	append_to_pathlist(t_pathlist **start, t_pathlist *item)
-{
-	t_pathlist *list;
 
-	if (!item)
-		return false;
-
-	list = *start;
-	if (!list)
-	{
-		*start = item;
-	}
-	else
-	{
-		while (list->next)
-			list = list->next;
-		list->next = item;
-	}
-	return true;
-}
-
+/*
+** ASK GLEN.
+*/
 t_roomlist *make_item(t_room *room)
 {
 	t_roomlist *new;
@@ -56,49 +147,6 @@ t_roomlist *make_item(t_room *room)
 	new->next = NULL;
 	new->room = room;
 	return new;
-}
-
-void append_list(t_roomlist **start, t_roomlist *new)
-{
-	t_roomlist *list;
-
-	list = *start;
-
-	if (!list)
-	{
-		//printf("List was empty attaching list_item with room '%s'\n", new->room->name);
-		*start = new;
-	}
-	else
-	{
-		while (list->next)
-			list = list->next;
-		//printf("Attaching list_item with room '%s'\n", new->room->name);
-		list->next = new;
-	}
-}
-
-t_roomlist *get_neighbours(t_room *room, t_link *links)
-{
-	t_roomlist *start;
-
-	start = NULL;
-
-	while (links)
-	{
-		if (room == links->from)
-		{
-			printf("Found room '%s' in link '%s'=>'%s'\n", room->name, links->from->name, links->to->name);
-			append_list(&start, make_item(links->to));
-		}
-		else if (room == links->to)
-		{
-			printf("Found room '%s' in link '%s'=>'%s'\n", room->name, links->from->name, links->to->name);
-			append_list(&start, make_item(links->from));
-		}
-		links = links->next;
-	}
-	return start;
 }
 
 t_link *make_link(t_room *from, t_room *to)
@@ -212,60 +260,3 @@ void append_to_path(t_path **start, t_path *item)
 	}
 }
 
-bool room_in_pathlist(t_pathlist *pathlist, t_room *room)
-{
-	t_path *path;
-	while (pathlist)
-	{
-		path = pathlist->path;
-		while (path)
-		{
-			if (path->room->is_start || path->room->is_end)
-			{
-				path = path->next;
-				continue;
-			}
-			if (path->room == room)
-				return true;
-			path = path->next;
-		}
-		pathlist = pathlist->next;
-	}
-	return false;
-}
-
-t_path *map_path(t_room *end)
-{
-	t_path *path;
-
-	path = NULL;
-	append_to_path(&path, make_path_item(end));
-	while (end->parent)
-	{
-		printf("\tAdding room '%s' to path\n", end->name);
-		append_to_path(&path, make_path_item(end->parent));
-		end = end->parent;
-	}
-	if (!end->is_start)
-	{
-		printf("African Rain Stick\n");
-		return NULL;
-	}
-	return path;
-}
-
-void	reset_rooms(t_anthill **anthill)
-{
-	t_room *room;
-
-	room = (*anthill)->linear;
-
-	while (room)
-	{
-		room->parent = NULL;
-		room->level = -1;
-		if (room->is_start)
-			room->level = 0;
-		room = room->next;
-	}
-}

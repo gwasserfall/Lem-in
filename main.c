@@ -26,5 +26,6 @@ int main()
 	display_input(&data);
 	// display_output(&anthill);
 	free_data(&data);
+	while (1);
 	return (1);
 }

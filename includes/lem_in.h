@@ -19,13 +19,14 @@
 
 typedef int roomtype;
 
+/*
 typedef struct			s_img
 {
 	SDL_Texture 		*img;
 	struct s_img		*next;
 
 }						t_img;
-
+*/
 typedef struct		s_room
 {
 	struct s_room 	*next;
@@ -65,7 +66,7 @@ typedef struct			s_ant
 	t_path				*path;
 	t_room				*current;
 	t_room				*following;
-	t_img				*sprite;
+	// t_img				*sprite;
 	bool				is_moving;
 	double				gradient;
 	double				distance;
@@ -79,6 +80,7 @@ typedef struct			s_anthill
 	t_room				*end;
 	t_link				*connectors;
 	t_ant				*colony;
+	t_path				*paths;
 	int					room_count;
 	int					nb_ants;
 }						t_anthill;
@@ -124,6 +126,7 @@ void				init_roomlink_max(t_anthill **anthill);
 t_room				*find_room_by_name(t_anthill **anthill, char *name);
 void				link_rooms(t_anthill *anthill, char *line);
 t_room				*init_room(void);
+void				reset_rooms(t_anthill **anthill);
 
 /*
 ** Error prints.
@@ -190,5 +193,15 @@ t_link  		    *init_link(void);
 t_link 				*make_link(t_room *from, t_room *to);
 void 				append_link(t_link **start, t_link *new);
 void				assign_link(t_anthill *ah, char *str);
+
+/*
+** Roomlist prototypes.
+*/
+t_roomlist			*init_roomlist(void);
+t_roomlist			*make_item(t_room *room);
+t_roomlist			*get_neighbours(t_room *room, t_link *links);
+void				append_list(t_roomlist **start, t_roomlist *new);
+bool				room_in_pathlist(t_pathlist *pathlist, t_room *room);
+bool				append_to_pathlist(t_pathlist **start, t_pathlist *item);
 
 #endif

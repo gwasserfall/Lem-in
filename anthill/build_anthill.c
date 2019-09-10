@@ -107,6 +107,7 @@ t_anthill	*init_anthill(void)
 	anthill->end = NULL;
 	anthill->connectors = NULL;
 	anthill->colony = NULL;
+	anthill->paths = NULL;
 	anthill->room_count = 0;
 	anthill->nb_ants = 0;
 	return (anthill);
