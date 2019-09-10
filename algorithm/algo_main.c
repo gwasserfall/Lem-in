@@ -49,7 +49,7 @@ bool set_levels(t_anthill *anthill)
 					neighbour = neighbour->next;
 					continue;
 				}
-				if (neighbour->room->level == -1 && !room_in_pathlist(paths, neighbour->room))
+				if (neighbour->room->level == -1 && !room_in_pathlist(anthill->paths, neighbour->room))
 				{
 					neighbour->room->level = i;
 					neighbour->room->parent = frontier->room;
@@ -62,5 +62,5 @@ bool set_levels(t_anthill *anthill)
 		i++;
 		frontier = next;
 	}
-	return append_to_pathlist(paths, create_pathlist_item(map_path(anthill->end)));
+	return append_to_pathlist(anthill->paths, create_pathlist_item(map_path(anthill->end)));
 }

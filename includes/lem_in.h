@@ -80,6 +80,7 @@ typedef struct			s_anthill
 	t_room				*end;
 	t_link				*connectors;
 	t_ant				*colony;
+	t_path				*paths;
 	int					room_count;
 	int					nb_ants;
 }						t_anthill;
@@ -198,6 +199,9 @@ void				assign_link(t_anthill *ah, char *str);
 */
 t_roomlist			*init_roomlist(void);
 t_roomlist			*make_item(t_room *room);
+t_roomlist			*get_neighbours(t_room *room, t_link *links);
 void				append_list(t_roomlist **start, t_roomlist *new);
+bool				room_in_pathlist(t_pathlist *pathlist, t_room *room);
+bool				append_to_pathlist(t_pathlist **start, t_pathlist *item);
 
 #endif

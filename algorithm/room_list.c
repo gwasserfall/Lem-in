@@ -76,3 +76,22 @@ void			append_list(t_roomlist **start, t_roomlist *new)
 		list->next = new;
 	}
 }
+
+/*
+** gets the rooms neighbours, ie the rooms linked to the same parent node.
+*/
+t_roomlist *get_neighbours(t_room *room, t_link *links)
+{
+	t_roomlist *start;
+
+	start = NULL;
+	while (links)
+	{
+		if (room == links->from)
+			append_list(&start, make_item(links->to));
+		else if (room == links->to)
+			append_list(&start, make_item(links->from));
+		links = links->next;
+	}
+	return (start);
+}
