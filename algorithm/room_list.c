@@ -59,28 +59,9 @@ t_roomlist		*make_item(t_room *room)
 }
 
 /*
-** Not 100% sure, ask glen.
-*/
-void			append_list(t_roomlist **start, t_roomlist *new)
-{
-	t_roomlist *list;
-
-	list = *start;
-
-	if (!list)
-		*start = new;
-	else
-	{
-		while (list->next)
-			list = list->next;
-		list->next = new;
-	}
-}
-
-/*
 ** gets the rooms neighbours, ie the rooms linked to the same parent node.
 */
-t_roomlist *get_neighbours(t_room *room, t_link *links)
+t_roomlist		*get_neighbours(t_room *room, t_link *links)
 {
 	t_roomlist *start;
 

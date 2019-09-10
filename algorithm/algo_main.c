@@ -22,6 +22,8 @@ bool set_levels(t_anthill *anthill)
 {
 	int i;
 	t_roomlist *frontier;
+	t_roomlist *next;
+	t_roomlist *neighbour;
 
 	i = 1;
 	frontier = NULL;
@@ -29,13 +31,6 @@ bool set_levels(t_anthill *anthill)
 	reset_rooms(anthill->linear);
 	anthill->start->level = 0;
 	append_list(&frontier, make_item(anthill->start));
-
-	// above has been worked on.
-	t_roomlist *next;
-	t_roomlist *neighbour;
-	// no idea what paths is being used for...
-	t_path	*paths;
-	// none of this fucking norms man.
 	while (frontier)
 	{
 		next = NULL;
@@ -45,10 +40,7 @@ bool set_levels(t_anthill *anthill)
 			while (neighbour)
 			{
 				if (neighbour->room->is_end && frontier->room->is_start)
-				{
 					neighbour = neighbour->next;
-					continue;
-				}
 				if (neighbour->room->level == -1 && !room_in_pathlist(anthill->paths, neighbour->room))
 				{
 					neighbour->room->level = i;
@@ -62,5 +54,5 @@ bool set_levels(t_anthill *anthill)
 		i++;
 		frontier = next;
 	}
-	return append_to_pathlist(anthill->paths, create_pathlist_item(map_path(anthill->end)));
+	return (append_to_pathlist(anthill->paths, create_pathlist_item(map_path(anthill->end))));
 }
