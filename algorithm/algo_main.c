@@ -19,20 +19,21 @@ t_room *get_room(t_anthill *anthill, char *name)
 
 bool set_levels(t_anthill *anthill)
 {
-	t_path	*paths;
-	int i = 1;
+	int i;
+	t_roomlist *frontier;
 
-	// Reset allrooms before running (allows mutiple paths)
+	i = 1;
+	frontier = NULL;
+	// frontier = init_roomlist();
 	reset_rooms(anthill->linear);
-	t_roomlist *frontier = NULL;
-
 	anthill->start->level = 0;
-
 	append_list(&frontier, make_item(anthill->start));
 
+	// above has been worked on.
 	t_roomlist *next;
 	t_roomlist *neighbour;
-
+	// no idea what paths is being used for...
+	t_path	*paths;
 	while (frontier)
 	{
 		next = NULL;

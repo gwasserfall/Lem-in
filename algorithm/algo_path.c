@@ -47,6 +47,9 @@ bool	append_to_pathlist(t_pathlist **start, t_pathlist *item)
 	return true;
 }
 
+/*
+** ASK GLEN.
+*/
 t_roomlist *make_item(t_room *room)
 {
 	t_roomlist *new;
@@ -65,15 +68,11 @@ void append_list(t_roomlist **start, t_roomlist *new)
 	list = *start;
 
 	if (!list)
-	{
-		//printf("List was empty attaching list_item with room '%s'\n", new->room->name);
 		*start = new;
-	}
 	else
 	{
 		while (list->next)
 			list = list->next;
-		//printf("Attaching list_item with room '%s'\n", new->room->name);
 		list->next = new;
 	}
 }
@@ -252,20 +251,4 @@ t_path *map_path(t_room *end)
 		return NULL;
 	}
 	return path;
-}
-
-void	reset_rooms(t_anthill **anthill)
-{
-	t_room *room;
-
-	room = (*anthill)->linear;
-
-	while (room)
-	{
-		room->parent = NULL;
-		room->level = -1;
-		if (room->is_start)
-			room->level = 0;
-		room = room->next;
-	}
 }
