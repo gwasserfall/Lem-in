@@ -12,22 +12,23 @@ int calc_y(t_state *state, double value)
 
 void draw_links(t_state *s)
 {
-	t_room *rooms;
-	int i;
+	t_link *link;
+	int x1;
+	int x2;
+	int y1;
+	int y2;
 
-	rooms = s->anthill->linear;
+	link = s->anthill->connectors;
 	
 	SDL_SetRenderDrawColor(s->renderer, 255, 255, 255, SDL_ALPHA_OPAQUE);
-
-	while (rooms)
+	while (link)
 	{
-		i = 0;
-		while (i < rooms->link_count)
-		{
-			SDL_RenderDrawLine(s->renderer, X(s, rooms->x), Y(s, rooms->y), X(s, rooms->links[i]->x), Y(s, rooms->links[i]->y));
-			i++;
-		}
-		rooms = rooms->next;	
+		x1 = X(s, link->from->x);
+		x2 = X(s, link->to->x);
+		y1 = Y(s, link->from->y);
+		y2 = Y(s, link->to->y);
+		SDL_RenderDrawLine(s->renderer, x1, y1, x2, y2);
+		link = link->next;
 	}
 }
 
@@ -92,7 +93,6 @@ void	draw_ants(t_state *s)
 		{
 			if (s->frame % 5 == 0)
 			{
-				printf("Swappy\n");
 				if (army->sprite->next)
 				{
 					army->sprite = army->sprite->next;

@@ -55,9 +55,32 @@ void	update_state(t_state *s)
 				gradient = diffy / diffx;
 				distance = pow((pow(diffy, 2.0) + pow(diffx, 2.0)), 0.5);
 				
+				printf("distance : %lf\n", distance);
+				printf("gradient : %lf\n", gradient);
+				printf("differy  : %lf\n", diffy);
+				printf("differx  : %lf\n", diffx);
+				printf("current: %s-x : %lf\n", army->current->name, army->current->x);
+				printf("current: %s-y : %lf\n", army->current->name, army->current->y);
+				printf("following: %s-x : %lf\n", army->following->name, army->following->x);
+				printf("following: %s-y : %lf\n", army->following->name, army->following->y);
+				printf("\n");
 				army->x += 0.05  * 0.6;
 				army->y += gradient * 0.05 * 0.6;
 			}
+			else
+			{
+				if (army->path->prev)
+				{
+					army->current = army->following;
+					army->following = army->path->room;
+				}
+				else
+				{
+					army->current = army->following;
+					army->following = s->anthill->end;
+				}
+			}
+			
 		}
 		army = army->next;
 	}
