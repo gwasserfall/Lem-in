@@ -35,6 +35,7 @@ bool set_levels(t_anthill *anthill)
 	t_roomlist *neighbour;
 	// no idea what paths is being used for...
 	t_path	*paths;
+	// none of this fucking norms man.
 	while (frontier)
 	{
 		next = NULL;
