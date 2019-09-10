@@ -125,6 +125,7 @@ void				init_roomlink_max(t_anthill **anthill);
 t_room				*find_room_by_name(t_anthill **anthill, char *name);
 void				link_rooms(t_anthill *anthill, char *line);
 t_room				*init_room(void);
+void				reset_rooms(t_anthill **anthill);
 
 /*
 ** Error prints.
@@ -197,7 +198,6 @@ void				assign_link(t_anthill *ah, char *str);
 */
 t_roomlist			*init_roomlist(void);
 t_roomlist			*make_item(t_room *room);
-void				reset_rooms(t_anthill **anthill);
 void				append_list(t_roomlist **start, t_roomlist *new);
 
 #endif

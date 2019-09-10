@@ -1,5 +1,6 @@
 #include <lem_in.h>
 
+// We have find room by name so we need to remove this or that.
 t_room *get_room(t_anthill *anthill, char *name)
 {
 	t_room *cursor;

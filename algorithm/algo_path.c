@@ -61,22 +61,6 @@ t_roomlist *make_item(t_room *room)
 	return new;
 }
 
-void append_list(t_roomlist **start, t_roomlist *new)
-{
-	t_roomlist *list;
-
-	list = *start;
-
-	if (!list)
-		*start = new;
-	else
-	{
-		while (list->next)
-			list = list->next;
-		list->next = new;
-	}
-}
-
 t_roomlist *get_neighbours(t_room *room, t_link *links)
 {
 	t_roomlist *start;

@@ -36,6 +36,7 @@ void	link_rooms(t_anthill *anthill, char *line)
 	link->from = find_room_by_name(&anthill, data[0]);
 	link->to = find_room_by_name(&anthill, data[1]);
 	append_link(&anthill->connectors, link);
+	free_array(data);
 	// t_room 	*from;
 	// t_room 	*to;
 	// char	**data;
