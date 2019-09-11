@@ -28,7 +28,7 @@ bool set_levels(t_anthill *anthill)
 	i = 1;
 	frontier = NULL;
 	// frontier = init_roomlist();
-	reset_rooms(anthill->linear);
+	reset_rooms(&anthill);
 	anthill->start->level = 0;
 	append_list(&frontier, make_item(anthill->start));
 	while (frontier)

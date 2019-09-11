@@ -79,65 +79,67 @@ t_path		*map_path(t_room *end)
 	return (path);
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-t_pathlist *create_pathlist_item(t_path *path_start)
+/*
+** creates a new node to the path_start linked list.
+*/
+t_pathlist		*create_pathlist_item(t_path *path_start)
 {
 	t_pathlist *new;
 
 	if (!path_start)
-		return NULL;
-
+		return (NULL);
 	if (!(new = malloc(sizeof(t_pathlist))))
 		return NULL;
 	new->path = path_start;
 	new->next = NULL;
-	return new;
+	return (new);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 /*
 ** ASK GLEN.
-*/
+
 t_roomlist *make_item(t_room *room)
 {
 	t_roomlist *new;
@@ -239,6 +241,7 @@ t_path *make_path_item(t_room *room)
 	new->room = room;
 	return new;
 }
+*/
 
 
 void append_to_path(t_path **start, t_path *item)

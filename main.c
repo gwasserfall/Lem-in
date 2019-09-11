@@ -26,6 +26,7 @@ int main()
 	display_input(&data);
 	// display_output(&anthill);
 	free_data(&data);
-	while (1);
+	// below need glens help
+	set_levels(anthill);
 	return (1);
 }

@@ -169,6 +169,8 @@ void				add_end_data(char *line, t_anthill **anthill);
 */
 int					check_end_route_head(t_anthill **anthill);
 int					create_map(t_anthill **anthill);
+bool				set_levels(t_anthill *anthill);
+t_path				*map_path(t_room *end);
 
 /*
 ** Output prototypes.
@@ -203,5 +205,6 @@ t_roomlist			*get_neighbours(t_room *room, t_link *links);
 void				append_list(t_roomlist **start, t_roomlist *new);
 bool				room_in_pathlist(t_pathlist *pathlist, t_room *room);
 bool				append_to_pathlist(t_pathlist **start, t_pathlist *item);
+t_pathlist			*create_pathlist_item(t_path *path_start);
 
 #endif
