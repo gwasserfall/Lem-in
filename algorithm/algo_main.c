@@ -54,5 +54,5 @@ bool set_levels(t_anthill *anthill)
 		i++;
 		frontier = next;
 	}
-	return (append_to_pathlist(anthill->paths, create_pathlist_item(map_path(anthill->end))));
+	return (append_to_pathlist(&anthill->paths, create_pathlist_item(map_path(anthill->end))));
 }

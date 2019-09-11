@@ -33,14 +33,10 @@ t_data		*init_data(void)
 void		read_into_data(t_data **data)
 {
 	char		*line;
-	t_data		*current;
 
-	current = (*data);
 	while (get_next_line(0, &line))
 	{
-		current->line = ft_strdup(line);
-		add_data_node(&current);
-		current = current->next;
+		add_data_node(data, line);
 		free(line);
 	}
 }
@@ -48,14 +44,20 @@ void		read_into_data(t_data **data)
 /*
 ** Adds a data node to the end of the current linked list using the data struct
 */
-void		add_data_node(t_data **data)
+void		add_data_node(t_data **data, char *line)
 {
 	t_data	*current;
 	t_data	*new;
 
 	new = init_data();
+	new->line = ft_strdup(line);
 	current = (*data);
-	while (current->next != NULL)
-		current = current->next;
-	current->next = new;
+	if (!current)
+		*data = new;
+	else
+	{
+		while (current->next != NULL)
+			current = current->next;
+		current->next = new;
+	}
 }

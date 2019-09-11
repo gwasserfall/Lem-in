@@ -5,7 +5,25 @@
 	"version": "0.2.0",
 	"configurations": [
 		{
-			"name": "(lldb) Launch",
+			"name": "(lldb) Lemon",
+			"type": "cppdbg",
+			"request": "launch",
+			"program": "${workspaceFolder}/lemon",
+			"args": [],
+			"stopAtEntry": false,
+			"cwd": "${workspaceFolder}",
+			"environment": [],
+			"externalConsole": false,
+			"MIMode": "lldb",
+			"preLaunchTask": "build_lemon",
+			"setupCommands": [
+                {
+                    "text": "settings set target.input-path ./maps/test_glen.map"
+                }
+            ],
+		},
+		{
+			"name": "(lldb) Visualiser",
 			"type": "cppdbg",
 			"request": "launch",
 			"program": "${workspaceFolder}/visualiser/a.out",

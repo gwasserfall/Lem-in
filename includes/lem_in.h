@@ -73,18 +73,6 @@ typedef struct			s_ant
 	struct s_ant		*next;
 }						t_ant;
 
-typedef struct			s_anthill
-{
-	t_room				*linear;
-	t_room				*start;
-	t_room				*end;
-	t_link				*connectors;
-	t_ant				*colony;
-	t_path				*paths;
-	int					room_count;
-	int					nb_ants;
-}						t_anthill;
-
 typedef struct 			s_pathlist
 {
 	t_path				*path;
@@ -92,6 +80,17 @@ typedef struct 			s_pathlist
 	struct s_pathlist	*next;
 }						t_pathlist;
 
+typedef struct			s_anthill
+{
+	t_room				*linear;
+	t_room				*start;
+	t_room				*end;
+	t_link				*connectors;
+	t_ant				*colony;
+	t_pathlist				*paths;
+	int					room_count;
+	int					nb_ants;
+}						t_anthill;
 
 typedef struct			s_data
 {
@@ -186,7 +185,7 @@ void				display_input(t_data **data);
 */
 t_data				*init_data(void);
 void				read_into_data(t_data **data);
-void				add_data_node(t_data **data);
+void				add_data_node(t_data **data, char *line);
 
 /*
 ** links.
@@ -204,7 +203,11 @@ t_roomlist			*make_item(t_room *room);
 t_roomlist			*get_neighbours(t_room *room, t_link *links);
 void				append_list(t_roomlist **start, t_roomlist *new);
 bool				room_in_pathlist(t_pathlist *pathlist, t_room *room);
+void				append_to_path(t_path **start, t_path *item);
 bool				append_to_pathlist(t_pathlist **start, t_pathlist *item);
 t_pathlist			*create_pathlist_item(t_path *path_start);
+
+
+t_path *make_path_item(t_room *room);
 
 #endif

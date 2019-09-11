@@ -96,6 +96,17 @@ t_pathlist		*create_pathlist_item(t_path *path_start)
 }
 
 
+t_path *make_path_item(t_room *room)
+{
+	t_path *new;
+
+	if (!(new = malloc(sizeof(t_path))))
+		return NULL;
+	new->next = NULL;
+	new->prev = NULL;
+	new->room = room;
+	return new;
+}
 
 
 
@@ -230,17 +241,6 @@ t_room *get(t_room *start, char *name)
 }
 
 
-t_path *make_path_item(t_room *room)
-{
-	t_path *new;
-
-	if (!(new = malloc(sizeof(t_path))))
-		return NULL;
-	new->next = NULL;
-	new->prev = NULL;
-	new->room = room;
-	return new;
-}
 */
 
 

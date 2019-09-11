@@ -7,6 +7,11 @@
 			"label": "build",
 			"type": "shell",
 			"command": "make -C visualiser"
+		},
+		{
+			"label": "build_lemon",
+			"type": "shell",
+			"command": "make"
 		}
 	]
 }

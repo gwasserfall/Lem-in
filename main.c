@@ -17,14 +17,14 @@ int main()
 	t_anthill	*anthill;
 	t_data		*data;
 
-	data = init_data();
+	data = NULL;
 	read_into_data(&data);
 	anthill = build_anthill(&data);
 	if (anthill->start == NULL || anthill->end == NULL)
 		print_start_end_error();
 	index_rooms(&anthill);
 	display_input(&data);
-	// display_output(&anthill);
+	//display_output(&anthill);
 	free_data(&data);
 	// below need glens help
 	set_levels(anthill);
