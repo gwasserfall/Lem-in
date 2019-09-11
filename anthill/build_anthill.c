@@ -52,11 +52,13 @@ void		read_loop(t_anthill *anthill, t_data **data)
 		{
 			current = current->next;
 			add_data_start(current->line, &anthill);
+			continue;
 		}
 		if (ft_strcmp(current->line, "##end") == 0)
 		{
 			current = current->next;
 			add_data_end(current->line, &anthill);
+			continue;
 		}
 		current = current->next;
 	}

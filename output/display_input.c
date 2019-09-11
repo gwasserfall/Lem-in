@@ -20,7 +20,7 @@ void		display_input(t_data **data)
 	t_data	*current;
 
 	current = (*data);
-	while (current->next)
+	while (current)
 	{
 		ft_putendl(current->line);
 		current = current->next;

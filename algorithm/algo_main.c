@@ -75,11 +75,11 @@ bool ants_are_free(t_anthill * anthill)
 	return true;
 }
 
-t_ant	*ant_here(t_anthill *anthill, t_room *room)
+t_ant	*ant_here(t_ant *colony, t_room *room)
 {
 	t_ant *ant;
 
-	ant = anthill->colony;
+	ant = colony;
 	while (ant)
 	{
 		if (ant->current == room)
@@ -107,27 +107,6 @@ bool set_paths(t_anthill *anthill)
 	t_ant *ant;
 	bool complete = false;
 
-	paths = anthill->paths;
-	while (paths)
-	{
-		printf("Path : -> %p\n", paths->path);
-		paths = paths->next;
-	}
-
-	ant = anthill->colony;
-	paths = anthill->paths;
-	while (ant)
-	{
-		if (!ant->path)
-		{
-			ant->path = paths->path;
-			if (paths->next)
-				paths = paths->next;
-			else
-				paths = anthill->paths;	
-		}
-		ant = ant->next;
-	}
 
 	t_path *path;
 	t_list *moves;
@@ -138,21 +117,20 @@ bool set_paths(t_anthill *anthill)
 		while (paths)
 		{
 			path = paths->path;
-			// get to empty room;
 			while (!path->room->is_start)
 			{
-				if ((ant = ant_here(anthill, path->next->room)))
+				if ((ant = ant_here(anthill->colony, path->next->room)))
 				{
-
 					printf("L%s-%s", ant->name, path->room->name);
 					ant->current = path->room;
 					printf(" ");
 				}
 				path = path->next;
 			}
-			printf("\n");
+			
 			paths = paths->next;
 		}
+		printf("\n");
 	}
 	return 1;
 }
