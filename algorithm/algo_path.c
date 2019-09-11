@@ -89,7 +89,7 @@ t_pathlist		*create_pathlist_item(t_path *path_start)
 	if (!path_start)
 		return (NULL);
 	if (!(new = malloc(sizeof(t_pathlist))))
-		return NULL;
+		return (NULL);
 	new->path = path_start;
 	new->next = NULL;
 	return (new);
