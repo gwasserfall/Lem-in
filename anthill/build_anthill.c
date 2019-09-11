@@ -40,7 +40,7 @@ void		read_loop(t_anthill *anthill, t_data **data)
 
 	link = 0;
 	current = (*data);
-	while (current->next) // <<________AS_D_AS_DASOKDLQKWDN WTF!!!!>>!>!>! WHy skip the last one? lol took me a few hours to find
+	while (current)
 	{
 		type = check_line(current->line);
 		if (type == 4)
