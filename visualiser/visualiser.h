@@ -3,8 +3,8 @@
 # include <SDL2/SDL.h>
 # include <SDL2/SDL_image.h>
 # include <SDL2/SDL2_gfxPrimitives.h>
-# include <lem_in.h>
-
+# include <stdbool.h>
+# include <libft.h>
 
 # define SPRITE_H 65
 # define SPRITE_W 48
@@ -14,6 +14,102 @@
 #define ZOOM 18
 #define X(state, value) calc_x(state, value)
 #define Y(state, value) calc_y(state, value)
+
+
+typedef struct			s_img
+{
+	SDL_Texture 		*img;
+	struct s_img		*next;
+
+}						t_img;
+
+
+
+
+typedef int roomtype;
+
+
+typedef struct		s_room
+{
+	struct s_room 	*next;
+	struct s_room	**links;
+	struct s_room	*parent;
+	int				level;
+	int				link_count;
+	double			x;
+	double			y;
+	int				index; // Why for again? I forget :(
+	char			*name;
+	bool			is_start;
+	bool			is_end;
+	bool			occupied;
+	
+}					t_room;
+
+typedef struct		s_link
+{
+	t_room			*to;
+	t_room			*from;
+	struct s_link	*next;
+}					t_link;
+
+
+typedef struct			s_ant
+{
+	double				x;
+	double				y;
+	char 				*name;
+	struct		s_path	*path;
+	t_room				*current;
+	t_room				*following;
+	t_img				*sprite;
+	bool				is_moving;
+	double				gradient;
+	double				distance;
+	struct s_ant		*next;
+}						t_ant;
+
+typedef struct		s_path
+{
+	t_room			*room;
+	t_ant			*ants;
+	int				index;
+	struct s_path	*next;
+	struct s_path	*prev;
+}					t_path;
+
+
+typedef struct 			s_pathlist
+{
+	t_path				*path;
+	int					length;
+	struct s_pathlist	*next;
+}						t_pathlist;
+
+typedef struct			s_anthill
+{
+	t_room				*linear;
+	t_room				*start;
+	t_room				*end;
+	t_link				*connectors;
+	t_ant				*colony;
+	t_pathlist			*paths;
+	int					room_count;
+	int					nb_ants;
+}						t_anthill;
+
+typedef struct			s_data
+{
+	char				*line;
+	struct s_data		*next;
+}						t_data;
+
+typedef struct			s_roomlist
+{
+	t_room				*room;
+	struct s_roomlist	*next;
+}						t_roomlist;
+
 
 typedef	struct		s_state
 {
@@ -37,6 +133,8 @@ typedef	struct		s_state
 	
     t_anthill       *anthill;
 }					t_state;
+
+
 
 int calc_y(t_state *state, double value);
 int calc_x(t_state *state, double value);

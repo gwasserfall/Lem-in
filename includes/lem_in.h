@@ -19,14 +19,7 @@
 
 typedef int roomtype;
 
-/*
-typedef struct			s_img
-{
-	SDL_Texture 		*img;
-	struct s_img		*next;
 
-}						t_img;
-*/
 typedef struct		s_room
 {
 	struct s_room 	*next;
@@ -36,10 +29,11 @@ typedef struct		s_room
 	int				link_count;
 	double			x;
 	double			y;
-	int				index;
+	int				index; // Why for again? I forget :(
 	char			*name;
 	bool			is_start;
 	bool			is_end;
+	bool			occupied;
 	
 }					t_room;
 
@@ -50,28 +44,30 @@ typedef struct		s_link
 	struct s_link	*next;
 }					t_link;
 
-typedef struct		s_path
-{
-	t_room			*room;
-	int				index;
-	struct s_path	*next;
-	struct s_path	*prev;
-}					t_path;
 
 typedef struct			s_ant
 {
 	double				x;
 	double				y;
 	char 				*name;
-	t_path				*path;
+	struct		s_path	*path;
 	t_room				*current;
 	t_room				*following;
-	// t_img				*sprite;
 	bool				is_moving;
 	double				gradient;
 	double				distance;
 	struct s_ant		*next;
 }						t_ant;
+
+typedef struct		s_path
+{
+	t_room			*room;
+	t_ant			*ants;
+	int				index;
+	struct s_path	*next;
+	struct s_path	*prev;
+}					t_path;
+
 
 typedef struct 			s_pathlist
 {
@@ -87,7 +83,7 @@ typedef struct			s_anthill
 	t_room				*end;
 	t_link				*connectors;
 	t_ant				*colony;
-	t_pathlist				*paths;
+	t_pathlist			*paths;
 	int					room_count;
 	int					nb_ants;
 }						t_anthill;
@@ -148,7 +144,7 @@ void				free_data(t_data **data);
 */
 int					check_line(char *line);
 int					get_nb_rooms(void);
-int					only_digit(char *line);
+bool				only_digit(char *line);
 int					verify_start_and_end(char *line);
 int					word_count(char *str, char delim, int index);
 void				add_data_end(char *line, t_anthill **anthill);
@@ -208,6 +204,9 @@ bool				append_to_pathlist(t_pathlist **start, t_pathlist *item);
 t_pathlist			*create_pathlist_item(t_path *path_start);
 
 
-t_path *make_path_item(t_room *room);
+bool	set_paths(t_anthill *anthill);
+t_path	*make_path_item(t_room *room);
+int		hatch_ant(t_anthill *anthill, int x, int y, char *name);
+void	prepend_to_path(t_path **start, t_path *item);
 
 #endif

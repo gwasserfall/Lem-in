@@ -1,4 +1,4 @@
-#include <visualiser.h>
+#include "visualiser.h"
 
 void	join_colony(t_anthill *anthill, t_ant *larvae)
 {
@@ -25,9 +25,9 @@ int		hatch_ant(t_anthill *anthill, int x, int y, char *name)
 	egg->is_moving = false;
 	egg->path = NULL;
 	egg->next = NULL;
-	egg->sprite = NULL;
+	//egg->sprite = NULL;
 	egg->following = NULL;
-	egg->current = NULL;
+	egg->current = anthill->start;
 	egg->name = ft_strdup(name);
 	join_colony(anthill, egg);
 	return (1);

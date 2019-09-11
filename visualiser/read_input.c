@@ -1,4 +1,4 @@
-#include <visualiser.h>
+#include "visualiser.h"
 
 #define ANT_COUNT 1
 #define IDENT 2
@@ -285,6 +285,5 @@ t_anthill  *get_infos()
 			assign_ants(anthill, line);
 		free(line);
 	}
-	//traverse_anthill(anthill);
 	return(anthill);
 }

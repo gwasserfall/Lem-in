@@ -28,7 +28,7 @@ t_link      *init_link(void)
 }
 
 /*
-** MEH, Glens function idk what it does, pretty sure its useless.
+** MEH, Glens function idk what it does, pretty sure its useless. it replaces the above function which does nothing :D
 */
 t_link *make_link(t_room *from, t_room *to)
 {

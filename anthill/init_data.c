@@ -34,7 +34,7 @@ void		read_into_data(t_data **data)
 {
 	char		*line;
 
-	while (get_next_line(0, &line))
+	while (get_next_line(0, &line) > 0)
 	{
 		add_data_node(data, line);
 		free(line);

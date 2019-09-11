@@ -69,11 +69,14 @@ t_path		*map_path(t_room *end)
 
 	path = NULL;
 	append_to_path(&path, make_path_item(end));
+	ft_putendl("Mapping path");
 	while (end->parent)
 	{
 		append_to_path(&path, make_path_item(end->parent));
+		printf("%s -> ", end->parent->name);
 		end = end->parent;
 	}
+	printf("\n");
 	if (!end->is_start)
 		return (NULL);
 	return (path);
@@ -104,11 +107,42 @@ t_path *make_path_item(t_room *room)
 		return NULL;
 	new->next = NULL;
 	new->prev = NULL;
+	new->ants = NULL;
 	new->room = room;
 	return new;
 }
 
 
+void append_to_path(t_path **start, t_path *item)
+{
+	t_path *path;
+
+	path = *start;
+
+	if (!path)
+		*start = item;
+	else
+	{
+		while (path->next)
+			path = path->next;
+		path->next = item;
+		item->prev = path;
+	}
+}
+
+void	prepend_to_path(t_path **start, t_path *item)
+{
+	t_path *path;
+
+	path = *start;
+	if (!path)
+		*start = item;
+	else
+	{
+		item->next = path;
+		*start = item;
+	}
+}
 
 
 
@@ -244,22 +278,4 @@ t_room *get(t_room *start, char *name)
 */
 
 
-void append_to_path(t_path **start, t_path *item)
-{
-	t_path *path;
-
-	path = *start;
-
-	if (!path)
-	{
-		*start = item;
-	}
-	else
-	{
-		while (path->next)
-			path = path->next;
-		path->next = item;
-		item->prev = path;
-	}
-}
 

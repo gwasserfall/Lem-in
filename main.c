@@ -24,9 +24,17 @@ int main()
 		print_start_end_error();
 	index_rooms(&anthill);
 	display_input(&data);
+
+
+
+	// Get paths -- can return failure here if none are found
+	if (!(set_paths(anthill)))
+		return EXIT_FAILURE;
+
+
 	//display_output(&anthill);
 	free_data(&data);
 	// below need glens help
-	set_levels(anthill);
+	
 	return (1);
 }

@@ -40,7 +40,7 @@ void		read_loop(t_anthill *anthill, t_data **data)
 
 	link = 0;
 	current = (*data);
-	while (current->next)
+	while (current->next) // <<________AS_D_AS_DASOKDLQKWDN WTF!!!!>>!>!>! WHy skip the last one? lol took me a few hours to find
 	{
 		type = check_line(current->line);
 		if (type == 4)
@@ -74,19 +74,16 @@ void		read_loop(t_anthill *anthill, t_data **data)
 
 int			check_line(char *line)
 {
-	int		i;
-
-	i = 0;
-	if (line[i] == '#' && line[i + 1] != '#')
+	if (only_digit(line))
+		return (1);
+	else if (line[0] == '#' && line[1] != '#')
 		return (5);
-	else if (line[i] == '#' && line[i + 1] == '#')
+	else if (line[0] == '#' && line[1] == '#')
 		return (2);
 	else if (word_count(line, ' ', 0) == 3)
 		return (3);
 	else if (word_count(line, '-', 0) == 2)
 		return (4);
-	else if (only_digit(line) == 1)
-		return (1);
 	else
 		return (6);
 }
@@ -117,16 +114,16 @@ t_anthill	*init_anthill(void)
 ** checks if the only info in the line is digits.
 */
 
-int			only_digit(char *line)
+bool			only_digit(char *line)
 {
-	int		i;
+	int	i;
 
 	i = 0;
 	while (line[i] != '\0')
 	{
 		if (ft_isdigit(line[i]) == 0)
-			return (0);
+			return (false);
 		i++;
 	}
-	return (1);
+	return (true);
 }

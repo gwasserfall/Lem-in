@@ -60,8 +60,6 @@ void		pre_add_data(int type, char *line, t_anthill **anthill)
 */
 void		print_invalid_input(void)
 {
-		ft_putstr(RED);
-		ft_putendl("Invalid Input.");
-		ft_putstr(RESET);
+		ft_putendl(RED "Invalid Input." RESET);
 		exit(1);
 }

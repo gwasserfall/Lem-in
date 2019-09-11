@@ -28,6 +28,7 @@ void		verify_ants(char *line)
 		return ;
 	while (line[i] != '\0')
 	{
+		// TODO: This is a double check, not much impact but still
 		if (ft_isdigit(line[i]) == 1)
 			i++;
 		else
