@@ -1,4 +1,10 @@
 
+	
+	
+	
+	
+	
+	
 	t_room		*cursor;
 	cursor = anthill->linear;
 	printf("ANTS : %d\n", anthill->nb_ants);
@@ -20,6 +26,16 @@
 		cursor = cursor->next;
 	}
 	while (1);
+
+
+
+
+
+
+
+
+
+
 
 	t_link	*current;
 	current = anthill->connectors;

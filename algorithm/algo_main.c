@@ -1,6 +1,9 @@
 #include <lem_in.h>
 
-// We have find room by name so we need to remove this or that.
+/*
+** Does the same thing as get_room_by_name.
+*/
+
 t_room *get_room(t_anthill *anthill, char *name)
 {
 	t_room *cursor;
@@ -18,8 +21,11 @@ t_room *get_room(t_anthill *anthill, char *name)
 	return (NULL);
 }
 
-
-
+/*
+** Starts at end and then using a BFS logic will set each room a level
+** that is dependant on the amount of steps you will need to reach it from
+** that start room.
+*/
 
 bool set_levels(t_anthill *anthill)
 {
@@ -31,7 +37,6 @@ bool set_levels(t_anthill *anthill)
 	i = 1;
 	frontier = NULL;
 	reset_rooms(&anthill);
-	
 	append_list(&frontier, make_item(anthill->start));
 	while (frontier)
 	{
@@ -46,8 +51,6 @@ bool set_levels(t_anthill *anthill)
 				if (neighbour->room->level == -1 && !room_in_pathlist(anthill->paths, neighbour->room))
 				{
 					neighbour->room->level = i;
-					// printf("NAME : %s   - LEVEL : %d\n", neighbour->room->name, neighbour->room->level);
-					// printf("Setting %s to level : %d\n", neighbour->room->name, i);
 					neighbour->room->parent = frontier->room;
 					append_list(&next, make_item(neighbour->room));
 				}
@@ -58,9 +61,48 @@ bool set_levels(t_anthill *anthill)
 		i++;
 		frontier = next;
 	}
-	// ft_putendl("Got here");
 	return (append_to_pathlist(&anthill->paths, create_pathlist_item(map_path(anthill->end))));
 }
+
+/*
+** Now that the rooms has levels this will go and find all the valid paths
+** and add them to the pathlist struct *Does not include ##start-##end.
+*/
+
+bool set_paths(t_anthill *anthill)
+{
+	t_pathlist *paths;
+	t_path *path;
+	t_list *moves;
+	t_ant *ant;
+	int i = 0;
+	bool complete = false;
+	while ((set_levels(anthill)))
+		;
+	// Walk ants to death, i mean exit
+	while (i < anthill->nb_ants)
+		hatch_ant(anthill, 0, 0, ft_itoa(++i));
+	while (!ants_are_free(anthill))
+	{
+		paths = anthill->paths;
+		while (paths)
+		{
+			path = paths->path;
+			while (!path->room->is_start)
+			{
+				if ((ant = ant_here(anthill->colony, path->next->room)))
+					ant->current = path->room;
+				path = path->next;
+			}	
+			paths = paths->next;
+		}
+	}
+	return (1);
+}
+
+/*
+** Checks to see if all the ants are free, ie all the ants are in the ned room.
+*/
 
 bool ants_are_free(t_anthill * anthill)
 {
@@ -70,11 +112,15 @@ bool ants_are_free(t_anthill * anthill)
 	while (ant)
 	{
 		if (ant->current != anthill->end)
-			return false;
+			return (false);
 		ant = ant->next;
 	}
-	return true;
+	return (true);
 }
+
+/*
+** Puts the ant in the first room in the pathlist that is not the start room.
+*/
 
 t_ant	*ant_here(t_ant *colony, t_room *room)
 {
@@ -87,51 +133,5 @@ t_ant	*ant_here(t_ant *colony, t_room *room)
 			return (ant);
 		ant = ant->next;
 	}
-	return NULL;
-}
-
-bool set_paths(t_anthill *anthill)
-{
-	while ((set_levels(anthill)))
-		;
-
-	// Walk ants to death, i mean exit
-	int i = 0;
-	t_pathlist *paths;
-
-	while (i < anthill->nb_ants)
-	{
-		// ft_putendl("Hatching ant");
-		hatch_ant(anthill, 0, 0, ft_itoa(++i));
-	}
-
-	t_ant *ant;
-	bool complete = false;
-
-
-	t_path *path;
-	t_list *moves;
-
-	while (!ants_are_free(anthill))
-	{
-		paths = anthill->paths;
-		while (paths)
-		{
-			path = paths->path;
-			while (!path->room->is_start)
-			{
-				if ((ant = ant_here(anthill->colony, path->next->room)))
-				{
-					// printf("L%s-%s", ant->name, path->room->name);
-					ant->current = path->room;
-					// printf(" ");
-				}
-				path = path->next;
-			}
-			
-			paths = paths->next;
-		}
-		// printf("\n");
-	}
-	return 1;
+	return (NULL);
 }
