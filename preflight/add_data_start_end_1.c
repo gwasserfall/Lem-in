@@ -15,9 +15,10 @@
 /*
 ** Adds the name, x and y data to the room that is start
 */
-void        add_start_data(char *line, t_anthill **anthill)
-{	
-    add_data_start(line, anthill);
+
+void	add_start_data(char *line, t_anthill **anthill)
+{
+	add_data_start(line, anthill);
 	free(line);
 	get_next_line(0, &line);
 }
@@ -25,9 +26,10 @@ void        add_start_data(char *line, t_anthill **anthill)
 /*
 ** Adds the name, x and y data to the room that is end
 */
-void        add_end_data(char *line, t_anthill **anthill)
+
+void	add_end_data(char *line, t_anthill **anthill)
 {
- 		add_data_end(line, anthill);
-		free(line);
-		get_next_line(0, &line);
+	add_data_end(line, anthill);
+	free(line);
+	get_next_line(0, &line);
 }

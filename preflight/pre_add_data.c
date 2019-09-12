@@ -22,6 +22,7 @@
 **     : 5 == comment.
 **	   : 6 == error/invalid input.
 */
+
 void		pre_add_data(int type, char *line, t_anthill **anthill)
 {
 	if (type == 1)
@@ -58,8 +59,9 @@ void		pre_add_data(int type, char *line, t_anthill **anthill)
 /*
 ** Seriously bro, its just and error message..
 */
+
 void		print_invalid_input(void)
 {
-		ft_putendl(RED "Invalid Input." RESET);
-		exit(1);
+	ft_putendl(RED "Invalid Input." RESET);
+	exit(1);
 }

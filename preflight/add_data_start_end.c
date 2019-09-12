@@ -15,6 +15,7 @@
 /*
 ** Takes line and finds the start room then sets its name x and y position.
 */
+
 void	add_data_start(char *line, t_anthill **anthill)
 {
 	char	**data;
@@ -39,6 +40,7 @@ void	add_data_start(char *line, t_anthill **anthill)
 /*
 ** Takes line and finds the end room then sets its name x and y position.
 */
+
 void	add_data_end(char *line, t_anthill **anthill)
 {
 	char	**data;

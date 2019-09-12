@@ -17,6 +17,7 @@
 ** or it is incorrectly formatted or the number of ants is not given as the
 ** first line.
 */
+
 void		verify_ants(char *line)
 {
 	int		ants;
@@ -28,7 +29,7 @@ void		verify_ants(char *line)
 		return ;
 	while (line[i] != '\0')
 	{
-		// TODO: This is a double check, not much impact but still
+	// TODO: This is a double check, not much impact but still
 		if (ft_isdigit(line[i]) == 1)
 			i++;
 		else
@@ -36,21 +37,17 @@ void		verify_ants(char *line)
 	}
 	ants = ft_atoi(line);
 	if (ants == 0 || ants < 0)
-	{
-		ft_putstr(RED);
-		ft_putendl("No ants given or it is badly formatted.");
-		ft_putstr(RESET);
-		exit(1);
-	}
+		print_ant_error();
 }
 
 /*
 ** Seriousely bro, it just prints an error.
 */
+
 void		print_ant_error(void)
 {
-		ft_putstr(RED);
-		ft_putendl("No ants given or it is badly formatted.");
-		ft_putstr(RESET);
-		exit(1);
+	ft_putstr(RED);
+	ft_putendl("No ants given or it is badly formatted.");
+	ft_putstr(RESET);
+	exit(1);
 }

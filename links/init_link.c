@@ -15,7 +15,8 @@
 /*
 ** Initialize the link struct.
 */
-t_link      *init_link(void)
+
+t_link			*init_link(void)
 {
 	t_link	*new;
 
@@ -28,9 +29,11 @@ t_link      *init_link(void)
 }
 
 /*
-** MEH, Glens function idk what it does, pretty sure its useless. it replaces the above function which does nothing :D
+** MEH, Glens function idk what it does, pretty sure its useless.
+** it replaces the above function which does nothing :D
 */
-t_link *make_link(t_room *from, t_room *to)
+
+t_link			*make_link(t_room *from, t_room *to)
 {
 	t_link *new;
 
@@ -39,13 +42,14 @@ t_link *make_link(t_room *from, t_room *to)
 	new->from = from;
 	new->to = to;
 	new->next = NULL;
-	return new;
+	return (new);
 }
 
 /*
 ** adds the node new to the end of the linked list start.
 */
-void append_link(t_link **start, t_link *new)
+
+void			append_link(t_link **start, t_link *new)
 {
 	t_link *link;
 
@@ -71,7 +75,6 @@ void append_link(t_link **start, t_link *new)
 // 	line = ft_strsplit(str, '-');
 // 	from = get_room(ah, line[0]);
 // 	to = get_room(ah, line[1]);
-	
 // 	link = malloc(sizeof(t_link));
 // 	link->to = to;
 // 	link->from = from;

@@ -15,10 +15,11 @@
 /*
 ** This function will get the amount of rooms by checking each line for 3 words.
 ** (3 words for format of input means it must be a room with its co-ordinates).
-** 
+**
 ** Reads in a get next line loop and when it finds 3 words incriments
 ** room counter.
 */
+
 int		get_nb_rooms(void)
 {
 	char	*line;
@@ -45,6 +46,7 @@ int		get_nb_rooms(void)
 ** index : will always be 0 but needs to be passed so function has an
 **		   exit condition.
 */
+
 int		word_count(char *str, char delim, int index)
 {
 	int			count;

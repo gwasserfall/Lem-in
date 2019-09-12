@@ -25,13 +25,13 @@ t_anthill	*build_anthill(t_data **data)
 	if (anthill->nb_ants <= 0)
 		print_ant_error();
 	return (anthill);
-}	
-
+}
 
 /*
 ** Read loop reads from the data structs line variable and then adds information
 ** to the room struct.
 */
+
 void		read_loop(t_anthill *anthill, t_data **data)
 {
 	t_data	*current;
@@ -116,7 +116,7 @@ t_anthill	*init_anthill(void)
 ** checks if the only info in the line is digits.
 */
 
-bool			only_digit(char *line)
+bool		only_digit(char *line)
 {
 	int	i;
 

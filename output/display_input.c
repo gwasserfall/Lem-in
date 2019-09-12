@@ -15,6 +15,7 @@
 /*
 ** Displays all the data we have read in if there are no errors
 */
+
 void		display_input(t_data **data)
 {
 	t_data	*current;

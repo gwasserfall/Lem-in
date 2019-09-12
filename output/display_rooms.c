@@ -16,6 +16,7 @@
 ** Displays the rooms in the correct format
 ** MIGHT NOT NEED
 */
+
 void	display_rooms(t_anthill **anthill)
 {
 	t_room *current;
