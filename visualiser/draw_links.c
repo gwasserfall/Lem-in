@@ -102,9 +102,9 @@ void	draw_ants(t_state *s)
 					army->sprite = s->walk_right;
 				}
 			}
-			//SDL_RenderCopy(s->renderer, army->sprite->img, NULL, &r);
+			SDL_RenderCopy(s->renderer, army->sprite->img, NULL, &r);
 		}
-		SDL_RenderFillRect(s->renderer, &r);
+		//SDL_RenderFillRect(s->renderer, &r);
 		army = army->next;
 	}
 }

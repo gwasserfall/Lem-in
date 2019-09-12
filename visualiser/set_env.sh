@@ -14,5 +14,5 @@
 #     brew install SDL2_gfx
 # fi
 
-export LIBRARY_PATH="~/.brew/lib"
-export C_INCLUDE_PATH="~/.brew/include"
+export LIBRARY_PATH="/homes/gwasserf/.brew/lib"
+export C_INCLUDE_PATH="/homes/gwasserf/.brew/include"

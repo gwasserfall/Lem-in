@@ -40,21 +40,25 @@ void		optimise_paths(t_anthill **anthill)
 void		start_end_path(t_anthill **anthill)
 {
 	t_room		*start;
-	t_path		*check;
-	t_pathlist	*new;
-	int		i;
+	t_room		*end;
+	t_link		*link;
 
-	i = 0;
 	start = (*anthill)->start;
-	while (start->links[i] != '\0')
+	end = (*anthill)->end;
+
+	link = (*anthill)->connectors;
+
+	while (link)
 	{
-		if (start->links[i] == (*anthill)->end)
+		if (link->from == start && link->to == end)
 		{
-			check = make_path_item((*anthill)->start);
-			new = create_pathlist_item(check);
-			prepend_pathlist(anthill, new);
-			(*anthill)->nb_paths++;
+			prepend_pathlist(t_anthill **anthill, t_pathlist *to_add)
 		}
+		if (link->from == end && link->to == start)
+		{
+			prepend_pathlist(t_anthill **anthill, t_pathlist *to_add)
+		}
+		link = link->next;
 	}
 }
 
