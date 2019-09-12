@@ -46,7 +46,8 @@ bool set_levels(t_anthill *anthill)
 				if (neighbour->room->level == -1 && !room_in_pathlist(anthill->paths, neighbour->room))
 				{
 					neighbour->room->level = i;
-					printf("Setting %s to level : %d\n", neighbour->room->name, i);
+					// printf("NAME : %s   - LEVEL : %d\n", neighbour->room->name, neighbour->room->level);
+					// printf("Setting %s to level : %d\n", neighbour->room->name, i);
 					neighbour->room->parent = frontier->room;
 					append_list(&next, make_item(neighbour->room));
 				}
@@ -57,7 +58,7 @@ bool set_levels(t_anthill *anthill)
 		i++;
 		frontier = next;
 	}
-	ft_putendl("Got here");
+	// ft_putendl("Got here");
 	return (append_to_pathlist(&anthill->paths, create_pathlist_item(map_path(anthill->end))));
 }
 
@@ -100,7 +101,7 @@ bool set_paths(t_anthill *anthill)
 
 	while (i < anthill->nb_ants)
 	{
-		ft_putendl("Hatching ant");
+		// ft_putendl("Hatching ant");
 		hatch_ant(anthill, 0, 0, ft_itoa(++i));
 	}
 
@@ -121,16 +122,16 @@ bool set_paths(t_anthill *anthill)
 			{
 				if ((ant = ant_here(anthill->colony, path->next->room)))
 				{
-					printf("L%s-%s", ant->name, path->room->name);
+					// printf("L%s-%s", ant->name, path->room->name);
 					ant->current = path->room;
-					printf(" ");
+					// printf(" ");
 				}
 				path = path->next;
 			}
 			
 			paths = paths->next;
 		}
-		printf("\n");
+		// printf("\n");
 	}
 	return 1;
 }
