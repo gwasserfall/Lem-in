@@ -45,28 +45,29 @@ void		start_end_path(t_anthill **anthill)
 
 	start = (*anthill)->start;
 	end = (*anthill)->end;
-
 	link = (*anthill)->connectors;
 
 	while (link)
 	{
-		if (link->from == start && link->to == end)
+		if ((link->from == (*anthill)->start && link->to == (*anthill)->end)
+			|| (link->from == (*anthill)->end && link->to == (*anthill)->start))
 		{
-			prepend_pathlist(t_anthill **anthill, t_pathlist *to_add)
+			prepend_pathlist(anthill);
+			break ;
 		}
-		if (link->from == end && link->to == start)
-		{
-			prepend_pathlist(t_anthill **anthill, t_pathlist *to_add)
-		}
-		link = link->next;
 	}
 }
 
-void		prepend_pathlist(t_anthill **anthill, t_pathlist *to_add)
+void		prepend_pathlist(t_anthill **anthill)
 {
 	t_pathlist	*existing;
+	t_pathlist	*new_pathlist;
+	t_path		*new;
 
+	new = make_path_item((*anthill)->start);
+	new->next = (*anthill)->end;
+	new_pathlist = create_pathlist_item(new);
 	existing = (*anthill)->paths;
-	(*anthill)->paths = to_add;
-	to_add->next = existing;
+	(*anthill)->paths = new_pathlist;
+	new_pathlist->next = existing;
 }

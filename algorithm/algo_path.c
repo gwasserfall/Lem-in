@@ -113,7 +113,7 @@ t_path *make_path_item(t_room *room)
 	new->prev = NULL;
 	new->ants = NULL;
 	new->room = room;
-	return new;
+	return (new);
 }
 
 /*

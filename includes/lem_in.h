@@ -222,7 +222,7 @@ int						hatch_ant(t_anthill *anthill, int x, int y, char *name);
 void					prepend_to_path(t_path **start, t_path *item);
 void					optimise_paths(t_anthill **anthill);
 void					start_end_path(t_anthill **anthill);
-void					prepend_pathlist(t_anthill **anthill, t_pathlist *to_add);
+void					prepend_pathlist(t_anthill **anthill);
 bool 					ants_are_free(t_anthill * anthill);
 t_ant					*ant_here(t_ant *colony, t_room *room);
 
