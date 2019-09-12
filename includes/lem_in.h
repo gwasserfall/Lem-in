@@ -79,6 +79,7 @@ typedef struct			s_pathlist
 {
 	t_path				*path;
 	int					length;
+	bool				valid;
 	struct s_pathlist	*next;
 }						t_pathlist;
 
@@ -92,6 +93,7 @@ typedef struct			s_anthill
 	t_pathlist			*paths;
 	int					room_count;
 	int					nb_ants;
+	int					nb_paths;
 }						t_anthill;
 
 typedef struct			s_data
@@ -218,5 +220,10 @@ bool					set_paths(t_anthill *anthill);
 t_path					*make_path_item(t_room *room);
 int						hatch_ant(t_anthill *anthill, int x, int y, char *name);
 void					prepend_to_path(t_path **start, t_path *item);
+void					optimise_paths(t_anthill **anthill);
+void					start_end_path(t_anthill **anthill);
+void					prepend_pathlist(t_anthill **anthill, t_pathlist *to_add);
+bool 					ants_are_free(t_anthill * anthill);
+t_ant					*ant_here(t_ant *colony, t_room *room);
 
 #endif

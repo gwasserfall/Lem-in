@@ -69,14 +69,14 @@ t_path		*map_path(t_room *end)
 
 	path = NULL;
 	append_to_path(&path, make_path_item(end));
-	ft_putendl("Mapping path");
+	ft_putendl("Mapping p/ath");
 	while (end->parent)
 	{
 		append_to_path(&path, make_path_item(end->parent));
-		printf("%s -> ", end->parent->name);
+		// printf("%s -> ", end->parent->name);
 		end = end->parent;
 	}
-	printf("\n");
+	// printf("\n");
 	if (!end->is_start)
 		return (NULL);
 	return (path);
@@ -95,6 +95,7 @@ t_pathlist		*create_pathlist_item(t_path *path_start)
 		return (NULL);
 	new->path = path_start;
 	new->next = NULL;
+	new->valid = 1;
 	return (new);
 }
 

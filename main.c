@@ -27,6 +27,8 @@ int main(void)
 	// Get paths -- can return failure here if none are found
 	if (!(set_paths(anthill)))
 		return (EXIT_FAILURE);
+	optimise_paths(&anthill);
 	free_data(&data);
+	printf("PATHS : %d\n", anthill->nb_paths);
 	return (1);
 }
