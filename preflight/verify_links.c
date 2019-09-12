@@ -16,6 +16,7 @@
 ** checks to see that it has both a from room and a to room and that they both
 ** exist.
 */
+
 void		verify_links(char *line, t_anthill **anthill)
 {
 	char		**data;
@@ -35,6 +36,7 @@ void		verify_links(char *line, t_anthill **anthill)
 /*
 ** Seriousely bro, it just prints an error message.
 */
+
 void		print_error_link(void)
 {
 	ft_putstr(RED);

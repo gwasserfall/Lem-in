@@ -23,9 +23,6 @@ typedef struct			s_img
 
 }						t_img;
 
-
-
-
 typedef int roomtype;
 
 
@@ -147,7 +144,7 @@ void draw_stats(t_state *s);
 void	draw_ants(t_state *s);
 bool visited(t_path *path, t_room *room);
 
-void				join_colony(t_anthill *anthill, t_ant *larvae);
+void				join_colony(t_anthill **anthill, t_ant *larvae);
 int				hatch_ant(t_anthill *anthill, int x, int y, char *name);
 bool set_levels(t_state *s);
 

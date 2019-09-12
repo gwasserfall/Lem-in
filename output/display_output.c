@@ -15,9 +15,10 @@
 /*
 ** MIGHT NOT NEED, DUPLICATE OF THE DISPLAY INPUT FUCNTION
 */
-void		display_output(t_anthill **anthill)
-{
-	display_ants(anthill);
-	display_rooms(anthill);
-	// display_links(anthill);
-}
+
+// void		display_output(t_anthill **anthill)
+// {
+// 	display_ants(anthill);
+// 	display_rooms(anthill);
+// 	display_links(anthill);
+// }

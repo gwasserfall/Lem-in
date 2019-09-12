@@ -15,6 +15,7 @@
 /*
 ** Frees the linked list using the data structs.
 */
+
 void		free_data(t_data **data)
 {
 	t_data	*cursor;

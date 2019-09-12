@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lem_in.h"
+#include <lem_in.h>
 
-int main()
+int main(void)
 {
 	t_anthill	*anthill;
 	t_data		*data;
@@ -24,17 +24,11 @@ int main()
 		print_start_end_error();
 	index_rooms(&anthill);
 	display_input(&data);
-
-
-
 	// Get paths -- can return failure here if none are found
 	if (!(set_paths(anthill)))
-		return EXIT_FAILURE;
-
-
-	//display_output(&anthill);
+		return (EXIT_FAILURE);
+	optimise_paths(&anthill);
 	free_data(&data);
-	// below need glens help
-	
+	printf("PATHS : %d\n", anthill->nb_paths);
 	return (1);
 }

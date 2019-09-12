@@ -15,9 +15,10 @@
 /*
 ** Mallocs the data struct and sets all the variables to NULL
 */
+
 t_data		*init_data(void)
 {
-	t_data		*new;
+	t_data	*new;
 
 	if (!(new = malloc(sizeof(t_data))))
 		return (false);
@@ -30,9 +31,10 @@ t_data		*init_data(void)
 ** uses get_next_line and set the line variable in data to be the same as the
 ** line variable in the data struct
 */
+
 void		read_into_data(t_data **data)
 {
-	char		*line;
+	char	*line;
 
 	while (get_next_line(0, &line) > 0)
 	{
@@ -44,6 +46,7 @@ void		read_into_data(t_data **data)
 /*
 ** Adds a data node to the end of the current linked list using the data struct
 */
+
 void		add_data_node(t_data **data, char *line)
 {
 	t_data	*current;

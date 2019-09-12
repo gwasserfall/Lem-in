@@ -69,14 +69,14 @@ t_path		*map_path(t_room *end)
 
 	path = NULL;
 	append_to_path(&path, make_path_item(end));
-	ft_putendl("Mapping path");
+	ft_putendl("Mapping p/ath");
 	while (end->parent)
 	{
 		append_to_path(&path, make_path_item(end->parent));
-		printf("%s -> ", end->parent->name);
+		// printf("%s -> ", end->parent->name);
 		end = end->parent;
 	}
-	printf("\n");
+	// printf("\n");
 	if (!end->is_start)
 		return (NULL);
 	return (path);
@@ -95,9 +95,13 @@ t_pathlist		*create_pathlist_item(t_path *path_start)
 		return (NULL);
 	new->path = path_start;
 	new->next = NULL;
+	new->valid = 1;
 	return (new);
 }
 
+/*
+** Mallocs a path node and sets the paths room to the room given as an input.
+*/
 
 t_path *make_path_item(t_room *room)
 {
@@ -109,9 +113,12 @@ t_path *make_path_item(t_room *room)
 	new->prev = NULL;
 	new->ants = NULL;
 	new->room = room;
-	return new;
+	return (new);
 }
 
+/*
+** adds the path node called item to end of the path linked list given as start.
+*/
 
 void append_to_path(t_path **start, t_path *item)
 {
@@ -129,6 +136,9 @@ void append_to_path(t_path **start, t_path *item)
 		item->prev = path;
 	}
 }
+/*
+** adds the node passed as item to the from of the linked list passed as start.
+*/
 
 void	prepend_to_path(t_path **start, t_path *item)
 {
@@ -143,139 +153,3 @@ void	prepend_to_path(t_path **start, t_path *item)
 		*start = item;
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-** ASK GLEN.
-
-t_roomlist *make_item(t_room *room)
-{
-	t_roomlist *new;
-
-	if (!(new = malloc(sizeof(t_roomlist))))
-		return NULL;
-	new->next = NULL;
-	new->room = room;
-	return new;
-}
-
-t_link *make_link(t_room *from, t_room *to)
-{
-	t_link *new;
-
-	if (!(new = malloc(sizeof(t_link))))
-		return NULL;
-	new->from = from;
-	new->to = to;
-	new->next = NULL;
-	return new;
-}
-
-void append_link(t_link **start, t_link *new)
-{
-	t_link *link;
-
-	link = *start;
-	if (!link)
-	{
-		printf("t_debug->links was empty attaching link '%s'=>'%s'\n", new->from->name, new->to->name);
-		*start = new;
-	}
-	else
-	{
-		while (link->next)
-			link = link->next;
-		printf("Attaching link '%s'=>'%s'\n", new->from->name, new->to->name);
-		link->next = new;
-	}
-}
-
-t_room *make_room(char *name, bool start, bool end)
-{
-	t_room *new;
-
-	if (!(new = malloc(sizeof(t_room))))
-		return NULL;
-	new->name = ft_strdup(name);
-	new->is_end = end;
-	new->is_start = start;
-	new->next = NULL;
-	new->parent = NULL;
-	new->level = -1;
-	return new;
-}
-
-void	Iappend_room(t_room **start, t_room *new)
-{
-	t_room *room;
-
-	room = *start;
-
-	if (!room)
-	{
-		printf("t_debug->rooms was empty, attaching room '%s'\n", new->name);
-		*start = new;
-	}
-	else
-	{
-		while (room->next)
-			room = room->next;
-		printf("Room '%s' attached to '%s'\n", new->name, room->name);
-		room->next = new;
-	}
-}
-
-
-t_room *get(t_room *start, char *name)
-{
-	while (start)
-	{
-		if (!(ft_strcmp(start->name, name)))
-			return start;
-		start = start->next;
-	}
-	return NULL;
-}
-
-
-*/
-
-
-

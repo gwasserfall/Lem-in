@@ -6,7 +6,7 @@
 		{
 			"label": "build",
 			"type": "shell",
-			"command": "make -C visualiser"
+			"command": ". ./visualiser/set_env.sh && make -C visualiser"
 		},
 		{
 			"label": "build_lemon",

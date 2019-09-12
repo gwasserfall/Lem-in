@@ -17,7 +17,8 @@
 ** Returns (1) if start or (2) if end and (0) if no line or the
 ** identifier is unknown.
 */
-int			verify_start_and_end(char *line)
+
+int		verify_start_and_end(char *line)
 {
 	if (!line)
 		return (0);
@@ -32,10 +33,11 @@ int			verify_start_and_end(char *line)
 /*
 ** Seriousely bro, it just prints an error.
 */
+
 void	print_start_end_error(void)
 {
-		ft_putstr(RED);
-		ft_putendl("No Start or End room given.");
-		ft_putstr(RESET);
-		exit(1);
+	ft_putstr(RED);
+	ft_putendl("No Start or End room given.");
+	ft_putstr(RESET);
+	exit(1);
 }

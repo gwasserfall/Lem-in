@@ -1,4 +1,10 @@
 
+	
+	
+	
+	
+	
+	
 	t_room		*cursor;
 	cursor = anthill->linear;
 	printf("ANTS : %d\n", anthill->nb_ants);
@@ -8,17 +14,28 @@
 		// if (cursor->is_end == 1 || cursor->is_start == 1)
 		// {
 		printf("NAME : %s\n", cursor->name);
-		printf("X POS : %d\n", cursor->x);
-		printf("Y POS : %d\n", cursor->y);
+		printf("X POS : %f\n", cursor->x);
+		printf("Y POS : %f\n", cursor->y);
 		printf("IS_END : %d\n", cursor->is_end);
 		printf("IS_START : %d\n", cursor->is_start);
 		printf("INDEX : %d\n", cursor->index);
 		printf("LINK COUNT : %d\n", cursor->link_count);
+		printf("LEVEL : %d\n", cursor->level);
 		printf("\n\n");
 		// }
 		cursor = cursor->next;
 	}
 	while (1);
+
+
+
+
+
+
+
+
+
+
 
 	t_link	*current;
 	current = anthill->connectors;
