@@ -69,7 +69,7 @@ t_path		*map_path(t_room *end)
 
 	path = NULL;
 	append_to_path(&path, make_path_item(end));
-	ft_putendl("Mapping p/ath");
+	// ft_putendl("Mapping p/ath");
 	while (end->parent)
 	{
 		append_to_path(&path, make_path_item(end->parent));

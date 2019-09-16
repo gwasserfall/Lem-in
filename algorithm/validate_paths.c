@@ -55,6 +55,7 @@ void		start_end_path(t_anthill **anthill)
 			prepend_pathlist(anthill);
 			break ;
 		}
+		link = link->next;
 	}
 }
 
@@ -65,7 +66,7 @@ void		prepend_pathlist(t_anthill **anthill)
 	t_path		*new;
 
 	new = make_path_item((*anthill)->start);
-	new->next = (*anthill)->end;
+	new->next->room = (*anthill)->end;
 	new_pathlist = create_pathlist_item(new);
 	existing = (*anthill)->paths;
 	(*anthill)->paths = new_pathlist;
