@@ -30,5 +30,6 @@ int main(void)
 	optimise_paths(&anthill);
 	free_data(&data);
 	printf("PATHS : %d\n", anthill->nb_paths);
+	printf("KAELIN WAS HERE\n");
 	return (1);
 }
