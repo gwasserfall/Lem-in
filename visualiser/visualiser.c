@@ -43,7 +43,6 @@ void update_current_move(t_state *s)
 				}
 				moves = moves->next;
 			}
-			printf("Moving count == %d\n", moving);
 			if (!moving)
 			{
 				current->active = false;
@@ -53,7 +52,6 @@ void update_current_move(t_state *s)
 				}
 			}
 		}
-		
 		current = current->next;
 	}
 }
@@ -68,46 +66,6 @@ void	update_state(t_state *s)
 	{
 		if (army->following)
 			update_ant_position(army);
-
-		// if (army->path)
-		// {
-		// 	if (!(army->x > army->following->x))
-		// 	{
-				
-		// 		army->is_moving = false;
-			
-		// 		diffy = (army->following->y - army->current->y);
-		// 		diffx = (army->following->x - army->current->x);
-		// 		gradient = diffy / diffx;
-		// 		distance = pow((pow(diffy, 2.0) + pow(diffx, 2.0)), 0.5);
-				
-		// 		// printf("distance : %lf\n", distance);
-		// 		// printf("gradient : %lf\n", gradient);
-		// 		// printf("differy  : %lf\n", diffy);
-		// 		// printf("differx  : %lf\n", diffx);
-		// 		// printf("current: %s-x : %lf\n", army->current->name, army->current->x);
-		// 		// printf("current: %s-y : %lf\n", army->current->name, army->current->y);
-		// 		// printf("following: %s-x : %lf\n", army->following->name, army->following->x);
-		// 		// printf("following: %s-y : %lf\n", army->following->name, army->following->y);
-		// 		// printf("\n");
-		// 		army->x += 0.05 * 0.6;
-		// 		army->y += gradient * 0.05 * 0.6;
-		// 	}
-		// 	else
-		// 	{
-		// 		if (army->path->prev)
-		// 		{
-		// 			army->current = army->following;
-		// 			army->following = army->path->room;
-		// 		}
-		// 		else
-		// 		{
-		// 			army->current = army->following;
-		// 			army->following = s->anthill->end;
-		// 		}
-		// 	}
-			
-		// }
 		army = army->next;
 	}
 }
