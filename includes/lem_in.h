@@ -247,5 +247,8 @@ void print_move_list(t_moves *moves);
 void	append_move(t_moves **start, t_moves *new);
 t_moves	*make_move(t_ant *ant, t_room *from, t_room *to);
 void	create_colony(t_anthill *anthill);
+void	set_path_length(t_anthill *anthill);
+void		order_paths(t_anthill *anthill);
+void	swap(t_pathlist *first, t_pathlist *second);
 
 #endif
