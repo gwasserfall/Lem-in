@@ -64,3 +64,21 @@ void		add_data_node(t_data **data, char *line)
 		current->next = new;
 	}
 }
+
+void	set_path_length(t_anthill *anthill)
+{
+	t_pathlist	*current_path;
+	t_path		*current;
+
+	current_path =  anthill->paths;
+	while (current_path)
+	{
+		current = current_path->path;
+		while (current)
+		{
+			current_path->length++;
+			current = current->next;
+		}
+		current_path = current_path->next;
+	}
+}

@@ -30,9 +30,16 @@ int main(void)
 	{
 		create_colony(anthill);
 		optimise_paths(&anthill);
-		create_move_list(anthill);
-		print_move_list(anthill->moves);
+		set_path_length(anthill);
+		order_paths(anthill);
+		// create_move_list(anthill);
 	}
 	free_data(&data);
+	t_pathlist	*current = anthill->paths;
+while (current)
+{
+	printf("PATH LENGTH : %d\n", current->length);
+	current = current->next;
+}
 	return (1);
 }

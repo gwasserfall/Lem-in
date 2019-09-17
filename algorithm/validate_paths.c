@@ -60,3 +60,26 @@ void		check_start_end_path(t_anthill **anthill)
 		link = link->next;
 	}
 }
+
+void		order_paths(t_anthill *anthill)
+{
+	t_pathlist	*current;
+	t_pathlist	*temp;
+	t_pathlist	*next_temp;
+
+	current = anthill->paths;
+	while (current->next)
+	{
+		if (current->length > current->next->length)
+		{
+			temp = current;
+			next_temp = current->next;
+			temp->next = current->next->next;
+			next_temp->next = current;
+			current = next_temp;
+			
+
+		}
+		current = current->next;
+	}
+}

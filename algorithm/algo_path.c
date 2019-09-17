@@ -96,6 +96,7 @@ t_pathlist		*create_pathlist_item(t_path *path_start)
 	new->path = path_start;
 	new->next = NULL;
 	new->valid = 1;
+	new->length = 0;
 	return (new);
 }
 
