@@ -18,13 +18,7 @@ void		optimise_paths(t_anthill **anthill)
 	t_path		*current_path;
 
 	current = (*anthill)->paths;
-	start_end_path(anthill);
-	while (current)
-	{
-		(*anthill)->nb_paths++;
-		current = current->next;
-	}
-	current = (*anthill)->paths;
+	check_start_end_path(anthill);
 	while (current)
 	{
 		current_path = current->path;
@@ -37,7 +31,18 @@ void		optimise_paths(t_anthill **anthill)
 	}
 }
 
-void		start_end_path(t_anthill **anthill)
+
+void		add_start_end_pathlist(t_anthill **anthill)
+{
+	t_path		*new;
+
+	new = NULL;
+	append_to_path(&new, make_path_item((*anthill)->end));
+	append_to_path(&new, make_path_item((*anthill)->start));
+	append_to_pathlist(&(*anthill)->paths, create_pathlist_item(new));
+}
+
+void		check_start_end_path(t_anthill **anthill)
 {
 	t_room		*start;
 	t_room		*end;
@@ -49,25 +54,9 @@ void		start_end_path(t_anthill **anthill)
 
 	while (link)
 	{
-		if ((link->from == (*anthill)->start && link->to == (*anthill)->end)
-			|| (link->from == (*anthill)->end && link->to == (*anthill)->start))
-		{
-			prepend_pathlist(anthill);
-			break ;
-		}
+		if ((link->from == start && link->to == end)
+			|| (link->from == end && link->to == start))
+			return add_start_end_pathlist(anthill);
+		link = link->next;
 	}
-}
-
-void		prepend_pathlist(t_anthill **anthill)
-{
-	t_pathlist	*existing;
-	t_pathlist	*new_pathlist;
-	t_path		*new;
-
-	new = make_path_item((*anthill)->start);
-	new->next = (*anthill)->end;
-	new_pathlist = create_pathlist_item(new);
-	existing = (*anthill)->paths;
-	(*anthill)->paths = new_pathlist;
-	new_pathlist->next = existing;
 }

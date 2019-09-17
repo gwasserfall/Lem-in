@@ -26,4 +26,5 @@ void		display_input(t_data **data)
 		ft_putendl(current->line);
 		current = current->next;
 	}
+	ft_putendl("");
 }

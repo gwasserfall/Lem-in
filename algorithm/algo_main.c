@@ -47,7 +47,10 @@ bool set_levels(t_anthill *anthill)
 			while (neighbour)
 			{
 				if (neighbour->room->is_end && frontier->room->is_start)
+				{
 					neighbour = neighbour->next;
+					continue;
+				}
 				if (neighbour->room->level == -1 && !room_in_pathlist(anthill->paths, neighbour->room))
 				{
 					neighbour->room->level = i;
@@ -61,7 +64,8 @@ bool set_levels(t_anthill *anthill)
 		i++;
 		frontier = next;
 	}
-	return (append_to_pathlist(&anthill->paths, create_pathlist_item(map_path(anthill->end))));
+	return (append_to_pathlist(&anthill->paths, 
+		create_pathlist_item(map_path(anthill->end))));
 }
 
 /*
@@ -69,19 +73,23 @@ bool set_levels(t_anthill *anthill)
 ** and add them to the pathlist struct *Does not include ##start-##end.
 */
 
-bool set_paths(t_anthill *anthill)
+void	create_colony(t_anthill *anthill)
+{
+	int i;
+
+	i = 0;
+	while (i < anthill->nb_ants)
+		hatch_ant(anthill, ft_itoa(++i));
+}
+
+
+bool create_move_list(t_anthill *anthill)
 {
 	t_pathlist *paths;
 	t_path *path;
 	t_list *moves;
 	t_ant *ant;
-	int i = 0;
-	bool complete = false;
-	while ((set_levels(anthill)))
-		;
-	// Walk ants to death, i mean exit
-	while (i < anthill->nb_ants)
-		hatch_ant(anthill, 0, 0, ft_itoa(++i));
+	
 	while (!ants_are_free(anthill))
 	{
 		paths = anthill->paths;
@@ -91,11 +99,15 @@ bool set_paths(t_anthill *anthill)
 			while (!path->room->is_start)
 			{
 				if ((ant = ant_here(anthill->colony, path->next->room)))
+				{
 					ant->current = path->room;
+					append_move(&anthill->moves, make_move(ant, path->room, path->room));
+				}
 				path = path->next;
-			}	
+			}
 			paths = paths->next;
 		}
+		append_move(&anthill->moves, make_move(NULL, NULL, NULL));
 	}
 	return (1);
 }

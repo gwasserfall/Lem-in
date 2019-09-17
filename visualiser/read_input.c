@@ -9,7 +9,6 @@
 #define MOVE 7
 #define EMPTY 8
 
-
 t_anthill	*init_anthill(void)
 {
 	t_anthill	*anthill;
@@ -21,6 +20,7 @@ t_anthill	*init_anthill(void)
 	anthill->colony = NULL;
 	anthill->start = NULL;
 	anthill->nb_ants = 0;
+	anthill->movelist = NULL;
 	anthill->connectors = NULL;
 	anthill->end = NULL;
 	return (anthill);
@@ -79,9 +79,9 @@ int	identify_line(char *line)
 		return COMMENT;
 	else if (int_string(line))
 		return ANT_COUNT;
-	else if (ft_strchr(line, ' ') != NULL)
+	else if (ft_strchr(line, ' ') && line[0] != 'L')
 		return ROOM;
-	else if (ft_strchr(line, '-') != NULL)
+	else if (ft_strchr(line, '-') && line[0] != 'L')
 		return LINK;
 	else if (line[0] == 'L')
 		return MOVE;
@@ -224,29 +224,8 @@ void	move(t_path **callback, t_path *path, t_room *from, t_room *to)
 	}
 }
 
-void traverse_anthill(t_anthill *anthill)
-{
-	printf("Start links to %d rooms\n", anthill->start->link_count);
-	printf("End links to %d rooms\n", anthill->end->link_count);
-
-	t_path *path = append_path(NULL, anthill->start);
-	t_path *valid_path;
-
-	move(&valid_path, path, NULL, anthill->start);
-	
-	printf("Valid Path? %s\n", (valid_path) ? "Yes" : "No");
-
-	while (valid_path)
-	{
-		printf("%s --> \n", valid_path->room->name);
-		valid_path = valid_path->next;
-	}
-	printf("\n");
-}
-
 void	assign_ants(t_anthill *anthill, char *str)
 {
-	char **line;
 	int i;
 
 	anthill->nb_ants = ft_atoi(str);
@@ -254,9 +233,52 @@ void	assign_ants(t_anthill *anthill, char *str)
 	i = 0;
 	while (i < anthill->nb_ants)
 	{
-		hatch_ant(anthill, 0, 0, "name_here");
+		hatch_ant(anthill, 0, 0, ft_itoa(i + 1));
 		i++;
 	}
+}
+
+t_movelist *make_movelist_item(t_moves *moves)
+{
+	t_movelist *new;
+
+	if (!(new = malloc(sizeof(t_movelist))))
+		return (NULL);
+	new->next = NULL;
+	new->active = false;
+	new->complete = false;
+	new->moves = moves;
+	return (new);
+}
+
+void	append_to_movelist(t_movelist **start, t_movelist *new)
+{
+	t_movelist *mvlist;
+
+	mvlist = *start;
+	if (!mvlist)
+		*start = new;
+	else
+	{
+		while (mvlist->next)
+			mvlist = mvlist->next;
+		mvlist->next = new;
+	}
+}
+
+void	assign_move(t_anthill *anthill, char *str)
+{
+	char **line;
+	int i;
+	t_moves *moves;
+
+	moves = NULL;
+	line = ft_strsplit(str, ' ');
+	i = 0;
+	while (line[i])
+		append_move(&moves, deserialise_move(anthill, line[i++]));
+	append_to_movelist(&anthill->movelist, make_movelist_item(moves));
+	// TODO free line
 }
 
 t_anthill  *get_infos()
@@ -273,9 +295,9 @@ t_anthill  *get_infos()
 	while (get_next_line(0, &line) > 0)
 	{
 		line_type = identify_line(line);
-		if (line_type == IDENT && ft_strchr(line, 'e') != NULL)
+		if (line_type == IDENT && ft_strchr(line, 'e'))
 			next_end = true;
-		else if (line_type == IDENT && ft_strchr(line, 's') != NULL)
+		else if (line_type == IDENT && ft_strchr(line, 's'))
 			next_start = true;
 		else if (line_type == ROOM)
 			assign_room(anthill, line, &next_start, &next_end);
@@ -283,6 +305,8 @@ t_anthill  *get_infos()
 		 	assign_link(anthill, line);
 		else if (line_type == ANT_COUNT)
 			assign_ants(anthill, line);
+		else if (line_type == MOVE)
+			assign_move(anthill, line);
 		free(line);
 	}
 	return(anthill);

@@ -83,19 +83,6 @@ typedef struct			s_pathlist
 	struct s_pathlist	*next;
 }						t_pathlist;
 
-typedef struct			s_anthill
-{
-	t_room				*linear;
-	t_room				*start;
-	t_room				*end;
-	t_link				*connectors;
-	t_ant				*colony;
-	t_pathlist			*paths;
-	int					room_count;
-	int					nb_ants;
-	int					nb_paths;
-}						t_anthill;
-
 typedef struct			s_data
 {
 	char				*line;
@@ -107,6 +94,34 @@ typedef struct			s_roomlist
 	t_room				*room;
 	struct s_roomlist	*next;
 }						t_roomlist;
+
+typedef struct			s_moves
+{
+	struct s_moves		*next;
+	t_ant				*ant;
+	t_room				*from;
+	t_room				*to;
+}						t_moves;
+
+typedef struct			s_movelist
+{
+	struct s_movelist	*next;
+	t_moves				*moves;
+}						t_movelist;
+
+typedef struct			s_anthill
+{
+	t_room				*linear;
+	t_room				*start;
+	t_room				*end;
+	t_link				*connectors;
+	t_ant				*colony;
+	t_pathlist			*paths;
+	t_moves				*moves;
+	int					room_count;
+	int					nb_ants;
+	int					nb_paths;
+}						t_anthill;
 
 /*
 ** Debug
@@ -218,12 +233,19 @@ t_pathlist				*create_pathlist_item(t_path *path_start);
 */
 bool					set_paths(t_anthill *anthill);
 t_path					*make_path_item(t_room *room);
-int						hatch_ant(t_anthill *anthill, int x, int y, char *name);
+int						hatch_ant(t_anthill *anthill, char *name);
 void					prepend_to_path(t_path **start, t_path *item);
 void					optimise_paths(t_anthill **anthill);
-void					start_end_path(t_anthill **anthill);
+void					check_start_end_path(t_anthill **anthill);
 void					prepend_pathlist(t_anthill **anthill);
 bool 					ants_are_free(t_anthill * anthill);
 t_ant					*ant_here(t_ant *colony, t_room *room);
+bool					create_move_list(t_anthill *anthill);
+
+
+void print_move_list(t_moves *moves);
+void	append_move(t_moves **start, t_moves *new);
+t_moves	*make_move(t_ant *ant, t_room *from, t_room *to);
+void	create_colony(t_anthill *anthill);
 
 #endif

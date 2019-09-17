@@ -32,9 +32,11 @@ void draw_links(t_state *s)
 	}
 }
 
+
 void draw_nodes(t_state *s)
 {
 	t_room *room;
+	SDL_Rect r;
 
 	room = s->anthill->linear;
 
@@ -42,6 +44,10 @@ void draw_nodes(t_state *s)
 
 	while (room)
 	{
+		r.x = X(s, room->x) - 50;
+		r.y = Y(s, room->y) - 15;
+		r.h = 30;
+		r.w = 100;
 		if (room->is_start)
 		{
 			stringRGBA(s->renderer, X(s, room->x) + 5, Y(s, room->y) - 24, "START", 255, 255, 255, 255);
@@ -55,9 +61,8 @@ void draw_nodes(t_state *s)
 		else
 		{
 			stringRGBA(s->renderer, X(s, room->x) + 5, Y(s, room->y) - 24, room->name, 255, 255, 255, 255);
-			filledCircleRGBA(s->renderer, X(s, room->x), Y(s, room->y), 10, 255, 255, 0, 255);
+			SDL_RenderCopy(s->renderer, s->room_sprite, NULL, &r);
 		}
-		//stringRGBA(s->renderer, X(s, room->x) - 3, Y(s, room->y) - 3, ft_itoa(room->level), 0, 0, 0, 255);
 		room = room->next;
 	}
 }
@@ -84,8 +89,6 @@ void	draw_ants(t_state *s)
 	{
 		r.x = X(s, army->x) - SPRITE_W / 2;
 		r.y = Y(s, army->y) - SPRITE_H;
-		// r.h = 38;
-		// r.w = 28;
 		r.h = SPRITE_H;
 		r.w = SPRITE_W;
 		
@@ -93,7 +96,7 @@ void	draw_ants(t_state *s)
 		{
 			if (s->frame % 5 == 0)
 			{
-				if (army->sprite->next)
+				if (army->sprite && army->sprite->next)
 				{
 					army->sprite = army->sprite->next;
 				}
@@ -104,7 +107,6 @@ void	draw_ants(t_state *s)
 			}
 			SDL_RenderCopy(s->renderer, army->sprite->img, NULL, &r);
 		}
-		//SDL_RenderFillRect(s->renderer, &r);
 		army = army->next;
 	}
 }

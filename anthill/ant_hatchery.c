@@ -14,18 +14,13 @@ void	join_colony(t_anthill **anthill, t_ant *larvae)
 	}
 }
 
-int		hatch_ant(t_anthill *anthill, int x, int y, char *name)
+int		hatch_ant(t_anthill *anthill, char *name)
 {
 	t_ant *egg;
 
 	if (!(egg = malloc(sizeof(t_ant))))
 		return (0);
-	egg->x = x;
-	egg->y = y;
-	egg->is_moving = false;
-	egg->path = NULL;
 	egg->next = NULL;
-	//egg->sprite = NULL;
 	egg->following = NULL;
 	egg->current = anthill->start;
 	egg->name = ft_strdup(name);

@@ -66,19 +66,19 @@ bool	append_to_pathlist(t_pathlist **start, t_pathlist *item)
 t_path		*map_path(t_room *end)
 {
 	t_path *path;
-
+	t_room *check;
+	check = end;
+	while (check->parent)
+		check = check->parent;
+	if (!check->is_start)
+		return (NULL); 
 	path = NULL;
 	append_to_path(&path, make_path_item(end));
-	ft_putendl("Mapping p/ath");
 	while (end->parent)
 	{
 		append_to_path(&path, make_path_item(end->parent));
-		// printf("%s -> ", end->parent->name);
 		end = end->parent;
 	}
-	// printf("\n");
-	if (!end->is_start)
-		return (NULL);
 	return (path);
 }
 

@@ -23,7 +23,7 @@ void	reset_rooms(t_anthill **anthill)
 
 	while (room)
 	{
-		printf("Resetting room %s\n", room->name);
+		//printf("Resetting room %s\n", room->name);
 		room->parent = NULL;
 		room->level = -1;
 		if (room->is_start)

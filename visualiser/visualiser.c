@@ -1,87 +1,113 @@
 #include "visualiser.h"
 #include <math.h>
 
-t_state *init_state()
+void	place_ants_on_start(t_state *s)
 {
-	t_state *state;
+	t_ant *ant;
 
-	state = malloc(sizeof(t_state));
+	ant = s->anthill->colony;
+	while (ant)
+	{
+		ant->x = s->anthill->start->x;
+		ant->y = s->anthill->start->y;
+		ant->sprite = s->walk_right;
+		ant->current = s->anthill->start;
+		ant = ant->next;
+	}
+}
 
-	state->window = NULL;
-	state->renderer = NULL;
-	state->running = false;
-	state->width = 0;
-	state->height = 0;
-	state->frame = 0;
-	state->path = NULL;
-	state->paths = NULL;
-	state->click = false;
-	state->rect = malloc(sizeof(SDL_Rect));
-	state->zoom = ZOOM_DEFAULT;
-	state->offset_x = 0;
-	state->offset_y = 0;
-	state->walk_left = NULL;
-	state->walk_right = NULL;
 
-	return state;
+void update_current_move(t_state *s)
+{
+	t_movelist	*current;
+	t_moves		*moves;
+
+	int moving = 0;
+	
+	current = s->anthill->movelist;
+
+	while (current)
+	{
+		if (current->active)
+		{
+			moves = current->moves;
+			while (moves)
+			{
+				moves->ant->following = moves->to;
+				moving++;
+				if (moves->ant->x > moves->ant->following->x)
+				{
+					moves->ant->current = moves->ant->following;
+					moves->ant->following = NULL;
+					moving--;
+				}
+				moves = moves->next;
+			}
+			printf("Moving count == %d\n", moving);
+			if (!moving)
+			{
+				current->active = false;
+				if (current->next)
+				{
+					current->next->active = true;
+				}
+			}
+		}
+		
+		current = current->next;
+	}
 }
 
 void	update_state(t_state *s)
 {
 	t_ant *army;
 
-	double gradient;
-	double distance;
-	double diffx;
-	double diffy;
-
+	update_current_move(s);
 	army = s->anthill->colony;
 	while (army)
 	{
-		if (!army->x)
-			army->x = s->anthill->start->x;
-		if (!army->y)
-			army->y = s->anthill->start->y;
+		if (army->following)
+			update_ant_position(army);
 
-		if (army->path)
-		{
-			if (!(army->x > army->following->x))
-			{
+		// if (army->path)
+		// {
+		// 	if (!(army->x > army->following->x))
+		// 	{
 				
-				army->is_moving = false;
+		// 		army->is_moving = false;
 			
-				diffy = (army->following->y - army->current->y);
-				diffx = (army->following->x - army->current->x);
-				gradient = diffy / diffx;
-				distance = pow((pow(diffy, 2.0) + pow(diffx, 2.0)), 0.5);
+		// 		diffy = (army->following->y - army->current->y);
+		// 		diffx = (army->following->x - army->current->x);
+		// 		gradient = diffy / diffx;
+		// 		distance = pow((pow(diffy, 2.0) + pow(diffx, 2.0)), 0.5);
 				
-				printf("distance : %lf\n", distance);
-				printf("gradient : %lf\n", gradient);
-				printf("differy  : %lf\n", diffy);
-				printf("differx  : %lf\n", diffx);
-				printf("current: %s-x : %lf\n", army->current->name, army->current->x);
-				printf("current: %s-y : %lf\n", army->current->name, army->current->y);
-				printf("following: %s-x : %lf\n", army->following->name, army->following->x);
-				printf("following: %s-y : %lf\n", army->following->name, army->following->y);
-				printf("\n");
-				army->x += 0.05  * 0.6;
-				army->y += gradient * 0.05 * 0.6;
-			}
-			else
-			{
-				if (army->path->prev)
-				{
-					army->current = army->following;
-					army->following = army->path->room;
-				}
-				else
-				{
-					army->current = army->following;
-					army->following = s->anthill->end;
-				}
-			}
+		// 		// printf("distance : %lf\n", distance);
+		// 		// printf("gradient : %lf\n", gradient);
+		// 		// printf("differy  : %lf\n", diffy);
+		// 		// printf("differx  : %lf\n", diffx);
+		// 		// printf("current: %s-x : %lf\n", army->current->name, army->current->x);
+		// 		// printf("current: %s-y : %lf\n", army->current->name, army->current->y);
+		// 		// printf("following: %s-x : %lf\n", army->following->name, army->following->x);
+		// 		// printf("following: %s-y : %lf\n", army->following->name, army->following->y);
+		// 		// printf("\n");
+		// 		army->x += 0.05 * 0.6;
+		// 		army->y += gradient * 0.05 * 0.6;
+		// 	}
+		// 	else
+		// 	{
+		// 		if (army->path->prev)
+		// 		{
+		// 			army->current = army->following;
+		// 			army->following = army->path->room;
+		// 		}
+		// 		else
+		// 		{
+		// 			army->current = army->following;
+		// 			army->following = s->anthill->end;
+		// 		}
+		// 	}
 			
-		}
+		// }
 		army = army->next;
 	}
 }
@@ -173,16 +199,6 @@ void	render_state(t_state *s)
 	// Draw ants
 	draw_ants(s);
 
-	// Draw current path
-
-
-	// Debug frame counter
-	
-	
-
-	// Devy
-	//draw_links_list(s);
-	
 
 	//SDL_RenderFillRect(s->renderer, s->rect);
 	SDL_SetRenderDrawColor(s->renderer, 0, 0, 0, 255);
@@ -197,6 +213,8 @@ void change_zoom(t_state *s, int z)
 		s->zoom--;
 	if (z > 0)
 		s->zoom++;
+	if (s->zoom < 0)
+		s->zoom = 0;
 }
 
 void handle_events(t_state *s)
@@ -205,13 +223,13 @@ void handle_events(t_state *s)
 	{
 		if (s->event.type == SDL_QUIT)
 			s->running = false;
-		if (s->event.type == SDL_KEYDOWN)
-		{
-			if (s->event.key.keysym.sym == SDLK_w)
-				change_zoom(s, -1);
-			if (s->event.key.keysym.sym == SDLK_a)
-				change_zoom(s, 1);
-		}
+		// if (s->event.type == SDL_KEYDOWN)
+		// {
+		// 	if (s->event.key.keysym.sym == SDLK_w)
+		// 		change_zoom(s, -1);
+		// 	if (s->event.key.keysym.sym == SDLK_a)
+		// 		change_zoom(s, 1);
+		// }
 		if(s->event.type == SDL_MOUSEWHEEL)
 		{
 			if(s->event.wheel.y > 0)
@@ -228,12 +246,8 @@ void handle_events(t_state *s)
 			}
 		}
 		if (s->event.type == SDL_MOUSEBUTTONDOWN)
-		{
 			if (s->event.button.button == SDL_BUTTON_LEFT)
-			{
 				s->click = true;	
-			}
-		}
 		if (s->click)
 		{
 			if (s->event.type == SDL_MOUSEMOTION)
@@ -243,84 +257,12 @@ void handle_events(t_state *s)
 			}
 		}
 		if (s->event.type == SDL_MOUSEBUTTONUP)
-		{
 			s->click = false;
-		}
 	}
 }
 
-t_img	*make_sprite(t_state *s, char *filename)
+void animation_loop(t_state *state)
 {
-	t_img *new;
-
-	if (!(new = malloc(sizeof(t_img))))
-		return NULL;
-	new->img = IMG_LoadTexture(s->renderer, filename);
-	new->next = NULL;
-	return new;
-}
-
-void	append_sprite(t_img **start, t_img *new)
-{
-	t_img *sprite;
-
-	sprite = *start;
-	if (!sprite)
-		*start = new;
-	else
-	{
-		while (sprite->next)
-			sprite = sprite->next;
-		sprite->next = new;
-	}
-}
-
-int main(void)
-{
-	t_state *state = init_state();
-	state->anthill = get_infos();
-
-	SDL_Init(SDL_INIT_EVERYTHING);
-	//IMG_Init(IMG_INIT_PNG);
-
-	state->window = SDL_CreateWindow("Lem-in", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1280, 960, SDL_WINDOW_SHOWN);
-	state->renderer = SDL_CreateRenderer(state->window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
-	state->running = true;
-
-	state->path = malloc(sizeof(t_path));
-	state->path->room = state->anthill->start;
-	state->path->index = 0;
-	state->path->next = NULL;
-	state->path->prev = NULL;
-
-	SDL_SetRenderDrawColor(state->renderer, 0, 0, 0, 255);
-	SDL_RenderClear(state->renderer);
-	SDL_RenderPresent(state->renderer);
-
-	while (set_levels(state));
-
-	append_sprite(&state->walk_right, make_sprite(state, "walk_cycle01.png"));
-	append_sprite(&state->walk_right, make_sprite(state, "walk_cycle02.png"));
-	append_sprite(&state->walk_right, make_sprite(state, "walk_cycle03.png"));
-	append_sprite(&state->walk_right, make_sprite(state, "walk_cycle04.png"));
-	append_sprite(&state->walk_right, make_sprite(state, "walk_cycle05.png"));
-	append_sprite(&state->walk_right, make_sprite(state, "walk_cycle06.png"));
-	append_sprite(&state->walk_right, make_sprite(state, "walk_cycle07.png"));
-	append_sprite(&state->walk_right, make_sprite(state, "walk_cycle08.png"));
-	//append_sprite(&state->walk_right, make_sprite(state, "walk_cycle09.png"));
-
-	state->anthill->colony->current = state->anthill->start;
-	state->anthill->colony->following = state->paths->path->next->next->room;
-	state->anthill->colony->path = state->paths->path;
-	state->anthill->colony->sprite = state->walk_right;
-
-	state->anthill->colony->next->current = state->anthill->start;
-	state->anthill->colony->next->following = state->paths->next->path->next->next->room;
-	state->anthill->colony->next->path = state->paths->next->path;
-	state->anthill->colony->next->sprite = state->walk_right;
-
-	state->background = IMG_LoadTexture(state->renderer, "./background.png");
-
 	int start;
     int time;
     int sleepTime;
@@ -343,13 +285,39 @@ int main(void)
 
 		sleepTime = 16 - time;
 		if (sleepTime > 0)
-    	{
         	SDL_Delay(sleepTime);
-    	}
 		if (state->frame > 60)
-		{
 			state->frame = 0;
-		}
 		state->frame++;
 	}
+}
+
+int main(void)
+{
+	t_state *state = init_state();
+	state->anthill = get_infos();
+
+	SDL_Init(SDL_INIT_EVERYTHING);
+
+	state->window = SDL_CreateWindow("Lem-in", 
+		SDL_WINDOWPOS_CENTERED, 
+		SDL_WINDOWPOS_CENTERED, 
+		1280, 960, 
+		SDL_WINDOW_SHOWN);
+	state->renderer = SDL_CreateRenderer(state->window, -1,
+	 	SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+	state->running = true;
+
+	SDL_SetRenderDrawColor(state->renderer, 0, 0, 0, 255);
+	SDL_RenderClear(state->renderer);
+	SDL_RenderPresent(state->renderer);
+
+	while (set_levels(state))
+		state->anthill->path_count++;
+
+	load_all_images(state);
+	place_ants_on_start(state);
+	
+	state->anthill->movelist->active = true;
+	animation_loop(state);
 }

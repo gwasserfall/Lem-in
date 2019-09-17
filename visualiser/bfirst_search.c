@@ -238,7 +238,7 @@ bool set_levels(t_state *s)
 	reset_rooms(s);
 	t_roomlist *frontier = NULL;
 
-	s->anthill->start->level = 0;
+	//s->anthill->start->level = 0;
 
 	append_list(&frontier, make_item(s->anthill->start));
 

@@ -109,6 +109,7 @@ t_anthill	*init_anthill(void)
 	anthill->paths = NULL;
 	anthill->room_count = 0;
 	anthill->nb_ants = 0;
+	anthill->moves = NULL;
 	anthill->nb_paths = 0;
 	return (anthill);
 }

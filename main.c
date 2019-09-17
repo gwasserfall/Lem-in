@@ -24,11 +24,15 @@ int main(void)
 		print_start_end_error();
 	index_rooms(&anthill);
 	display_input(&data);
-	// Get paths -- can return failure here if none are found
-	if (!(set_paths(anthill)))
-		return (EXIT_FAILURE);
-	optimise_paths(&anthill);
+	while ((set_levels(anthill)))
+		anthill->nb_paths++;
+	if (anthill->nb_paths)
+	{
+		create_colony(anthill);
+		optimise_paths(&anthill);
+		create_move_list(anthill);
+		print_move_list(anthill->moves);
+	}
 	free_data(&data);
-	printf("PATHS : %d\n", anthill->nb_paths);
 	return (1);
 }
