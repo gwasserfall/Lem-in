@@ -74,10 +74,6 @@ t_path		*map_path(t_room *end)
 		return (NULL); 
 	path = NULL;
 	append_to_path(&path, make_path_item(end));
-<<<<<<< HEAD
-=======
-	// ft_putendl("Mapping p/ath");
->>>>>>> 726aea5ee1b853ab98378623e1fecb182a6d5aa1
 	while (end->parent)
 	{
 		append_to_path(&path, make_path_item(end->parent));

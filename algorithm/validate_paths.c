@@ -54,34 +54,9 @@ void		check_start_end_path(t_anthill **anthill)
 
 	while (link)
 	{
-<<<<<<< HEAD
 		if ((link->from == start && link->to == end)
 			|| (link->from == end && link->to == start))
 			return add_start_end_pathlist(anthill);
 		link = link->next;
 	}
-=======
-		if ((link->from == (*anthill)->start && link->to == (*anthill)->end)
-			|| (link->from == (*anthill)->end && link->to == (*anthill)->start))
-		{
-			prepend_pathlist(anthill);
-			break ;
-		}
-		link = link->next;
-	}
-}
-
-void		prepend_pathlist(t_anthill **anthill)
-{
-	t_pathlist	*existing;
-	t_pathlist	*new_pathlist;
-	t_path		*new;
-
-	new = make_path_item((*anthill)->start);
-	new->next->room = (*anthill)->end;
-	new_pathlist = create_pathlist_item(new);
-	existing = (*anthill)->paths;
-	(*anthill)->paths = new_pathlist;
-	new_pathlist->next = existing;
->>>>>>> 726aea5ee1b853ab98378623e1fecb182a6d5aa1
 }

@@ -34,10 +34,5 @@ int main(void)
 		print_move_list(anthill->moves);
 	}
 	free_data(&data);
-<<<<<<< HEAD
-=======
-	printf("PATHS : %d\n", anthill->nb_paths);
-	printf("KAELIN WAS HERE\n");
->>>>>>> 726aea5ee1b853ab98378623e1fecb182a6d5aa1
 	return (1);
 }
