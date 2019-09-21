@@ -16,6 +16,10 @@ void	place_ants_on_start(t_state *s)
 	}
 }
 
+bool ant_reached_dest(t_ant *ant)
+{
+
+}
 
 void update_current_move(t_state *s)
 {
@@ -34,8 +38,9 @@ void update_current_move(t_state *s)
 			while (moves)
 			{
 				moves->ant->following = moves->to;
+				moves->ant->direction = (moves->ant->current > moves->ant->following ? 1 : -1);
 				moving++;
-				if (moves->ant->x > moves->ant->following->x)
+				if ((int)moves->ant->x == (int)moves->ant->following->x && (int)moves->ant->y == (int)moves->ant->following->y)
 				{
 					moves->ant->current = moves->ant->following;
 					moves->ant->following = NULL;
@@ -181,13 +186,6 @@ void handle_events(t_state *s)
 	{
 		if (s->event.type == SDL_QUIT)
 			s->running = false;
-		// if (s->event.type == SDL_KEYDOWN)
-		// {
-		// 	if (s->event.key.keysym.sym == SDLK_w)
-		// 		change_zoom(s, -1);
-		// 	if (s->event.key.keysym.sym == SDLK_a)
-		// 		change_zoom(s, 1);
-		// }
 		if(s->event.type == SDL_MOUSEWHEEL)
 		{
 			if(s->event.wheel.y > 0)

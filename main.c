@@ -32,14 +32,15 @@ int main(void)
 		optimise_paths(&anthill);
 		set_path_length(anthill);
 		order_paths(anthill);
-		// create_move_list(anthill);
+		create_move_list(anthill);
+		print_move_list(anthill->moves);
 	}
 	free_data(&data);
 	t_pathlist	*current = anthill->paths;
-while (current)
-{
-	printf("PATH LENGTH : %d\n", current->length);
-	current = current->next;
-}
+	while (current)
+	{
+		//printf("PATH LENGTH : %d\n", current->length);
+		current = current->next;
+	}
 	return (1);
 }

@@ -84,9 +84,10 @@ void	draw_ants(t_state *s)
 	
 	stringRGBA(s->renderer, 5, 40, ft_itoa(s->frame), 255, 255, 255, 255);
 
-	stringRGBA(s->renderer, X(s, army->x) - 35, Y(s, army->y) - SPRITE_H - 10, army->name, 255, 255, 255, 255);
+	//stringRGBA(s->renderer, X(s, army->x) - 35, Y(s, army->y) - SPRITE_H - 10, army->name, 255, 255, 255, 255);
 	while (army)
 	{
+		stringRGBA(s->renderer, X(s, army->x) - 35, Y(s, army->y) - SPRITE_H - 10, army->name, 255, 255, 255, 255);
 		r.x = X(s, army->x) - SPRITE_W / 2;
 		r.y = Y(s, army->y) - SPRITE_H;
 		r.h = SPRITE_H;

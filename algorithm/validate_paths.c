@@ -61,6 +61,18 @@ void		check_start_end_path(t_anthill **anthill)
 	}
 }
 
+
+bool		paths_in_ord(t_pathlist *paths)
+{
+	while (paths)
+	{
+		if (paths->next && paths->length > paths->next->length)
+			return false;
+		paths = paths->next;
+	}
+}
+
+
 void		order_paths(t_anthill *anthill)
 {
 	t_pathlist	*current;
@@ -77,8 +89,7 @@ void		order_paths(t_anthill *anthill)
 			temp->next = current->next->next;
 			next_temp->next = current;
 			current = next_temp;
-			
-
+			current->next = temp;
 		}
 		current = current->next;
 	}

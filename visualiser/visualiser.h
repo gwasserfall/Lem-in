@@ -51,6 +51,13 @@ typedef struct		s_link
 	struct s_link	*next;
 }					t_link;
 
+typedef enum			e_direction
+{
+	north,
+	east,
+	south,
+	west
+}						t_dir;
 
 typedef struct			s_ant
 {
@@ -62,6 +69,8 @@ typedef struct			s_ant
 	t_room				*following;
 	t_img				*sprite;
 	bool				is_moving;
+	int					direction;
+	t_dir				dir;
 	double				gradient;
 	double				distance;
 	struct s_ant		*next;
