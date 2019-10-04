@@ -92,7 +92,7 @@ void	draw_ants(t_state *s)
 		r.y = Y(s, army->y) - SPRITE_H;
 		r.h = SPRITE_H;
 		r.w = SPRITE_W;
-		
+
 		if (army->sprite)
 		{
 			if (s->frame % 5 == 0)

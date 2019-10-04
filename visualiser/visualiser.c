@@ -10,15 +10,113 @@ void	place_ants_on_start(t_state *s)
 	{
 		ant->x = s->anthill->start->x;
 		ant->y = s->anthill->start->y;
-		ant->sprite = s->walk_right;
+		ant->sprite = s->walk_static_r;
 		ant->current = s->anthill->start;
 		ant = ant->next;
 	}
 }
 
+bool fbetween(double n, double min, double max)
+{
+	if (n >= min && n <= max)
+		return true;
+	return false;
+}
+
 bool ant_reached_dest(t_ant *ant)
 {
+	double cx;
+	double cy;
+	double dx;
+	double dy;
 
+	cx = ant->x;
+	cy = ant->y;
+	dx = ant->following->x;
+	dy = ant->following->y;
+
+	if (ant->following == ant->current)
+		return 1;
+
+	if (fbetween(ant->degrees, 270, 360))
+	{
+		if (cx >= dx && cy >= dy)
+			return true;
+	}
+	else if (fbetween(ant->degrees, 180, 270))
+	{	
+		if (cx <= dx && cy >= dy)
+			return true;
+	}
+	else if (fbetween(ant->degrees, 90, 180))
+	{
+		if (cx <= dx && cy <= dy)
+			return true;
+	}
+	else if (fbetween(ant->degrees, -1, 90))
+	{
+		if (cx >= dx && cy <= dy)
+			return true;
+	}
+	return false;
+}
+
+double get_ant_angle(t_ant *ant)
+{
+	double degree;
+	double y = (ant->following->y - ant->current->y) * -1;
+	double x = ant->following->x - ant->current->x;
+
+	degree = atan2(y, x) * (180.0 / M_PI);
+	if (degree < 0)
+		degree += 360.0;
+	return (degree);
+}
+
+void assign_sprite(t_state *s, t_ant *ant)
+{
+	if (ant->degrees > 90.0 && ant->degrees < 270.0)
+		ant->sprite = s->walk_left;
+	else
+		ant->sprite = s->walk_right;
+}
+
+int set_active_movelist(t_state *s, t_moves *moves)
+{
+	int moving;
+
+	moving = 0;
+	while (moves)
+	{
+		if (!moves->ant->following)
+		{
+			moves->ant->following = moves->to;
+			moves->ant->degrees = get_ant_angle(moves->ant);
+			assign_sprite(s, moves->ant);
+		}
+		moving++;
+		if (ant_reached_dest(moves->ant))
+		{
+			//printf("Ant %s has reached destination room %s\n", moves->ant->name, moves->to->name);
+			moves->ant->x = moves->to->x;
+			moves->ant->y = moves->to->y;
+			moves->ant->current = moves->ant->following;
+			moves->ant->following = NULL;
+			moves->ant->is_moving = false;
+			
+			if (moves->ant->degrees > 90.0 && moves->ant->degrees < 270.0)
+			{
+				moves->ant->sprite = s->walk_static_l;
+			}
+			else
+			{
+				moves->ant->sprite = s->walk_static_r;
+			}
+			moving--;
+		}
+		moves = moves->next;
+	}
+	return (moving);
 }
 
 void update_current_move(t_state *s)
@@ -26,28 +124,22 @@ void update_current_move(t_state *s)
 	t_movelist	*current;
 	t_moves		*moves;
 
-	int moving = 0;
+	int moving;
 	
 	current = s->anthill->movelist;
 
+	// Check all move lists
 	while (current)
 	{
+		// If this movelist is active
 		if (current->active)
 		{
 			moves = current->moves;
-			while (moves)
-			{
-				moves->ant->following = moves->to;
-				moves->ant->direction = (moves->ant->current > moves->ant->following ? 1 : -1);
-				moving++;
-				if ((int)moves->ant->x == (int)moves->ant->following->x && (int)moves->ant->y == (int)moves->ant->following->y)
-				{
-					moves->ant->current = moves->ant->following;
-					moves->ant->following = NULL;
-					moving--;
-				}
-				moves = moves->next;
-			}
+			// for each move in this movelist
+
+			moving = set_active_movelist(s, current->moves);
+			//printf("Moving : %d\n", moving);
+
 			if (!moving)
 			{
 				current->active = false;
@@ -93,7 +185,8 @@ void	draw_path(t_state *s)
 			x2 = X(s, route->next->room->x);
 			y1 = Y(s, route->room->y);
 			y2 = Y(s, route->next->room->y);
-			thickLineRGBA(s->renderer, x1, y1, x2, y2, 3, 0, 255, 0, 255);
+			//thickLineRGBA(s->renderer, x1, y1, x2, y2, 3, 0, 255, 0, 255);
+			//
 		}
 		route = route->next;
 	}
@@ -127,12 +220,23 @@ void	draw_paths(t_state *s)
 	int i = 0;
 	list = s->paths;
 
+	double x1;
+	double x2;
+	double y1;
+	double y2;
+
+	SDL_SetRenderDrawColor(s->renderer, 0, 255, 0, SDL_ALPHA_OPAQUE);
 	while (list)
 	{
 		path = list->path;
 		while (path && path->next)
 		{
-			thickLineRGBA(s->renderer, X(s, path->room->x), Y(s, path->room->y), X(s, path->next->room->x), Y(s, path->next->room->y), 3, 0, 255, 0, 255);
+			x1 = X(s, path->room->x);
+			y1 = Y(s, path->room->y);
+			x2 = X(s, path->next->room->x);
+			y2 = Y(s, path->next->room->y);
+			//aalineRGBA(s->renderer, x1, y1, x2, y2, 0, 255, 0, 255);
+			SDL_RenderDrawLine(s->renderer, x1, y1, x2, y2);
 			path = path->next;
 		}
 		i++;
@@ -149,16 +253,18 @@ void	render_state(t_state *s)
 	SDL_RenderClear(s->renderer);
 	SDL_RenderCopy(s->renderer, s->background, NULL, NULL);
 
-	draw_paths(s);
+	
 	//draw_parents(s);
 
 	// Draw links
 	draw_links(s);
+	draw_paths(s);
 	draw_nodes(s);
 
 	// Draw Stats
 	draw_stats(s);
 
+	
 	// Draw ants
 	draw_ants(s);
 

@@ -7,8 +7,6 @@ t_moves	*make_move(t_ant *ant, t_room *to)
 	if (!(move = malloc(sizeof(t_moves))))
 		return (NULL);
 	move->next = NULL;
-	if (!ant || !to)
-		printf("Something is fakked\n");
 	move->to = to;
 	move->ant = ant;
 	return (move);

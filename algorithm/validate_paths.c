@@ -18,11 +18,11 @@ void		optimise_paths(t_anthill **anthill)
 	t_path		*current_path;
 
 	current = (*anthill)->paths;
-	check_start_end_path(anthill);
 	while (current)
 	{
 		current_path = current->path;
-		if (current->length == (*anthill)->nb_ants && (*anthill)->nb_paths > 1)
+		if (current->length > (*anthill)->nb_ants 
+			&& (*anthill)->nb_paths > 1)
 		{
 			current->valid = 0;
 			(*anthill)->nb_paths--;
@@ -39,7 +39,8 @@ void		add_start_end_pathlist(t_anthill **anthill)
 	new = NULL;
 	append_to_path(&new, make_path_item((*anthill)->end));
 	append_to_path(&new, make_path_item((*anthill)->start));
-	append_to_pathlist(&(*anthill)->paths, create_pathlist_item(new));
+	prepend_to_pathlist(&(*anthill)->paths, create_pathlist_item(new));
+	(*anthill)->nb_paths++;
 }
 
 void		check_start_end_path(t_anthill **anthill)
@@ -62,35 +63,35 @@ void		check_start_end_path(t_anthill **anthill)
 }
 
 
-bool		paths_in_ord(t_pathlist *paths)
-{
-	while (paths)
-	{
-		if (paths->next && paths->length > paths->next->length)
-			return false;
-		paths = paths->next;
-	}
-}
+// bool		paths_in_ord(t_pathlist *paths)
+// {
+// 	while (paths)
+// 	{
+// 		if (paths->next && paths->length > paths->next->length)
+// 			return false;
+// 		paths = paths->next;
+// 	}
+// }
 
 
-void		order_paths(t_anthill *anthill)
-{
-	t_pathlist	*current;
-	t_pathlist	*temp;
-	t_pathlist	*next_temp;
+// void		order_paths(t_anthill *anthill)
+// {
+// 	t_pathlist	*current;
+// 	t_pathlist	*temp;
+// 	t_pathlist	*next_temp;
 
-	current = anthill->paths;
-	while (current->next)
-	{
-		if (current->length > current->next->length)
-		{
-			temp = current;
-			next_temp = current->next;
-			temp->next = current->next->next;
-			next_temp->next = current;
-			current = next_temp;
-			current->next = temp;
-		}
-		current = current->next;
-	}
-}
+// 	current = anthill->paths;
+// 	while (current->next)
+// 	{
+// 		if (current->length > current->next->length)
+// 		{
+// 			temp = current;
+// 			next_temp = current->next;
+// 			temp->next = current->next->next;
+// 			next_temp->next = current;
+// 			current = next_temp;
+// 			current->next = temp;
+// 		}
+// 		current = current->next;
+// 	}
+// }

@@ -35,7 +35,7 @@
 			"MIMode": "lldb",
 			"setupCommands": [
                 {
-                    "text": "settings set target.input-path ./maps/test_glen_complete.map"
+                    "text": "settings set target.input-path ./visualiser/test.map"
                 }
             ],
 			"preLaunchTask": "build"

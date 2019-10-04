@@ -96,14 +96,17 @@ bool create_move_list(t_anthill *anthill)
 		while (paths)
 		{
 			path = paths->path;
-			while (!path->room->is_start)
+			if (paths->valid)
 			{
-				if ((ant = ant_here(anthill->colony, path->next->room)))
+				while (!path->room->is_start)
 				{
-					ant->current = path->room;
-					append_move(&anthill->moves, make_move(ant, path->room, path->room));
+					if ((ant = ant_here(anthill->colony, path->next->room)))
+					{
+						ant->current = path->room;
+						append_move(&anthill->moves, make_move(ant, path->room, path->room));
+					}
+					path = path->next;
 				}
-				path = path->next;
 			}
 			paths = paths->next;
 		}

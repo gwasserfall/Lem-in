@@ -251,4 +251,6 @@ void	set_path_length(t_anthill *anthill);
 void		order_paths(t_anthill *anthill);
 void	swap(t_pathlist *first, t_pathlist *second);
 
+void	prepend_to_pathlist(t_pathlist **start, t_pathlist *new);
+
 #endif

@@ -23,24 +23,21 @@ int main(void)
 	if (anthill->start == NULL || anthill->end == NULL)
 		print_start_end_error();
 	index_rooms(&anthill);
-	display_input(&data);
 	while ((set_levels(anthill)))
 		anthill->nb_paths++;
+	check_start_end_path(&anthill);
 	if (anthill->nb_paths)
 	{
+		display_input(&data);
 		create_colony(anthill);
+		set_path_length(anthill);		
 		optimise_paths(&anthill);
-		set_path_length(anthill);
-		order_paths(anthill);
+		//order_paths(anthill);
 		create_move_list(anthill);
 		print_move_list(anthill->moves);
 	}
+	else
+		ft_putendl(RED "Error :" RESET " No valid path");	
 	free_data(&data);
-	t_pathlist	*current = anthill->paths;
-	while (current)
-	{
-		//printf("PATH LENGTH : %d\n", current->length);
-		current = current->next;
-	}
 	return (1);
 }

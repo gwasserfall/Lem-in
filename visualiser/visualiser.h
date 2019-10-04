@@ -64,7 +64,7 @@ typedef struct			s_ant
 	double				x;
 	double				y;
 	char 				*name;
-	struct		s_path	*path;
+	struct s_path		*path;
 	t_room				*current;
 	t_room				*following;
 	t_img				*sprite;
@@ -73,6 +73,7 @@ typedef struct			s_ant
 	t_dir				dir;
 	double				gradient;
 	double				distance;
+	double				degrees;
 	struct s_ant		*next;
 }						t_ant;
 
@@ -141,6 +142,8 @@ typedef	struct		s_state
 	SDL_Renderer	*renderer;
 	SDL_Texture		*background;
 	SDL_Texture 	*room_sprite;
+	SDL_Texture 	*walkr_static;
+	SDL_Texture 	*walkl_static;
 	SDL_Event		event;
 	t_path			*path;
 	t_pathlist		*paths;
@@ -155,6 +158,8 @@ typedef	struct		s_state
 	int				zoom;
 	t_img			*walk_left;
 	t_img			*walk_right;
+	t_img			*walk_static_l;
+	t_img			*walk_static_r;
 	
     t_anthill       *anthill;
 }					t_state;

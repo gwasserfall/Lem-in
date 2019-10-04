@@ -28,6 +28,8 @@ int		hatch_ant(t_anthill *anthill, int x, int y, char *name)
 	egg->next = NULL;
 	egg->following = NULL;
 	egg->current = NULL;
+	egg->degrees = 0;
+	egg->gradient = 0;
 	egg->name = ft_strdup(name);
 	join_colony(&anthill, egg);
 	return (1);
