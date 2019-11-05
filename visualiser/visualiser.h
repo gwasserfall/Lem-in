@@ -39,6 +39,10 @@
 # define STRRGB3 s->renderer, X(s, room->x) + 5, Y(s, room->y) - 24, RNAME
 # define ARMY army->name, 255, 255, 255, 255
 # define STRINGRGBA s->renderer, X(s, army->x) - 35, Y(s, army->y)
+# define NE next_end = false;
+# define NS next_start = false;
+# define ANT anthill = init_anthill();
+# define INIT_INFO {NS NE ANT}
 
 typedef struct			s_img
 {

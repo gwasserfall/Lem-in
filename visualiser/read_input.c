@@ -6,7 +6,7 @@
 /*   By: ayano <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 14:32:53 by ayano             #+#    #+#             */
-/*   Updated: 2019/11/05 14:33:00 by ayano            ###   ########.fr       */
+/*   Updated: 2019/11/05 14:38:05 by ayano            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,205 +20,6 @@
 #define INVLD 6
 #define MOVE 7
 #define EMPTY 8
-
-t_anthill	*init_anthill(void)
-{
-	t_anthill	*anthill;
-
-	if (!(anthill = malloc(sizeof(t_anthill))))
-		return (false);
-	anthill->room_count = 0;
-	anthill->linear = NULL;
-	anthill->colony = NULL;
-	anthill->start = NULL;
-	anthill->nb_ants = 0;
-	anthill->movelist = NULL;
-	anthill->connectors = NULL;
-	anthill->end = NULL;
-	return (anthill);
-}
-
-void		append_room(t_room *entry_point, t_room *new)
-{
-	t_room		*current;
-
-	current = entry_point;
-	while (current->next)
-		current = current->next;
-	current->next = new;
-}
-
-t_room		*init_room_g(char *name, int x, int y)
-{
-	t_room *new;
-
-	if (!(new = (t_room *)malloc(sizeof(t_room))))
-		return (NULL);
-	new->next = NULL;
-	new->link_count = 0;
-	new->name = ft_strdup(name);
-	new->level = -1;
-	new->parent = NULL;
-	new->is_end = 0;
-	new->is_start = 0;
-	new->x = x;
-	new->y = y;
-	new->links = NULL;
-	return (new);
-}
-
-bool		int_string(char *str)
-{
-	while (*str)
-	{
-		if (!ft_isdigit(*str))
-			return (false);
-		str++;
-	}
-	return (true);
-}
-
-int			identify_line(char *line)
-{
-	int line_length;
-
-	line_length = ft_strlen(line);
-	if (line_length < 1)
-		return (EMPTY);
-	else if (line[0] == '#' && line[1] == '#')
-		return (IDENT);
-	else if (line[0] == '#' && line[1] != '#')
-		return (COMMENT);
-	else if (int_string(line))
-		return (ANT_COUNT);
-	else if (ft_strchr(line, ' ') && line[0] != 'L')
-		return (ROOM);
-	else if (ft_strchr(line, '-') && line[0] != 'L')
-		return (LINK);
-	else if (line[0] == 'L')
-		return (MOVE);
-	else
-		return (INVLD);
-}
-
-void		assign_room(t_anthill *ah, char *str, bool *s, bool *e)
-{
-	t_room	*room;
-	char	**line;
-
-	line = ft_strsplit(str, ' ');
-	room = init_room_g(line[0], ft_atoi(line[1]), ft_atoi(line[2]));
-	free(line[0]);
-	free(line[1]);
-	free(line[2]);
-	free(line);
-	ah->start = (*s) ? room : ah->start;
-	ah->end = (*e) ? room : ah->end;
-	room->is_start = *s;
-	if (room->is_start)
-		room->level = 0;
-	room->is_end = *e;
-	ah->room_count++;
-	if (!ah->linear)
-		ah->linear = room;
-	else
-		append_room(ah->linear, room);
-	*s = false;
-	*e = false;
-}
-
-t_room		*get_room(t_anthill *anthill, char *name)
-{
-	t_room *cursor;
-
-	cursor = anthill->linear;
-	while (cursor)
-	{
-		if (!(ft_strcmp(name, cursor->name)))
-			return (cursor);
-		cursor = cursor->next;
-	}
-	return (NULL);
-}
-
-void		assign_link(t_anthill *ah, char *str)
-{
-	char	**line;
-	t_room	*from;
-	t_room	*to;
-	t_link	*link;
-	t_link	*cursor;
-
-	line = ft_strsplit(str, '-');
-	from = get_room(ah, line[0]);
-	to = get_room(ah, line[1]);
-	link = malloc(sizeof(t_link));
-	link->to = to;
-	link->from = from;
-	link->next = NULL;
-	cursor = ah->connectors;
-	if (!cursor)
-		ah->connectors = link;
-	else
-	{
-		while (cursor->next)
-			cursor = cursor->next;
-		cursor->next = link;
-	}
-}
-
-t_path		*append_path(t_path *path, t_room *room)
-{
-	t_path *p;
-	t_path *cur;
-
-	p = malloc(sizeof(t_path));
-	p->next = NULL;
-	p->room = room;
-	if (!path)
-		path = p;
-	else
-	{
-		cur = path;
-		while (cur->next)
-			cur = cur->next;
-		cur->next = p;
-	}
-	return (path);
-}
-
-bool		visited(t_path *path, t_room *room)
-{
-	t_path *cursor;
-
-	cursor = path;
-	while (cursor)
-	{
-		if (cursor->room == room)
-			return (true);
-		cursor = cursor->next;
-	}
-	return (false);
-}
-
-void		move(t_path **callback, t_path *path, t_room *from, t_room *to)
-{
-	int i;
-
-	i = 0;
-	if (from)
-		append_path(path, from);
-	if (to && to->is_end)
-		*callback = path;
-	if (*callback)
-		return ;
-	while (i < to->link_count)
-	{
-		if (!(visited(path, to->links[i])))
-			move(callback, path, to, to->links[i]);
-		i++;
-	}
-}
 
 void		assign_ants(t_anthill *anthill, char *str)
 {
@@ -283,9 +84,7 @@ t_anthill	*get_infos(void)
 	bool		next_start;
 	bool		next_end;
 
-	next_start = false;
-	next_end = false;
-	anthill = init_anthill();
+	INIT_INFO;
 	while (get_next_line(0, &line) > 0)
 	{
 		line_type = identify_line(line);
