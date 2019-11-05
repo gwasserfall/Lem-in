@@ -47,6 +47,10 @@
 # define RLSTART current = current->next;add_data_start(current->line, &anthill);
 # define CONT continue;
 # define RLSTARTCONT {RLSTART CONT}
+# define VERIFROOM verify_room(line);
+# define NEWROOM new_room(0, line, anthill);
+# define ROOMADD (*anthill)->room_count++;
+# define ROOMCHECK {VERIFROOM NEWROOM ROOMADD}
 
 
 typedef int				t_roomtype;

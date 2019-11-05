@@ -6,7 +6,7 @@
 /*   By: ayano <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 17:05:05 by ayano             #+#    #+#             */
-/*   Updated: 2019/08/26 17:05:06 by ayano            ###   ########.fr       */
+/*   Updated: 2019/11/05 11:14:43 by ayano            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ void		verify_ants(char *line)
 		return ;
 	while (line[i] != '\0')
 	{
-	// TODO: This is a double check, not much impact but still
 		if (ft_isdigit(line[i]) == 1)
 			i++;
 		else
