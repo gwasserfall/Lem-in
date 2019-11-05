@@ -6,13 +6,13 @@
 /*   By: ayano <ayano@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/05 10:25:54 by ayano             #+#    #+#             */
-/*   Updated: 2019/09/09 15:36:07 by ayano            ###   ########.fr       */
+/*   Updated: 2019/11/05 09:15:53 by ayano            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <lem_in.h>
 
-int main(void)
+int		main(void)
 {
 	t_anthill	*anthill;
 	t_data		*data;
@@ -30,14 +30,13 @@ int main(void)
 	{
 		display_input(&data);
 		create_colony(anthill);
-		set_path_length(anthill);		
+		set_path_length(anthill);
 		optimise_paths(&anthill);
-		//order_paths(anthill);
 		create_move_list(anthill);
 		print_move_list(anthill->moves);
 	}
 	else
-		ft_putendl(RED "Error :" RESET " No valid path");	
+		ft_putendl(RED "Error :" RESET " No valid path");
 	free_data(&data);
 	return (1);
 }

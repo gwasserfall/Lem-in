@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ant_moves.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ayano <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/11/05 09:19:39 by ayano             #+#    #+#             */
+/*   Updated: 2019/11/05 09:19:49 by ayano            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <lem_in.h>
 
 t_moves	*make_move(t_ant *ant, t_room *from, t_room *to)
@@ -28,7 +40,7 @@ void	append_move(t_moves **start, t_moves *new)
 	}
 }
 
-void print_move_list(t_moves *moves)
+void	print_move_list(t_moves *moves)
 {
 	while (moves)
 	{
