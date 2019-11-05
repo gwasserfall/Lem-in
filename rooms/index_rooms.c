@@ -16,7 +16,7 @@
 ** Indexes all the rooms with start being 0 and end being the max rooms
 */
 
-void	ndex_rooms(t_anthill **anthill)
+void	index_rooms(t_anthill **anthill)
 {
 	t_room	*current;
 	int		i;

@@ -6,7 +6,7 @@
 /*   By: ayano <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/12 09:01:15 by ayano             #+#    #+#             */
-/*   Updated: 2019/09/12 09:01:16 by ayano            ###   ########.fr       */
+/*   Updated: 2019/11/05 11:26:34 by ayano            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,21 +37,23 @@
 # define NEIGHCONT {neighbour = neighbour->next;continue;}
 # define APL append_list(&frontier, make_item(anthill->start));
 # define INIT_SL i = 1;frontier = NULL;reset_rooms(&anthill);APL
-# define TROOM_LIST {t_roomlist *frontier;t_roomlist *next;t_roomlist *neighbour;}
-# define NEIGH neighbour->room->level = i;neighbour->room->parent = frontier->room;
+# define NRL neighbour->room->level = i;
+# define NRP neighbour->room->parent = frontier->room;
+# define NEIGH {NRL NRP}
 # define APPENDL append_list(&next, make_item(neighbour->room));
 # define NEIGHAPPL {NEIGH APPENDL}
 # define STAT1 neighbour->room->level == -1
 # define STAT2 !room_in_pathlist(anthill->paths, neighbour->room)
 # define RETFUNC create_pathlist_item(map_path(anthill->end))
-# define RLSTART current = current->next;add_data_start(current->line, &anthill);
+# define CURRNXT current = current->next;
+# define ADS add_data_start(current->line, &anthill);
+# define RLSTART {CURRNXT ADS}
 # define CONT continue;
 # define RLSTARTCONT {RLSTART CONT}
 # define VERIFROOM verify_room(line);
 # define NEWROOM new_room(0, line, anthill);
 # define ROOMADD (*anthill)->room_count++;
 # define ROOMCHECK {VERIFROOM NEWROOM ROOMADD}
-
 
 typedef int				t_roomtype;
 typedef struct			s_room
@@ -63,7 +65,7 @@ typedef struct			s_room
 	int					link_count;
 	double				x;
 	double				y;
-	int					index; // We dont actually use it, i made it a while ago for some testing :)
+	int					index;
 	char				*name;
 	bool				is_start;
 	bool				is_end;
@@ -263,19 +265,17 @@ void					prepend_to_path(t_path **start, t_path *item);
 void					optimise_paths(t_anthill **anthill);
 void					check_start_end_path(t_anthill **anthill);
 void					prepend_pathlist(t_anthill **anthill);
-bool 					ants_are_free(t_anthill * anthill);
+bool					ants_are_free(t_anthill *anthill);
 t_ant					*ant_here(t_ant *colony, t_room *room);
 bool					create_move_list(t_anthill *anthill);
-
-
-void print_move_list(t_moves *moves);
-void	append_move(t_moves **start, t_moves *new);
-t_moves	*make_move(t_ant *ant, t_room *from, t_room *to);
-void	create_colony(t_anthill *anthill);
-void	set_path_length(t_anthill *anthill);
-void		order_paths(t_anthill *anthill);
-void	swap(t_pathlist *first, t_pathlist *second);
-
-void	prepend_to_pathlist(t_pathlist **start, t_pathlist *new);
+void					print_move_list(t_moves *moves);
+void					append_move(t_moves **start, t_moves *new);
+t_moves					*make_move(t_ant *ant, t_room *from, t_room *to);
+void					create_colony(t_anthill *anthill);
+void					set_path_length(t_anthill *anthill);
+void					order_paths(t_anthill *anthill);
+void					swap(t_pathlist *first, t_pathlist *second);
+void					prepend_to_pathlist(t_pathlist **start,
+													t_pathlist *new);
 
 #endif
