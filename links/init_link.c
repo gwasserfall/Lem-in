@@ -63,29 +63,3 @@ void			append_link(t_link **start, t_link *new)
 		link->next = new;
 	}
 }
-
-// void	assign_link(t_anthill *ah, char *str)
-// {
-// 	char **line;
-// 	t_room *from;
-// 	t_room *to;
-// 	t_link *link;
-// 	t_link *cursor;
-
-// 	line = ft_strsplit(str, '-');
-// 	from = get_room(ah, line[0]);
-// 	to = get_room(ah, line[1]);
-// 	link = malloc(sizeof(t_link));
-// 	link->to = to;
-// 	link->from = from;
-// 	link->next = NULL;
-// 	cursor = ah->connectors;
-// 	if (!cursor)
-// 		ah->connectors = link;
-// 	else
-// 	{
-// 		while (cursor->next)
-// 			cursor = cursor->next;
-// 		cursor->next = link;
-// 	}
-// }
