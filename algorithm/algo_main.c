@@ -6,7 +6,7 @@
 /*   By: ayano <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 09:40:11 by ayano             #+#    #+#             */
-/*   Updated: 2019/11/05 09:58:50 by ayano            ###   ########.fr       */
+/*   Updated: 2019/11/05 10:53:54 by ayano            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,11 +77,11 @@ bool	create_move_list(t_anthill *anthill)
 ** Checks to see if all the ants are free, ie all the ants are in the ned room.
 */
 
-bool	ants_are_free(t_anthill * anthill)
+bool	ants_are_free(t_anthill *anthill)
 {
-	t_ant *ant;
-	ant = anthill->colony;
+	t_ant	*ant;
 
+	ant = anthill->colony;
 	while (ant)
 	{
 		if (ant->current != anthill->end)

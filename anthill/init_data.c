@@ -6,7 +6,7 @@
 /*   By: ayano <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/04 13:00:32 by ayano             #+#    #+#             */
-/*   Updated: 2019/09/04 13:00:33 by ayano            ###   ########.fr       */
+/*   Updated: 2019/11/05 10:55:37 by ayano            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,12 +65,12 @@ void		add_data_node(t_data **data, char *line)
 	}
 }
 
-void	set_path_length(t_anthill *anthill)
+void		set_path_length(t_anthill *anthill)
 {
 	t_pathlist	*current_path;
 	t_path		*current;
 
-	current_path =  anthill->paths;
+	current_path = anthill->paths;
 	while (current_path)
 	{
 		current = current_path->path;

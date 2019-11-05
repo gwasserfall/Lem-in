@@ -6,7 +6,7 @@
 /*   By: ayano <ayano@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 16:19:36 by ayano             #+#    #+#             */
-/*   Updated: 2019/09/09 14:19:42 by ayano            ###   ########.fr       */
+/*   Updated: 2019/11/05 10:56:37 by ayano            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,7 @@ void		read_loop(t_anthill *anthill, t_data **data)
 			print_invalid_input();
 		pre_add_data(type, current->line, &anthill);
 		if (ft_strcmp(current->line, "##start") == 0)
-		{
-			current = current->next;
-			add_data_start(current->line, &anthill);
-			continue;
-		}
+			RLSTARTCONT;
 		if (ft_strcmp(current->line, "##end") == 0)
 		{
 			current = current->next;

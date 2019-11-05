@@ -37,13 +37,16 @@
 # define NEIGHCONT {neighbour = neighbour->next;continue;}
 # define APL append_list(&frontier, make_item(anthill->start));
 # define INIT_SL i = 1;frontier = NULL;reset_rooms(&anthill);APL
-# define TROOM_LIST {t_roomlist	*frontier;t_roomlist	*next;t_roomlist	*neighbour;}
+# define TROOM_LIST {t_roomlist *frontier;t_roomlist *next;t_roomlist *neighbour;}
 # define NEIGH neighbour->room->level = i;neighbour->room->parent = frontier->room;
 # define APPENDL append_list(&next, make_item(neighbour->room));
 # define NEIGHAPPL {NEIGH APPENDL}
 # define STAT1 neighbour->room->level == -1
 # define STAT2 !room_in_pathlist(anthill->paths, neighbour->room)
 # define RETFUNC create_pathlist_item(map_path(anthill->end))
+# define RLSTART current = current->next;add_data_start(current->line, &anthill);
+# define CONT continue;
+# define RLSTARTCONT {RLSTART CONT}
 
 
 typedef int				t_roomtype;
