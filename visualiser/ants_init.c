@@ -1,8 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ants_init.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ayano <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/11/05 12:13:35 by ayano             #+#    #+#             */
+/*   Updated: 2019/11/05 12:13:38 by ayano            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "visualiser.h"
 
 void	join_colony(t_anthill **anthill, t_ant *larvae)
 {
 	t_ant	*nurse;
+
 	if (!(*anthill)->colony)
 		(*anthill)->colony = larvae;
 	else
@@ -13,7 +26,6 @@ void	join_colony(t_anthill **anthill, t_ant *larvae)
 		nurse->next = larvae;
 	}
 }
-
 
 int		hatch_ant(t_anthill *anthill, int x, int y, char *name)
 {

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ant_moves.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ayano <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/11/05 11:52:24 by ayano             #+#    #+#             */
+/*   Updated: 2019/11/05 11:52:44 by ayano            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "visualiser.h"
 
 t_moves	*make_move(t_ant *ant, t_room *to)
@@ -12,7 +24,7 @@ t_moves	*make_move(t_ant *ant, t_room *to)
 	return (move);
 }
 
-t_ant *ant_by_name(t_ant *ants, char *name)
+t_ant	*ant_by_name(t_ant *ants, char *name)
 {
 	while (ants)
 	{
@@ -23,19 +35,19 @@ t_ant *ant_by_name(t_ant *ants, char *name)
 	return (NULL);
 }
 
-t_moves *deserialise_move(t_anthill *anthill, char *line)
+t_moves	*deserialise_move(t_anthill *anthill, char *line)
 {
-	char *ptr;
-	t_ant *ant;
-	t_room *room;
-	
+	char	*ptr;
+	t_ant	*ant;
+	t_room	*room;
+
 	line++;
 	ptr = ft_strchr(line, '-');
 	*ptr = 0;
 	ant = ant_by_name(anthill->colony, line);
 	room = get(anthill->linear, (ptr + 1));
 	*ptr = '-';
-	return make_move(ant, room);
+	return (make_move(ant, room));
 }
 
 void	append_move(t_moves **start, t_moves *new)
