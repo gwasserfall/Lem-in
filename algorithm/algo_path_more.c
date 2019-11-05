@@ -10,6 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <lem_in.h>
+
 /*
 ** Checks to see if the room is in the pathlist, ie room has been visited
 */
