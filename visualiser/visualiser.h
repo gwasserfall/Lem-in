@@ -15,7 +15,18 @@
 # define ZOOM 18
 # define X(state, value) calc_x(state, value)
 # define Y(state, value) calc_y(state, value)
-
+# define NEIGHCONT {neighbour = neighbour->next;continue;}
+# define NRL neighbour->room->level = i;
+# define NRP neighbour->room->parent = frontier->room;
+# define NEIGH {NRL NRP}
+# define APPENDL append_list(&next, make_item(neighbour->room));
+# define NEIGHAPPL {NEIGH APPENDL}
+# define STAT1 neighbour->room->level == -1
+# define FRONT_NEXT {i++;frontier = next;}
+# define INIT_SL2 reset_rooms(s);i = 1;frontier = NULL;APL2
+# define APL2 append_list(&frontier, make_item(s->anthill->start));
+# define RETFUNC2 create_pathlist_item(map_path(s->anthill->end))
+# define STAT3 !room_in_pathlist(s->paths, neighbour->room)
 
 
 typedef struct			s_img

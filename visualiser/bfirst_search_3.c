@@ -6,7 +6,7 @@
 /*   By: ayano <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 12:16:27 by ayano             #+#    #+#             */
-/*   Updated: 2019/11/05 12:16:28 by ayano            ###   ########.fr       */
+/*   Updated: 2019/11/05 14:07:38 by ayano            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,7 @@ bool	set_levels(t_state *s)
 	t_roomlist	*neighbour;
 	t_roomlist	*frontier;
 
-	reset_rooms(s);
-	i = 1;
-	frontier = NULL;
-	append_list(&frontier, make_item(s->anthill->start));
+	INIT_SL2;
 	while (frontier)
 	{
 		next = NULL;
@@ -32,22 +29,14 @@ bool	set_levels(t_state *s)
 			while (neighbour)
 			{
 				if (neighbour->room->is_end && frontier->room->is_start)
-				{
-					neighbour = neighbour->next;
-					continue;
-				}
-				if (neighbour->room->level == -1 && !room_in_pathlist(s->paths, neighbour->room))
-				{
-					neighbour->room->level = i;
-					neighbour->room->parent = frontier->room;
-					append_list(&next, make_item(neighbour->room));
-				}
+					NEIGHCONT;
+				if (STAT1 && STAT3)
+					NEIGHAPPL;
 				neighbour = neighbour->next;
 			}
 			frontier = frontier->next;
 		}
-		i++;
-		frontier = next;
+		FRONT_NEXT;
 	}
-	return (append_to_pathlist(&s->paths, create_pathlist_item(map_path(s->anthill->end))));
+	return (append_to_pathlist(&s->paths, RETFUNC2));
 }
