@@ -1,12 +1,26 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   room_functions.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ayano <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/11/05 11:22:25 by ayano             #+#    #+#             */
+/*   Updated: 2019/11/05 11:24:03 by ayano            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <lem_in.h>
 
 /*
 **	Create a new room link item.
 **
-**	roomtype rtype :: Distinguish between start (1), end (2), or normal (0) room types
+**	roomtype rtype :: Distinguish between start (1), end (2),
+**													or normal (0) room types
 **	char *line     :: will be split to get name, x, and y values
 **	t_anthill      :: The anthill struct whose lineat will get the new room.
 */
+
 void	new_room(t_roomtype rtype, char *line, t_anthill **anthill)
 {
 	t_room	*new;
@@ -18,7 +32,7 @@ void	new_room(t_roomtype rtype, char *line, t_anthill **anthill)
 	data = NULL;
 	if (rtype == START || rtype == END)
 	{
-		new->is_end = (rtype == END) ? true : false ;
+		new->is_end = (rtype == END) ? true : false;
 		new->is_start = (rtype == START) ? true : false;
 	}
 	else
@@ -35,6 +49,7 @@ void	new_room(t_roomtype rtype, char *line, t_anthill **anthill)
 /*
 ** initializes the rooms values and mallocs the struct.
 */
+
 t_room	*init_room(void)
 {
 	t_room *new;
@@ -61,6 +76,7 @@ t_room	*init_room(void)
 **	t_room *entry_point :: usually the first room ever created
 **	t_room *new :: A pointer to the newly created room
 */
+
 void	append_room_linear(t_room **entry_point, t_room *new)
 {
 	t_room		*current;
@@ -80,11 +96,13 @@ void	append_room_linear(t_room **entry_point, t_room *new)
 }
 
 /*
-**	Get the room allocated as the start (bool is_start), this will be the start of the linked list from ant's perspective
+**	Get the room allocated as the start (bool is_start),
+**	this will be the start of the linked list from ant's perspective
 **
 **	t_room *entry :: First entry in the linear linked list
 **	t_room *entry :: First entry in the linear linked list
 */
+
 void	set_start_room(t_anthill *hill, t_room *entry)
 {
 	while (entry)
@@ -98,18 +116,17 @@ void	set_start_room(t_anthill *hill, t_room *entry)
 	}
 }
 
-
 /*
-	Find room by name
-
-	TODO :: Comments here, may not need this
+**	Find room by name
+**
+**	TODO :: Comments here, may not need this
 */
-t_room *find_room_by_name(t_anthill **anthill, char *name)
+
+t_room	*find_room_by_name(t_anthill **anthill, char *name)
 {
 	t_room *cursor;
 
 	cursor = (*anthill)->linear;
-
 	while (cursor)
 	{
 		if ((ft_strequ(name, cursor->name)) == 1)

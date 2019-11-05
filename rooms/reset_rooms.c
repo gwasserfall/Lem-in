@@ -6,7 +6,7 @@
 /*   By: ayano <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 09:24:44 by ayano             #+#    #+#             */
-/*   Updated: 2019/09/10 09:24:47 by ayano            ###   ########.fr       */
+/*   Updated: 2019/11/05 11:20:28 by ayano            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,12 @@
 /*
 ** Sets all the room levels to -1 and all the paretns to NULL.
 */
+
 void	reset_rooms(t_anthill **anthill)
 {
 	t_room *room;
 
 	room = (*anthill)->linear;
-
 	while (room)
 	{
 		room->parent = NULL;
