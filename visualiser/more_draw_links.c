@@ -18,11 +18,11 @@ void	draw_ants(t_state *s)
 	SDL_Rect	r;
 
 	army = s->anthill->colony;
-	SDL_SetRenderDrawColor(s->renderer, 200, 200, 200, 255);	
+	SDL_SetRenderDrawColor(s->renderer, 200, 200, 200, 255);
 	stringRGBA(s->renderer, 5, 40, ft_itoa(s->frame), 255, 255, 255, 255);
 	while (army)
 	{
-		stringRGBA(s->renderer, X(s, army->x) - 35, Y(s, army->y) - SPRITE_H - 10, army->name, 255, 255, 255, 255);
+		stringRGBA(STRINGRGBA - SPRITE_H - 10, ARMY);
 		r.x = X(s, army->x) - SPRITE_W / 2;
 		r.y = Y(s, army->y) - SPRITE_H;
 		r.h = SPRITE_H;
@@ -31,15 +31,11 @@ void	draw_ants(t_state *s)
 			if (s->frame % 5 == 0)
 			{
 				if (army->sprite && army->sprite->next)
-				{
 					army->sprite = army->sprite->next;
-				}
 				else
-				{
 					army->sprite = s->walk_right;
-				}
 			}
-			SDL_RenderCopy(s->renderer, army->sprite->img, NULL, &r);
+		SDL_RenderCopy(s->renderer, army->sprite->img, NULL, &r);
 		army = army->next;
 	}
 }

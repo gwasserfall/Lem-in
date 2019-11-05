@@ -57,18 +57,15 @@ void	draw_nodes(t_state *s)
 		r.h = 30;
 		r.w = 100;
 		if (room->is_start)
-		{
-			stringRGBA(s->renderer, X(s, room->x) + 5, Y(s, room->y) - 24, "START", 255, 255, 255, 255);
-			filledCircleRGBA(s->renderer, X(s, room->x), Y(s, room->y), 10, 0, 255, 255, 255);
-		}
+			RISSTART;
 		else if (room->is_end)
 		{
-			stringRGBA(s->renderer, X(s, room->x) + 5, Y(s, room->y) - 24, "END", 255, 255, 255, 255);
-			filledCircleRGBA(s->renderer, X(s, room->x), Y(s, room->y), 10, 255, 0, 255, 255);
+			stringRGBA(RISENDRGB);
+			filledCircleRGBA(FCIRC2);
 		}
 		else
 		{
-			stringRGBA(s->renderer, X(s, room->x) + 5, Y(s, room->y) - 24, room->name, 255, 255, 255, 255);
+			stringRGBA(STRRGB3);
 			SDL_RenderCopy(s->renderer, s->room_sprite, NULL, &r);
 		}
 		room = room->next;

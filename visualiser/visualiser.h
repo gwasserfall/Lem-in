@@ -27,7 +27,18 @@
 # define APL2 append_list(&frontier, make_item(s->anthill->start));
 # define RETFUNC2 create_pathlist_item(map_path(s->anthill->end))
 # define STAT3 !room_in_pathlist(s->paths, neighbour->room)
-
+# define START "START", 255, 255, 255, 255
+# define STRGBA s->renderer, X(s, room->x) + 5, Y(s, room->y) - 24, START
+# define FILLRGBA s->renderer, X(s, room->x), Y(s, room->y), 10, 0, 255, 255, 255
+# define RISSTART {stringRGBA;filledCircleRGBA;}
+# define END "END", 255, 255, 255, 255
+# define STRRGB2 s->renderer, X(s, room->x) + 5, Y(s, room->y) - 24,
+# define RISENDRGB {STRRGB2;END}
+# define FCIRC2 s->renderer, X(s, room->x), Y(s, room->y), 10, 255, 0, 255, 255
+# define RNAME  room->name, 255, 255, 255, 255
+# define STRRGB3 s->renderer, X(s, room->x) + 5, Y(s, room->y) - 24, RNAME
+# define ARMY army->name, 255, 255, 255, 255
+# define STRINGRGBA s->renderer, X(s, army->x) - 35, Y(s, army->y)
 
 typedef struct			s_img
 {
