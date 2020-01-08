@@ -36,8 +36,11 @@ bool set_levels(t_anthill *anthill)
 
 	i = 1;
 	frontier = NULL;
+
 	reset_rooms(&anthill);
+	
 	append_list(&frontier, make_item(anthill->start));
+
 	while (frontier)
 	{
 		next = NULL;
@@ -64,8 +67,7 @@ bool set_levels(t_anthill *anthill)
 		i++;
 		frontier = next;
 	}
-	return (append_to_pathlist(&anthill->paths, 
-		create_pathlist_item(map_path(anthill->end))));
+	return (append_to_pathlist(&anthill->paths, create_pathlist_item(map_path(anthill->end))));
 }
 
 /*

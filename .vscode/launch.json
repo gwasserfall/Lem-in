@@ -5,6 +5,19 @@
 	"version": "0.2.0",
 	"configurations": [
 		{
+			"name": "(lldb) Test",
+			"type": "cppdbg",
+			"request": "launch",
+			"program": "${workspaceFolder}/a.out",
+			"args": [],
+			"stopAtEntry": false,
+			"cwd": "${workspaceFolder}",
+			"environment": [],
+			"externalConsole": false,
+			"preLaunchTask": "build_test",
+			"MIMode": "lldb"
+		},
+		{
 			"name": "(lldb) Lemon",
 			"type": "cppdbg",
 			"request": "launch",

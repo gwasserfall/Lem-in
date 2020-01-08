@@ -9,7 +9,7 @@
 #define MOVE 7
 #define EMPTY 8
 
-t_anthill	*init_anthill(void)
+t_anthill	*new_anthill(void)
 {
 	t_anthill	*anthill;
 
@@ -291,7 +291,7 @@ t_anthill  *get_infos()
 	
 	next_start = false;
 	next_end = false;
-	anthill = init_anthill();
+	anthill = new_anthill();
 	while (get_next_line(0, &line) > 0)
 	{
 		line_type = identify_line(line);

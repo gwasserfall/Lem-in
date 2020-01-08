@@ -17,18 +17,35 @@ int		main(void)
 	t_anthill	*anthill;
 	t_data		*data;
 
-	data = NULL;
-	read_into_data(&data);
+	// Satisfied!
+	data = read_stdin_to_data();
+
 	anthill = build_anthill(&data);
+
 	if (anthill->start == NULL || anthill->end == NULL)
 		print_start_end_error();
+
+
+
+
+
 	index_rooms(&anthill);
 	while ((set_levels(anthill)))
 		anthill->nb_paths++;
+	
+	
+	
+	// while(1);
+	
+	
 	check_start_end_path(&anthill);
+	
+	
 	if (anthill->nb_paths)
 	{
-		display_input(&data);
+		display_input_and_free(data);
+
+
 		create_colony(anthill);
 		set_path_length(anthill);
 		optimise_paths(&anthill);
@@ -37,6 +54,6 @@ int		main(void)
 	}
 	else
 		ft_putendl(RED "Error :" RESET " No valid path");
-	free_data(&data);
+	
 	return (1);
 }

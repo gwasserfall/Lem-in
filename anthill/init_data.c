@@ -16,7 +16,7 @@
 ** Mallocs the data struct and sets all the variables to NULL
 */
 
-t_data		*init_data(void)
+t_data		*new_data_node(void)
 {
 	t_data	*new;
 
@@ -32,27 +32,30 @@ t_data		*init_data(void)
 ** line variable in the data struct
 */
 
-void		read_into_data(t_data **data)
+t_data		*read_stdin_to_data()
 {
 	char	*line;
+	t_data 	*data;
 
+	data = NULL;
 	while (get_next_line(0, &line) > 0)
 	{
-		add_data_node(data, line);
+		append_data_node(&data, line);
 		free(line);
 	}
+	return (data);
 }
 
 /*
 ** Adds a data node to the end of the current linked list using the data struct
 */
 
-void		add_data_node(t_data **data, char *line)
+void		append_data_node(t_data **data, char *line)
 {
 	t_data	*current;
 	t_data	*new;
 
-	new = init_data();
+	new = new_data_node();
 	new->line = ft_strdup(line);
 	current = (*data);
 	if (!current)
@@ -67,6 +70,7 @@ void		add_data_node(t_data **data, char *line)
 
 void	set_path_length(t_anthill *anthill)
 {
+	// TODO naming
 	t_pathlist	*current_path;
 	t_path		*current;
 

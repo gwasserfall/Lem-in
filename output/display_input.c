@@ -16,15 +16,22 @@
 ** Displays all the data we have read in if there are no errors
 */
 
-void		display_input(t_data **data)
+void		display_input_and_free(t_data *data)
 {
 	t_data	*current;
+	t_data	*previous;
 
-	current = (*data);
+	current = data;
 	while (current)
 	{
 		ft_putendl(current->line);
+		previous = current;
 		current = current->next;
+		if (previous)
+		{
+			free(previous->line);
+			free(previous);
+		}
 	}
 	ft_putendl("");
 }

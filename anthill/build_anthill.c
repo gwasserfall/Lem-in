@@ -20,7 +20,7 @@ t_anthill	*build_anthill(t_data **data)
 {
 	t_anthill	*anthill;
 
-	anthill = init_anthill();
+	anthill = new_anthill();
 	read_loop(anthill, data);
 	if (anthill->nb_ants <= 0)
 		print_ant_error();
@@ -95,7 +95,7 @@ int			check_line(char *line)
 ** the data held in the struct.
 */
 
-t_anthill	*init_anthill(void)
+t_anthill	*new_anthill(void)
 {
 	t_anthill	*anthill;
 

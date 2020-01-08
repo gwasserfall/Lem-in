@@ -12,6 +12,11 @@
 			"label": "build_lemon",
 			"type": "shell",
 			"command": "make"
+		},
+		{
+			"label": "build_test",
+			"type": "shell",
+			"command": "gcc -g algo_reup.c"
 		}
 	]
 }

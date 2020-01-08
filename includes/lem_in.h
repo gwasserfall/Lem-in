@@ -109,6 +109,12 @@ typedef struct			s_movelist
 	t_moves				*moves;
 }						t_movelist;
 
+typedef struct			s_fifo
+{
+	struct s_fifo 		*next;
+	t_room				*room;
+}						t_fifo;
+
 typedef struct			s_anthill
 {
 	t_room				*linear;
@@ -132,7 +138,7 @@ void					db_print_linear(t_anthill *anthill);
 ** Anthill prototypes
 */
 t_anthill				*build_anthill(t_data **data);
-t_anthill				*init_anthill(void);
+t_anthill				*new_anthill(void);
 void					read_loop(t_anthill *anthill, t_data **data);
 
 /*
@@ -162,6 +168,15 @@ void					print_start_end_error(void);
 */
 void					free_array(char **str);
 void					free_data(t_data **data);
+
+
+/*
+** First-In-First-Out Queue
+*/
+void fifo_push(t_fifo **stack, t_room *room);
+t_room *fifo_pop(t_fifo **stack);
+
+
 
 /*
 ** Preflight prototypes.
@@ -198,14 +213,14 @@ void					display_ants(t_anthill **anthill);
 void					display_output(t_anthill **anthill);
 void					display_rooms(t_anthill **anthill);
 void					display_links(t_anthill **anthill);
-void					display_input(t_data **data);
+void					display_input_and_free(t_data *data);
 
 /*
 ** Data prototypes.
 */
-t_data					*init_data(void);
-void					read_into_data(t_data **data);
-void					add_data_node(t_data **data, char *line);
+t_data					*new_data_node(void);
+t_data					*read_stdin_to_data();
+void					append_data_node(t_data **data, char *line);
 
 /*
 ** links.
