@@ -50,6 +50,7 @@ t_room	*init_room(void)
 	new->y = 0;
 	new->index = 0;
 	new->level = 0;
+	new->in_path = false;
 	new->occupied = false;
 	new->links = NULL;
 	return (new);

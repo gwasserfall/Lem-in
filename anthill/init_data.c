@@ -74,7 +74,7 @@ void	set_path_length(t_anthill *anthill)
 	t_pathlist	*current_path;
 	t_path		*current;
 
-	current_path =  anthill->paths;
+	current_path = anthill->paths;
 	while (current_path)
 	{
 		current = current_path->path;

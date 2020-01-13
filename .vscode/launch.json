@@ -31,7 +31,7 @@
 			"preLaunchTask": "build_lemon",
 			"setupCommands": [
                 {
-                    "text": "settings set target.input-path ./maps/test_glen.map"
+                    "text": "settings set target.input-path ./maps/valid_linear.map"
                 }
             ],
 		},

@@ -11,6 +11,12 @@
 /* ************************************************************************** */
 
 #include <lem_in.h>
+# define ANT_COUNT 1
+# define IDENT 2
+# define ROOM 3
+# define LINK 4
+# define COMMENT 5
+# define INVLD 6
 
 /*
 ** This will create the anthills first node and then add nodes for each room.
@@ -25,6 +31,29 @@ t_anthill	*build_anthill(t_data **data)
 	if (anthill->nb_ants <= 0)
 		print_ant_error();
 	return (anthill);
+}
+
+/*
+** Skips 2 entries if ##start or ##end are found
+*/
+
+void add_start_or_end_data(t_data **entry, t_anthill *anthill)
+{
+	t_data *current;
+
+	current = *entry;
+	if (ft_strcmp(current->line, "##start") == 0)
+	{
+		current = current->next;
+		add_data_start(current->line, &anthill);
+		*entry = current->next;
+	}
+	if (ft_strcmp(current->line, "##end") == 0)
+	{
+		current = current->next;
+		add_data_end(current->line, &anthill);
+		*entry = current->next;
+	}
 }
 
 /*
@@ -43,21 +72,14 @@ void		read_loop(t_anthill *anthill, t_data **data)
 	while (current)
 	{
 		type = check_line(current->line);
-		if (type == 4)
-			link = 1;
-		if ((type == 3 && link == 1) || current->line[0] == '\0')
+		if (type == LINK)
+			link = true;
+		if ((type == ROOM && link == true) || !(current->line[0]))
 			print_invalid_input();
 		pre_add_data(type, current->line, &anthill);
-		if (ft_strcmp(current->line, "##start") == 0)
+		if (type == IDENT)
 		{
-			current = current->next;
-			add_data_start(current->line, &anthill);
-			continue;
-		}
-		if (ft_strcmp(current->line, "##end") == 0)
-		{
-			current = current->next;
-			add_data_end(current->line, &anthill);
+			add_start_or_end_data(&current, anthill);
 			continue;
 		}
 		current = current->next;
@@ -77,17 +99,17 @@ void		read_loop(t_anthill *anthill, t_data **data)
 int			check_line(char *line)
 {
 	if (only_digit(line))
-		return (1);
+		return (ANT_COUNT);
 	else if (line[0] == '#' && line[1] != '#')
-		return (5);
+		return (COMMENT);
 	else if (line[0] == '#' && line[1] == '#')
-		return (2);
+		return (IDENT);
 	else if (word_count(line, ' ', 0) == 3)
-		return (3);
+		return (ROOM);
 	else if (word_count(line, '-', 0) == 2)
-		return (4);
+		return (LINK);
 	else
-		return (6);
+		return (INVLD);
 }
 
 /*

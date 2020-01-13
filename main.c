@@ -12,28 +12,89 @@
 
 #include <lem_in.h>
 
+void print_path(t_path *path)
+{
+	while (path)
+	{
+		printf("%s ->", path->room->name);
+		path = path->next;
+	}
+	printf("\n");
+}
+
+t_pathlist *new_path_list(t_path *path)
+{
+	t_pathlist *pathlist;
+
+	if (!(pathlist = malloc(sizeof(t_pathlist))))
+		return (NULL);
+	pathlist->next = NULL;
+	pathlist->path = path;
+	return (pathlist);
+}
+
+void append_pathlist_item(t_anthill *a, t_path *path)
+{
+	t_pathlist *head;
+
+	head = a->paths;
+	if (head)
+	{
+		while (head->next)
+			head = head->next;
+		head->next = new_path_list(path);
+	}
+	else
+		a->paths = new_path_list(path);
+}
+
+
+bool	populate_pathlist(t_anthill *a)
+{
+	t_path *path;
+	
+	graph_traverse(a);
+
+	while ((path = get_shortest_path(a)))
+		print_path(path);
+	return (true);
+}
+
 int		main(void)
 {
 	t_anthill	*anthill;
 	t_data		*data;
 
-	// Satisfied!
 	data = read_stdin_to_data();
+
 
 	anthill = build_anthill(&data);
 
-	if (anthill->start == NULL || anthill->end == NULL)
+
+
+	// Free data
+
+
+
+	if (!anthill->start || !anthill->end)
 		print_start_end_error();
 
-
-
-
+	populate_pathlist(anthill);
 
 	index_rooms(&anthill);
+
+
+	// Run algo here 
 	while ((set_levels(anthill)))
 		anthill->nb_paths++;
 	
-	
+	// Create paths
+
+		// If no paths free everything and exit
+
+	// optimise paths
+		// Remove any path that is longer than the number of ants
+			// Only if there are more than 2 paths
 	
 	// while(1);
 	

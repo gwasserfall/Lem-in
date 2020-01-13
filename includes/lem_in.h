@@ -23,6 +23,7 @@
 # define YELLOW "\033[33m"
 # define CYAN "\033[36m"
 # define PURPLE "\033[35m"
+
 # include <stdbool.h>
 # include <stdlib.h>
 # include <stdio.h>
@@ -36,6 +37,7 @@ typedef struct			s_room
 	struct s_room		*parent;
 	int					level;
 	int					link_count;
+	bool				in_path;
 	double				x;
 	double				y;
 	int					index; // We dont actually use it, i made it a while ago for some testing :)
@@ -173,8 +175,8 @@ void					free_data(t_data **data);
 /*
 ** First-In-First-Out Queue
 */
-void fifo_push(t_fifo **stack, t_room *room);
-t_room *fifo_pop(t_fifo **stack);
+void					fifo_push(t_fifo **stack, t_room *room);
+t_room					*fifo_pop(t_fifo **stack);
 
 
 
@@ -267,5 +269,12 @@ void		order_paths(t_anthill *anthill);
 void	swap(t_pathlist *first, t_pathlist *second);
 
 void	prepend_to_pathlist(t_pathlist **start, t_pathlist *new);
+
+
+// New functions
+void	graph_traverse(t_anthill *a);
+t_path *get_shortest_path(t_anthill *a);
+
+
 
 #endif
