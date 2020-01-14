@@ -98,7 +98,6 @@ void		free_array(char **str)
 */
 void		print_error_room(void)
 {
-	ft_putstr(RED "Error" RESET);
-	ft_putendl(" : Room is not formatted correctly.");
+	ft_putendl(RED "Error" RESET " : Room is not formatted correctly.");
 	exit(1);
 }

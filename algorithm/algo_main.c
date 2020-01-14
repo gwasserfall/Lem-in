@@ -38,19 +38,21 @@ void	create_colony(t_anthill *anthill)
 
 bool create_move_list(t_anthill *anthill)
 {
-	t_pathlist *paths;
+	t_pathlist *pathlist;
 	t_path *path;
 	t_list *moves;
 	t_ant *ant;
 	
 	while (!ants_are_free(anthill))
 	{
-		paths = anthill->paths;
-		while (paths)
+		pathlist = anthill->paths;
+		while (pathlist)
 		{
-			path = paths->path;
-			if (paths->valid)
+			printf("Moving through pathlist item with length %d\n", pathlist->length);
+			path = pathlist->path;
+			if (pathlist->valid)
 			{
+				printf("Which is valid\n");
 				while (!path->room->is_start)
 				{
 					if ((ant = ant_here(anthill->colony, path->next->room)))
@@ -61,7 +63,7 @@ bool create_move_list(t_anthill *anthill)
 					path = path->next;
 				}
 			}
-			paths = paths->next;
+			pathlist = pathlist->next;
 		}
 		append_move(&anthill->moves, make_move(NULL, NULL, NULL));
 	}

@@ -31,7 +31,7 @@
 			"preLaunchTask": "build_lemon",
 			"setupCommands": [
                 {
-                    "text": "settings set target.input-path ./maps/no_possible_solution.map"
+                    "text": "settings set target.input-path ./maps/valid_dev.map"
                 }
             ],
 		},

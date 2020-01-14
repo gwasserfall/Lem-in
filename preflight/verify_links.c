@@ -39,8 +39,6 @@ void		verify_links(char *line, t_anthill **anthill)
 
 void		print_error_link(void)
 {
-	ft_putstr(RED);
-	ft_putendl("Link is not formatted correctly.");
-	ft_putstr(RESET);
+	ft_putendl(RED "Error" RESET " : Link is not formatted correctly.");
 	exit(1);
 }

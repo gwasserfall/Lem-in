@@ -13,7 +13,7 @@
 #include <lem_in.h>
 
 /*
-** Takes line and finds the start room then sets its name x and y position.
+** Takes line and finds the start room then sets its name, x and y position.
 */
 
 void	add_data_start(char *line, t_anthill **anthill)
@@ -60,4 +60,26 @@ void	add_data_end(char *line, t_anthill **anthill)
 	current->y = ft_atod(data[2]);
 	(*anthill)->end = current;
 	free_array(data);
+}
+
+/*
+** Adds the name, x and y data to the room that is start
+*/
+
+void	add_start_data(char *line, t_anthill **anthill)
+{
+	add_data_start(line, anthill);
+	free(line);
+	get_next_line(0, &line);
+}
+
+/*
+** Adds the name, x and y data to the room that is end
+*/
+
+void	add_end_data(char *line, t_anthill **anthill)
+{
+	add_data_end(line, anthill);
+	free(line);
+	get_next_line(0, &line);
 }
