@@ -1,6 +1,5 @@
 #include <lem_in.h>
 
-
 void create_move_list(t_anthill *anthill)
 {
 	t_pathlist *pathlist;

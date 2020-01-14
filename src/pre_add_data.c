@@ -12,6 +12,13 @@
 
 #include <lem_in.h>
 
+void		add_room(char *line, t_anthill **anthill)
+{
+	verify_room(line);
+	new_room(0, line, anthill);
+	(*anthill)->room_count++;
+}
+
 /*
 ** This will take the data we have and then pass it to the appropriate function
 ** that will add the data to the linear, start or end structs.
@@ -22,6 +29,7 @@
 **     : 5 == comment.
 **	   : 6 == error/invalid input.
 */
+
 
 void		pre_add_data(int type, char *line, t_anthill **anthill)
 {
@@ -40,11 +48,7 @@ void		pre_add_data(int type, char *line, t_anthill **anthill)
 			return ;
 	}
 	if (type == 3)
-	{
-		verify_room(line);
-		new_room(0, line, anthill);
-		(*anthill)->room_count++;
-	}
+		add_room(line, anthill);
 	if (type == 4)
 	{
 		verify_links(line, anthill);
@@ -62,6 +66,6 @@ void		pre_add_data(int type, char *line, t_anthill **anthill)
 
 void		print_invalid_input(void)
 {
-	ft_putendl(RED "Invalid Input." RESET);
+	ft_putendl(RED "Error " RESET " : Invalid Input.");
 	exit(1);
 }

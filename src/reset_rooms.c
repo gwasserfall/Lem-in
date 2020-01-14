@@ -15,18 +15,18 @@
 /*
 ** Sets all the room levels to -1 and all the paretns to NULL.
 */
-void	reset_rooms(t_anthill **anthill)
-{
-	t_room *room;
+// void	reset_rooms(t_anthill **anthill)
+// {
+// 	t_room *room;
 
-	room = (*anthill)->linear;
+// 	room = (*anthill)->linear;
 
-	while (room)
-	{
-		room->parent = NULL;
-		room->level = -1;
-		if (room->is_start)
-			room->level = 0;
-		room = room->next;
-	}
-}
+// 	while (room)
+// 	{
+// 		room->parent = NULL;
+// 		room->level = -1;
+// 		if (room->is_start)
+// 			room->level = 0;
+// 		room = room->next;
+// 	}
+// }
