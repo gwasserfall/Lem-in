@@ -32,6 +32,8 @@ int		verify_start_and_end(char *line)
 
 /*
 ** Seriousely bro, it just prints an error.
+**
+** It also exits the program
 */
 
 void	print_start_end_error(void)
@@ -39,5 +41,8 @@ void	print_start_end_error(void)
 	ft_putstr(RED);
 	ft_putendl("No Start or End room given.");
 	ft_putstr(RESET);
+	
+	
+	//TODO fi this up to release any data on failure
 	exit(1);
 }

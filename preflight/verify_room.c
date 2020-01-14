@@ -96,11 +96,9 @@ void		free_array(char **str)
 /*
 ** Seriousely bro, it just prints an error message.
 */
-
 void		print_error_room(void)
 {
-	ft_putstr(RED);
-	ft_putendl("Room is not formatted correctly.");
-	ft_putstr(RESET);
+	ft_putstr(RED "Error" RESET);
+	ft_putendl(" : Room is not formatted correctly.");
 	exit(1);
 }

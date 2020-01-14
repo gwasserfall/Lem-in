@@ -24,5 +24,10 @@
 		"type_traits": "c",
 		"vector": "c",
 		"sdl2_rotozoom.h": "c"
+	},
+	"[c]": {
+		"editor.rulers": [
+			80
+		]
 	}
 }

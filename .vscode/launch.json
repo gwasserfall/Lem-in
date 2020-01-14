@@ -5,6 +5,19 @@
 	"version": "0.2.0",
 	"configurations": [
 		{
+			"name": "(lldb) Test",
+			"type": "cppdbg",
+			"request": "launch",
+			"program": "${workspaceFolder}/a.out",
+			"args": [],
+			"stopAtEntry": false,
+			"cwd": "${workspaceFolder}",
+			"environment": [],
+			"externalConsole": false,
+			"preLaunchTask": "build_test",
+			"MIMode": "lldb"
+		},
+		{
 			"name": "(lldb) Lemon",
 			"type": "cppdbg",
 			"request": "launch",
@@ -18,7 +31,7 @@
 			"preLaunchTask": "build_lemon",
 			"setupCommands": [
                 {
-                    "text": "settings set target.input-path ./maps/test_glen.map"
+                    "text": "settings set target.input-path ./maps/no_possible_solution.map"
                 }
             ],
 		},

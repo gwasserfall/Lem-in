@@ -74,7 +74,7 @@ bool	create_move_list(t_anthill *anthill)
 }
 
 /*
-** Checks to see if all the ants are free, ie all the ants are in the ned room.
+** Checks to see if all the ants are free, ie all the ants are in the next room.
 */
 
 bool	ants_are_free(t_anthill *anthill)

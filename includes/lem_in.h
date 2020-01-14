@@ -16,17 +16,18 @@
 # define START 1
 # define END 2
 # define RESET "\033[00m"
-# define GREEN "\033[32m"
-# define BLUE "\033[34m"
-# define WHITE "\033[37m"
+// # define GREEN "\033[32m"
+// # define BLUE "\033[34m"
+// # define WHITE "\033[37m"
 # define RED "\033[31m"
-# define YELLOW "\033[33m"
-# define CYAN "\033[36m"
-# define PURPLE "\033[35m"
+// # define YELLOW "\033[33m"
+// # define CYAN "\033[36m"
+// # define PURPLE "\033[35m"
+
 # include <stdbool.h>
 # include <stdlib.h>
 # include <stdio.h>
-# include "../libft/libft.h"
+# include <libft.h>
 
 # define P_ROOM path->room
 # define CURR_PATH ant->current = path->room;
@@ -63,9 +64,9 @@ typedef struct			s_room
 	struct s_room		*parent;
 	int					level;
 	int					link_count;
+	bool				in_path;
 	double				x;
 	double				y;
-	int					index;
 	char				*name;
 	bool				is_start;
 	bool				is_end;
@@ -136,6 +137,12 @@ typedef struct			s_movelist
 	t_moves				*moves;
 }						t_movelist;
 
+typedef struct			s_fifo
+{
+	struct s_fifo 		*next;
+	t_room				*room;
+}						t_fifo;
+
 typedef struct			s_anthill
 {
 	t_room				*linear;
@@ -159,7 +166,7 @@ void					db_print_linear(t_anthill *anthill);
 ** Anthill prototypes
 */
 t_anthill				*build_anthill(t_data **data);
-t_anthill				*init_anthill(void);
+t_anthill				*new_anthill(void);
 void					read_loop(t_anthill *anthill, t_data **data);
 
 /*
@@ -189,6 +196,15 @@ void					print_start_end_error(void);
 */
 void					free_array(char **str);
 void					free_data(t_data **data);
+
+
+/*
+** First-In-First-Out Queue
+*/
+void					fifo_push(t_fifo **stack, t_room *room);
+t_room					*fifo_pop(t_fifo **stack);
+
+
 
 /*
 ** Preflight prototypes.
@@ -225,14 +241,14 @@ void					display_ants(t_anthill **anthill);
 void					display_output(t_anthill **anthill);
 void					display_rooms(t_anthill **anthill);
 void					display_links(t_anthill **anthill);
-void					display_input(t_data **data);
+void					display_input_and_free(t_data *data);
 
 /*
 ** Data prototypes.
 */
-t_data					*init_data(void);
-void					read_into_data(t_data **data);
-void					add_data_node(t_data **data, char *line);
+t_data					*new_data_node(void);
+t_data					*read_stdin_to_data();
+void					append_data_node(t_data **data, char *line);
 
 /*
 ** links.
@@ -262,7 +278,7 @@ bool					set_paths(t_anthill *anthill);
 t_path					*make_path_item(t_room *room);
 int						hatch_ant(t_anthill *anthill, char *name);
 void					prepend_to_path(t_path **start, t_path *item);
-void					optimise_paths(t_anthill **anthill);
+void					optimise_paths(t_anthill *anthill);
 void					check_start_end_path(t_anthill **anthill);
 void					prepend_pathlist(t_anthill **anthill);
 bool					ants_are_free(t_anthill *anthill);
@@ -277,5 +293,13 @@ void					order_paths(t_anthill *anthill);
 void					swap(t_pathlist *first, t_pathlist *second);
 void					prepend_to_pathlist(t_pathlist **start,
 													t_pathlist *new);
+
+
+// New functions
+void	graph_traverse(t_anthill *a);
+t_path *get_shortest_path(t_anthill *a, t_room *end_room);
+void	set_path_distances(t_anthill *hill);
+int	pathcount(t_anthill *hill);
+
 
 #endif
