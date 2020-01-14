@@ -44,39 +44,6 @@ t_room	*get_room_neighbour(t_room *node, t_link *link)
 	return (NULL);
 }
 
-void	reset_all_room_parents(t_anthill *a)
-{
-	t_room *room;
-
-	room = a->linear;
-	while (room)
-	{
-		room->parent = NULL;
-		room = room->next;
-	}
-}
-
-void	polarize_room_parents(t_anthill *a)
-{
-	t_pathlist	*pathlist;
-	t_path		*path;
-
-	reset_all_room_parents(a);
-	pathlist = a->paths;
-	while (pathlist)
-	{
-		path = pathlist->path;
-		while (path)
-		{
-			path->room->parent = a->start;
-			path = path->next;
-		}
-		pathlist = pathlist->next;
-	}
-	a->end->parent = NULL;
-	a->start->parent = NULL;
-}
-
 void	graph_traverse(t_anthill *a)
 {
 	t_fifo	*queue;
@@ -87,10 +54,7 @@ void	graph_traverse(t_anthill *a)
 	queue = NULL;
 	fifo_push(&queue, a->start);
 	while ((node = fifo_pop(&queue)))
-	{
 		while ((neighbour = get_room_neighbour(node, a->connectors)))
-		{
 			fifo_push(&queue, neighbour);
-		}
-	}
+	
 }

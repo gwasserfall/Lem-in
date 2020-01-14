@@ -7,7 +7,7 @@
 **	char *line     :: will be split to get name, x, and y values
 **	t_anthill      :: The anthill struct whose lineat will get the new room.
 */
-void	new_room(t_roomtype rtype, char *line, t_anthill **anthill)
+void	new_room(int rtype, char *line, t_anthill **anthill)
 {
 	t_room	*new;
 	t_room	*current;

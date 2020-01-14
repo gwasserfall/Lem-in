@@ -54,7 +54,7 @@ t_path *get_shortest_path(t_anthill *a, t_room *end_room)
 	if (!end_room->is_start)
 	{
 		destroy_unusable_path(path);
-		return NULL;
+		return (NULL);
 	}
 	_append_path(&path, a->start);
 	return (path);

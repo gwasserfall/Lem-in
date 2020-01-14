@@ -11,12 +11,6 @@
 /* ************************************************************************** */
 
 #include <lem_in.h>
-# define ANT_COUNT 1
-# define IDENT 2
-# define ROOM 3
-# define LINK 4
-# define COMMENT 5
-# define INVLD 6
 
 /*
 ** This will create the anthills first node and then add nodes for each room.

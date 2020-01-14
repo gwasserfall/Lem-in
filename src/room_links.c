@@ -1,26 +1,9 @@
 #include <lem_in.h>
 
 /*
-** Initialize the link struct.
+**	Glens function idk what it does, pretty sure its useless.
+**	it replaces the above function which does nothing :D
 */
-
-t_link			*init_link(void)
-{
-	t_link	*new;
-
-	if (!(new = malloc(sizeof(t_link))))
-		return (NULL);
-	new->from = NULL;
-	new->next = NULL;
-	new->to = NULL;
-	return (new);
-}
-
-/*
-** MEH, Glens function idk what it does, pretty sure its useless.
-** it replaces the above function which does nothing :D
-*/
-
 t_link			*make_link(t_room *from, t_room *to)
 {
 	t_link *new;
@@ -36,7 +19,6 @@ t_link			*make_link(t_room *from, t_room *to)
 /*
 ** adds the node new to the end of the linked list start.
 */
-
 void			append_link(t_link **start, t_link *new)
 {
 	t_link *link;

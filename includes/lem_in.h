@@ -15,6 +15,12 @@
 # define NORMAL 0
 # define START 1
 # define END 2
+# define ANT_COUNT 1
+# define IDENT 2
+# define ROOM 3
+# define LINK 4
+# define COMMENT 5
+# define INVLD 6
 # define RESET "\033[00m"
 # define RED "\033[31m"
 # include <stdbool.h>
@@ -81,24 +87,12 @@ typedef struct			s_data
 	struct s_data		*next;
 }						t_data;
 
-typedef struct			s_roomlist
-{
-	t_room				*room;
-	struct s_roomlist	*next;
-}						t_roomlist;
-
 typedef struct			s_moves
 {
 	struct s_moves		*next;
 	t_ant				*ant;
 	t_room				*room;
 }						t_moves;
-
-typedef struct			s_movelist
-{
-	struct s_movelist	*next;
-	t_moves				*moves;
-}						t_movelist;
 
 typedef struct			s_fifo
 {
@@ -121,11 +115,6 @@ typedef struct			s_anthill
 }						t_anthill;
 
 /*
-** Debug
-*/
-void					db_print_linear(t_anthill *anthill);
-
-/*
 ** Anthill prototypes
 */
 t_anthill				*build_anthill(t_data **data);
@@ -135,8 +124,7 @@ void					read_loop(t_anthill *anthill, t_data **data);
 /*
 ** Room prototypes
 */
-void					new_room(t_roomtype rtype, char *line,
-												t_anthill **anthill);
+void					new_room(int rtype, char *line, t_anthill **anthill);
 void					append_room_linear(t_room **entry_point, t_room *new);
 // void					init_roomlink_max(t_anthill **anthill);
 t_room					*find_room_by_name(t_anthill **anthill, char *name);
@@ -215,7 +203,7 @@ void					append_data_node(t_data **data, char *line);
 /*
 ** links.
 */
-t_link					*init_link(void);
+// t_link					*init_link(void);
 t_link					*make_link(t_room *from, t_room *to);
 void					append_link(t_link **start, t_link *new);
 void					assign_link(t_anthill *ah, char *str);
@@ -223,14 +211,12 @@ void					assign_link(t_anthill *ah, char *str);
 /*
 ** Roomlist prototypes.
 */
-t_roomlist				*init_roomlist(void);
-t_roomlist				*make_item(t_room *room);
-t_roomlist				*get_neighbours(t_room *room, t_link *links);
-void					append_list(t_roomlist **start, t_roomlist *new);
-bool					room_in_pathlist(t_pathlist *pathlist, t_room *room);
+// t_roomlist				*init_roomlist(void);
+// t_roomlist				*make_item(t_room *room);
+// t_roomlist				*get_neighbours(t_room *room, t_link *links);
+// void					append_list(t_roomlist **start, t_roomlist *new);
+// bool					room_in_pathlist(t_pathlist *pathlist, t_room *room);
 void					append_to_path(t_path **start, t_path *item);
-bool					append_to_pathlist(t_pathlist **start,
-													t_pathlist *item);
 t_pathlist				*create_pathlist_item(t_path *path_start);
 
 /*
@@ -258,6 +244,7 @@ void					graph_traverse(t_anthill *a);
 t_path					*get_shortest_path(t_anthill *a, t_room *end_room);
 void					set_path_distances(t_anthill *hill);
 int						pathcount(t_anthill *hill);
-
+void					polarize_room_parents(t_anthill *a);
+void					populate_pathlist(t_anthill *a);
 
 #endif

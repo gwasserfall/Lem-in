@@ -21,7 +21,7 @@
 			"name": "(lldb) Lemon",
 			"type": "cppdbg",
 			"request": "launch",
-			"program": "${workspaceFolder}/lemon",
+			"program": "${workspaceFolder}/lemin",
 			"args": [],
 			"stopAtEntry": false,
 			"cwd": "${workspaceFolder}",
