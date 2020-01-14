@@ -48,7 +48,6 @@ t_room	*init_room(void)
 	new->is_start = 0;
 	new->x = 0;
 	new->y = 0;
-	new->index = 0;
 	new->level = 0;
 	new->in_path = false;
 	new->occupied = false;
@@ -80,31 +79,6 @@ void	append_room_linear(t_room **entry_point, t_room *new)
 	current->next = new;
 }
 
-/*
-**	Get the room allocated as the start (bool is_start), this will be the start of the linked list from ant's perspective
-**
-**	t_room *entry :: First entry in the linear linked list
-**	t_room *entry :: First entry in the linear linked list
-*/
-void	set_start_room(t_anthill *hill, t_room *entry)
-{
-	while (entry)
-	{
-		if (entry->is_start)
-		{
-			hill->start = entry;
-			return ;
-		}
-		entry = entry->next;
-	}
-}
-
-
-/*
-	Find room by name
-
-	TODO :: Comments here, may not need this
-*/
 t_room *find_room_by_name(t_anthill **anthill, char *name)
 {
 	t_room *cursor;

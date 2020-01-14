@@ -40,7 +40,6 @@ typedef struct			s_room
 	bool				in_path;
 	double				x;
 	double				y;
-	int					index; // We dont actually use it, i made it a while ago for some testing :)
 	char				*name;
 	bool				is_start;
 	bool				is_end;

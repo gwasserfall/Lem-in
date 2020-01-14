@@ -57,7 +57,7 @@ int	pathcount(t_anthill *hill)
 	int			count;
 
 	paths = hill->paths;
-
+	count = 0;
 	while (paths)
 	{
 		if (paths->valid)
@@ -66,7 +66,6 @@ int	pathcount(t_anthill *hill)
 	}
 	return count;
 }
-
 
 int		main(void)
 {
@@ -78,33 +77,16 @@ int		main(void)
 	if (!anthill->start || !anthill->end)
 		print_start_end_error();
 	populate_pathlist(anthill);
-
-	t_pathlist	*pathlist;
-	t_path		*path;
-
-	
-
-
-
-
 	check_start_end_path(&anthill);
-	//if (anthill->nb_paths)
 	if (pathcount(anthill) > 0)
 	{
 		display_input_and_free(data);
-		create_colony(anthill);
-		
-		//set_path_length(anthill);
-		
+		create_colony(anthill);		
 		optimise_paths(anthill);
-
-
-
-
 		create_move_list(anthill);
 		print_move_list(anthill->moves);
 	}
 	else
-		ft_putendl(RED "Error :" RESET " No valid path");
+		ft_putendl(RED "Error" RESET " : No valid path");
 	return (1);
 }
