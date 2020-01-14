@@ -1,4 +1,4 @@
-#include "./includes/lem_in.h"
+#include <lem_in.h>
 
 void fifo_push(t_fifo **stack, t_room *room)
 {

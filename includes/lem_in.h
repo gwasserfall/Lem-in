@@ -16,18 +16,18 @@
 # define START 1
 # define END 2
 # define RESET "\033[00m"
-# define GREEN "\033[32m"
-# define BLUE "\033[34m"
-# define WHITE "\033[37m"
+// # define GREEN "\033[32m"
+// # define BLUE "\033[34m"
+// # define WHITE "\033[37m"
 # define RED "\033[31m"
-# define YELLOW "\033[33m"
-# define CYAN "\033[36m"
-# define PURPLE "\033[35m"
+// # define YELLOW "\033[33m"
+// # define CYAN "\033[36m"
+// # define PURPLE "\033[35m"
 
 # include <stdbool.h>
 # include <stdlib.h>
 # include <stdio.h>
-# include "../libft/libft.h"
+# include <libft.h>
 
 typedef int				t_roomtype;
 typedef struct			s_room
@@ -252,7 +252,7 @@ bool					set_paths(t_anthill *anthill);
 t_path					*make_path_item(t_room *room);
 int						hatch_ant(t_anthill *anthill, char *name);
 void					prepend_to_path(t_path **start, t_path *item);
-void					optimise_paths(t_anthill **anthill);
+void					optimise_paths(t_anthill *anthill);
 void					check_start_end_path(t_anthill **anthill);
 void					prepend_pathlist(t_anthill **anthill);
 bool 					ants_are_free(t_anthill * anthill);
@@ -273,8 +273,9 @@ void	prepend_to_pathlist(t_pathlist **start, t_pathlist *new);
 
 // New functions
 void	graph_traverse(t_anthill *a);
-t_path *get_shortest_path(t_anthill *a);
-
+t_path *get_shortest_path(t_anthill *a, t_room *end_room);
+void	set_path_distances(t_anthill *hill);
+int	pathcount(t_anthill *hill);
 
 
 #endif

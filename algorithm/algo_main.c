@@ -22,55 +22,6 @@ t_room *get_room(t_anthill *anthill, char *name)
 }
 
 /*
-** Starts at end and then using a BFS logic will set each room a level
-** that is dependant on the amount of steps you will need to reach it from
-** that start room.
-*/
-
-bool set_levels(t_anthill *anthill)
-{
-	int i;
-	t_roomlist *frontier;
-	t_roomlist *next;
-	t_roomlist *neighbour;
-
-	i = 1;
-	frontier = NULL;
-
-	reset_rooms(&anthill);
-	
-	append_list(&frontier, make_item(anthill->start));
-
-	while (frontier)
-	{
-		next = NULL;
-		while (frontier)
-		{
-			neighbour = get_neighbours(frontier->room, anthill->connectors);
-			while (neighbour)
-			{
-				if (neighbour->room->is_end && frontier->room->is_start)
-				{
-					neighbour = neighbour->next;
-					continue;
-				}
-				if (neighbour->room->level == -1 && !room_in_pathlist(anthill->paths, neighbour->room))
-				{
-					neighbour->room->level = i;
-					neighbour->room->parent = frontier->room;
-					append_list(&next, make_item(neighbour->room));
-				}
-				neighbour = neighbour->next;
-			}
-			frontier = frontier->next;
-		}
-		i++;
-		frontier = next;
-	}
-	return (append_to_pathlist(&anthill->paths, create_pathlist_item(map_path(anthill->end))));
-}
-
-/*
 ** Now that the rooms has levels this will go and find all the valid paths
 ** and add them to the pathlist struct *Does not include ##start-##end.
 */
@@ -118,7 +69,7 @@ bool create_move_list(t_anthill *anthill)
 }
 
 /*
-** Checks to see if all the ants are free, ie all the ants are in the ned room.
+** Checks to see if all the ants are free, ie all the ants are in the next room.
 */
 
 bool ants_are_free(t_anthill * anthill)

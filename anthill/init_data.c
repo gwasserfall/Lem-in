@@ -68,21 +68,21 @@ void		append_data_node(t_data **data, char *line)
 	}
 }
 
-void	set_path_length(t_anthill *anthill)
-{
-	// TODO naming
-	t_pathlist	*current_path;
-	t_path		*current;
+// void	set_path_length(t_anthill *anthill)
+// {
+// 	// TODO naming
+// 	t_pathlist	*current_path;
+// 	t_path		*current;
 
-	current_path = anthill->paths;
-	while (current_path)
-	{
-		current = current_path->path;
-		while (current)
-		{
-			current_path->length++;
-			current = current->next;
-		}
-		current_path = current_path->next;
-	}
-}
+// 	current_path = anthill->paths;
+// 	while (current_path)
+// 	{
+// 		current = current_path->path;
+// 		while (current)
+// 		{
+// 			current_path->length++;
+// 			current = current->next;
+// 		}
+// 		current_path = current_path->next;
+// 	}
+// }

@@ -12,26 +12,64 @@
 
 #include <lem_in.h>
 
-void		optimise_paths(t_anthill **anthill)
+void	set_path_distances(t_anthill *hill)
+{
+	t_pathlist	*pathlist;
+	t_path		*path;
+	int			count;
+
+	pathlist = hill->paths;
+
+	while (pathlist)
+	{
+		path = pathlist->path;
+		count = 0;
+		while (path)
+		{
+			count++;
+			path = path->next;
+		}
+		pathlist->length = count;
+		pathlist = pathlist->next;
+	}
+}	
+
+
+bool lower_distance_path_exists(t_anthill *hill, int dist)
+{
+	t_pathlist	*pathlist;
+
+	pathlist = hill->paths;
+	while (pathlist)
+	{
+		if (pathlist->length < dist)
+			return (true);
+		pathlist = pathlist->next;
+	}
+	return (false);
+}
+
+
+void	optimise_paths(t_anthill *hill)
 {
 	t_pathlist	*current;
 	t_path		*current_path;
 
-	current = (*anthill)->paths;
+	set_path_distances(hill);
+	current = hill->paths;
 	while (current)
 	{
 		current_path = current->path;
-		if (current->length > (*anthill)->nb_ants
-			&& (*anthill)->nb_paths > 1)
+		if (current->length - 2 > hill->nb_ants)
 		{
-			current->valid = 0;
-			(*anthill)->nb_paths--;
+			if (lower_distance_path_exists(hill, current->length))
+				current->valid = false;
 		}
 		current = current->next;
 	}
 }
 
-void		add_start_end_pathlist(t_anthill **anthill)
+void	add_start_end_pathlist(t_anthill **anthill)
 {
 	t_path		*new;
 
@@ -42,7 +80,7 @@ void		add_start_end_pathlist(t_anthill **anthill)
 	(*anthill)->nb_paths++;
 }
 
-void		check_start_end_path(t_anthill **anthill)
+void	check_start_end_path(t_anthill **anthill)
 {
 	t_room		*start;
 	t_room		*end;
@@ -53,8 +91,9 @@ void		check_start_end_path(t_anthill **anthill)
 	link = (*anthill)->connectors;
 	while (link)
 	{
-		if ((link->from == start && link->to == end)
-			|| (link->from == end && link->to == start))
+		if (link->from->is_end && link->to->is_start)
+			return (add_start_end_pathlist(anthill));
+		if (link->from->is_start && link->to->is_end)
 			return (add_start_end_pathlist(anthill));
 		link = link->next;
 	}
