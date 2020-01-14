@@ -138,7 +138,7 @@ void					read_loop(t_anthill *anthill, t_data **data);
 void					new_room(t_roomtype rtype, char *line,
 												t_anthill **anthill);
 void					append_room_linear(t_room **entry_point, t_room *new);
-void					init_roomlink_max(t_anthill **anthill);
+// void					init_roomlink_max(t_anthill **anthill);
 t_room					*find_room_by_name(t_anthill **anthill, char *name);
 void					link_rooms(t_anthill *anthill, char *line);
 t_room					*init_room(void);
@@ -173,7 +173,6 @@ t_room					*fifo_pop(t_fifo **stack);
 ** Preflight prototypes.
 */
 int						check_line(char *line);
-int						get_nb_rooms(void);
 bool					only_digit(char *line);
 int						verify_start_and_end(char *line);
 int						word_count(char *str, char delim, int index);

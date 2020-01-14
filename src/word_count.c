@@ -13,31 +13,6 @@
 #include <lem_in.h>
 
 /*
-** This function will get the amount of rooms by checking each line for 3 words.
-** (3 words for format of input means it must be a room with its co-ordinates).
-**
-** Reads in a get next line loop and when it finds 3 words incriments
-** room counter.
-*/
-
-int		get_nb_rooms(void)
-{
-	char	*line;
-	int		nb_rooms;
-	int		words;
-
-	nb_rooms = 0;
-	words = 0;
-	while (get_next_line(0, &line))
-	{
-		if ((words = word_count(line, ' ', 0)) == 3)
-			nb_rooms += 1;
-		free(line);
-	}
-	return (nb_rooms);
-}
-
-/*
 ** This function will get the amount of words by deliminating by spaces.
 **
 ** str : line variable read by get_next_line.

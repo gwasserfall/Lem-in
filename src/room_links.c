@@ -1,30 +1,59 @@
 #include <lem_in.h>
 
 /*
-**	Initialise the ->links array within a room if not previously set
-**	Will initialize the links variable in all the linear nodes.
-**	t_room *room :: Pointer to the room to init
-**	int max_links :: Maximum number of possible links (should be room_count)
+** Initialize the link struct.
 */
-void	init_roomlink_max(t_anthill **anthill)
-{
-	t_room	*current;
 
-	current = (*anthill)->linear;
-	if (current->links == NULL && current)
+t_link			*init_link(void)
+{
+	t_link	*new;
+
+	if (!(new = malloc(sizeof(t_link))))
+		return (NULL);
+	new->from = NULL;
+	new->next = NULL;
+	new->to = NULL;
+	return (new);
+}
+
+/*
+** MEH, Glens function idk what it does, pretty sure its useless.
+** it replaces the above function which does nothing :D
+*/
+
+t_link			*make_link(t_room *from, t_room *to)
+{
+	t_link *new;
+
+	if (!(new = malloc(sizeof(t_link))))
+		return (NULL);
+	new->from = from;
+	new->to = to;
+	new->next = NULL;
+	return (new);
+}
+
+/*
+** adds the node new to the end of the linked list start.
+*/
+
+void			append_link(t_link **start, t_link *new)
+{
+	t_link *link;
+
+	link = *start;
+	if (!link)
+		*start = new;
+	else
 	{
-		while (current != NULL)
-		{
-			if (!(current->links = (t_room **)malloc(sizeof(t_room *)
-											* ((*anthill)->room_count))))
-				print_allocation_fail();
-			current = current->next;
-		}
+		while (link->next)
+			link = link->next;
+		link->next = new;
 	}
 }
 
 /*
-	Link one room to another, i.e append a pointer onto *from->links array
+**	Link one room to another, i.e append a pointer onto *from->links array
 */
 void	link_rooms(t_anthill *anthill, char *line)
 {
@@ -44,8 +73,6 @@ void	link_rooms(t_anthill *anthill, char *line)
 */
 void	print_allocation_fail(void)
 {
-	ft_putstr(RED);
-	ft_putendl("Allocation Failed.");
-	ft_putstr(RESET);
+	ft_putendl(RED "Error" RESET " : Allocation Failed.");
 	exit(1);
 }
