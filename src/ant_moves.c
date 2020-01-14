@@ -12,15 +12,14 @@
 
 #include <lem_in.h>
 
-t_moves	*make_move(t_ant *ant, t_room *from, t_room *to)
+t_moves	*move_ant(t_ant *ant, t_room *room)
 {
 	t_moves *move;
 
 	if (!(move = malloc(sizeof(t_moves))))
 		return (NULL);
 	move->next = NULL;
-	move->from = from;
-	move->to = to;
+	move->room = room;
 	move->ant = ant;
 	return (move);
 }
@@ -51,7 +50,7 @@ void	print_move_list(t_moves *moves)
 			ft_putchar('L');
 			ft_putstr(moves->ant->name);
 			ft_putchar('-');
-			ft_putstr(moves->to->name);
+			ft_putstr(moves->room->name);
 			if (moves->next && moves->next->ant)
 				ft_putchar(' ');
 		}

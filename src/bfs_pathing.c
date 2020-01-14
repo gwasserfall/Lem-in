@@ -1,4 +1,4 @@
-#include "./includes/lem_in.h"
+#include <lem_in.h>
 
 t_path	*new_path_node(t_room *room)
 {

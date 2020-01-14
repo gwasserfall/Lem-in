@@ -1,17 +1,17 @@
 FLAGS=-g
 
-all:
-	gcc $(FLAGS) -I./includes -I./libft ./preflight/*.c ./rooms/*.c \
-	./anthill/*.c -I./libft ./libft/libft.a main.c output/*.c \
-	links/*.c algorithm/*.c src/*/* \
-	bfs_*.c \
-	-o lemon
+SRC_FILES = $(shell find src -name "*.c")
+INCLUDES = -I./includes -I./libft
+LIBRARY = ./libft/libft.a
 
-test:
-	./lemon < test_hill1.txt
+lemin: ./libft/libft.a
+	@printf "Compiling lemin executable. "
+	@$(CC) $(INCLUDES) $(LIBRARY) $(SRC_FILES) ./main.c -o lemin
+	@printf "\x1B[32mDone!\x1B[37m\n"
 
-rm:
-	$(RM) visi
+./libft/libft.a:
+	@printf "Compiling libft library. "
+	@$(MAKE) -C libft > /dev/null
+	@$(MAKE) -C libft clean > /dev/null
+	@printf "\x1B[32mDone!\x1B[37m\n"
 
-visi:
-	gcc ./visualiser/*.c -lSDL2 -o visi

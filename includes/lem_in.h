@@ -16,14 +16,7 @@
 # define START 1
 # define END 2
 # define RESET "\033[00m"
-// # define GREEN "\033[32m"
-// # define BLUE "\033[34m"
-// # define WHITE "\033[37m"
 # define RED "\033[31m"
-// # define YELLOW "\033[33m"
-// # define CYAN "\033[36m"
-// # define PURPLE "\033[35m"
-
 # include <stdbool.h>
 # include <stdlib.h>
 # include <stdio.h>
@@ -55,8 +48,6 @@ typedef struct			s_link
 
 typedef struct			s_ant
 {
-	double				x;
-	double				y;
 	char				*name;
 	struct s_path		*path;
 	t_room				*current;
@@ -100,8 +91,7 @@ typedef struct			s_moves
 {
 	struct s_moves		*next;
 	t_ant				*ant;
-	t_room				*from;
-	t_room				*to;
+	t_room				*room;
 }						t_moves;
 
 typedef struct			s_movelist
@@ -256,25 +246,19 @@ void					check_start_end_path(t_anthill **anthill);
 void					prepend_pathlist(t_anthill **anthill);
 bool 					ants_are_free(t_anthill * anthill);
 t_ant					*ant_here(t_ant *colony, t_room *room);
-bool					create_move_list(t_anthill *anthill);
-
-
-void print_move_list(t_moves *moves);
-void	append_move(t_moves **start, t_moves *new);
-t_moves	*make_move(t_ant *ant, t_room *from, t_room *to);
-void	create_colony(t_anthill *anthill);
-void	set_path_length(t_anthill *anthill);
-void		order_paths(t_anthill *anthill);
-void	swap(t_pathlist *first, t_pathlist *second);
-
-void	prepend_to_pathlist(t_pathlist **start, t_pathlist *new);
-
-
-// New functions
-void	graph_traverse(t_anthill *a);
-t_path *get_shortest_path(t_anthill *a, t_room *end_room);
-void	set_path_distances(t_anthill *hill);
-int	pathcount(t_anthill *hill);
+void					create_move_list(t_anthill *anthill);
+void					print_move_list(t_moves *moves);
+void					append_move(t_moves **start, t_moves *new);
+t_moves					*move_ant(t_ant *ant, t_room *room);
+void					create_colony(t_anthill *anthill);
+void					set_path_length(t_anthill *anthill);
+void					order_paths(t_anthill *anthill);
+void					swap(t_pathlist *first, t_pathlist *second);
+void					prepend_to_pathlist(t_pathlist **start, t_pathlist *new);
+void					graph_traverse(t_anthill *a);
+t_path					*get_shortest_path(t_anthill *a, t_room *end_room);
+void					set_path_distances(t_anthill *hill);
+int						pathcount(t_anthill *hill);
 
 
 #endif

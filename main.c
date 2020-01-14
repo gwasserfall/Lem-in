@@ -88,5 +88,5 @@ int		main(void)
 	}
 	else
 		ft_putendl(RED "Error" RESET " : No valid path");
-	return (1);
+	return (0);
 }
