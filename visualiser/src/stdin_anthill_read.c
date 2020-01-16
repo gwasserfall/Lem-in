@@ -7,10 +7,7 @@ void	assign_room(t_anthill *ah, char *str, bool *s, bool *e)
 	
 	line = ft_strsplit(str, ' ');
 	room = init_room_g(line[0], ft_atoi(line[1]), ft_atoi(line[2]));
-	free(line[0]);
-	free(line[1]);
-	free(line[2]);
-	free(line);
+	free_array(line);
 	ah->start = (*s) ? room : ah->start;
 	ah->end = (*e) ? room : ah->end;
 	room->is_start = *s;
@@ -49,6 +46,12 @@ int	identify_line(char *line)
 		return INVLD;
 }
 
+void		exit_with_error(char *line)
+{
+	ft_putendl(line);
+	exit(1);
+}
+
 void		read_from_stdin(t_anthill *hill, bool *next_start, bool *next_end)
 {
 	char		*line;
@@ -69,6 +72,11 @@ void		read_from_stdin(t_anthill *hill, bool *next_start, bool *next_end)
 			assign_ants(hill, line);
 		else if (line_type == MOVE)
 			assign_move(hill, line);
+		else
+		{
+			exit_with_error(line);
+			free(line);
+		}
 		free(line);
 	}
 }

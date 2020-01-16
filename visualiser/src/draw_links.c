@@ -1,21 +1,5 @@
 #include "visualiser.h"
 
-#define RGBA_RED 255, 0, 0, 255 
-#define RGBA_GREEN 0, 255, 0, 255 
-#define RGBA_WHITE 255, 255, 255, 255 
-
-
-
-int calc_x(t_state *state, double value)
-{
-	return (state->zoom * value / 2 + state->offset_x) ;
-}
-
-int calc_y(t_state *state, double value)
-{
-	return (state->zoom * value / 2 + state->offset_y);
-}
-
 void draw_links(t_state *s)
 {
 	t_link *link;
@@ -62,13 +46,12 @@ void draw_nodes(t_state *s)
 		else if (room->is_end)
 		{
 			stringRGBA(s->renderer, X(s, room->x) + 5, Y(s, room->y) - 24, "END", 255, 255, 255, 255);
-			filledCircleRGBA(s->renderer, X(s, room->x), Y(s, room->y), 10, 255, 0, 255, 255);
+			filledCircleRGBA(s->renderer, X(s, room->x), Y(s, room->y), 10, RGBA_GREEN);
 		}
 		else
 		{
 			stringRGBA(s->renderer, X(s, room->x) + 5, Y(s, room->y) - 24, room->name, 255, 255, 255, 255);
-			filledCircleRGBA(s->renderer, X(s, room->x), Y(s, room->y), 7, 0, 255, 255, 255);
-			//SDL_RenderCopy(s->renderer, s->room_sprite, NULL, &r);
+			filledCircleRGBA(s->renderer, X(s, room->x), Y(s, room->y), 7, RGBA_WHITE);
 		}
 		room = room->next;
 	}
@@ -116,5 +99,24 @@ void	draw_ants(t_state *s)
 			SDL_RenderCopy(s->renderer, army->sprite->img, NULL, &r);
 		}
 		army = army->next;
+	}
+}
+
+void 	draw_links_list(t_state *s)
+{
+	int y = 20;
+	t_link *cur = s->anthill->connectors;
+	char *str;
+	char *str2;
+
+	while (cur)
+	{
+		str = ft_strjoin(cur->from->name, " => ");
+		str2 = ft_strjoin(str, cur->to->name);
+		stringRGBA(s->renderer, 5, y, str2, 255, 255, 255, 255);
+		free(str);
+		free(str2);
+		y += 10;
+		cur = cur->next;
 	}
 }

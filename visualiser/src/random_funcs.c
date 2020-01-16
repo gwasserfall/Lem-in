@@ -48,7 +48,6 @@ void	move(t_path **callback, t_path *path, t_room *from, t_room *to)
 
 	if (to && to->is_end)
 	{
-		//append_path(path, to);
 		*callback = path;
 	}
 
@@ -64,8 +63,6 @@ void	move(t_path **callback, t_path *path, t_room *from, t_room *to)
 		i++;
 	}
 }
-
-
 
 t_movelist *make_movelist_item(t_moves *moves)
 {
@@ -95,12 +92,16 @@ void	append_to_movelist(t_movelist **start, t_movelist *new)
 	}
 }
 
+void		prepend_to_pathlist(t_pathlist **start, t_pathlist *new)
+{
+	t_pathlist *list;
 
-
-
-
-
-
-
-
-
+	list = *start;
+	if (!list)
+		*start = new;
+	else
+	{
+		new->next = list;
+		*start = new;
+	}
+}

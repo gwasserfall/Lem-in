@@ -6,19 +6,6 @@
 	"configurations": [
 	
 		{
-			"name": "(lldb) Test",
-			"type": "cppdbg",
-			"request": "launch",
-			"program": "${workspaceFolder}/a.out",
-			"args": [],
-			"stopAtEntry": false,
-			"cwd": "${workspaceFolder}",
-			"environment": [],
-			"externalConsole": false,
-			"preLaunchTask": "build_test",
-			"MIMode": "lldb"
-		},
-		{
 			"name": "(lldb) Lemon",
 			"type": "cppdbg",
 			"request": "launch",
@@ -40,7 +27,7 @@
 			"name": "(lldb) Visualiser",
 			"type": "cppdbg",
 			"request": "launch",
-			"program": "${workspaceFolder}/visualiser/a.out",
+			"program": "${workspaceFolder}/visualiser/visual",
 			"args": [],
 			"stopAtEntry": false,
 			"cwd": "${workspaceFolder}",

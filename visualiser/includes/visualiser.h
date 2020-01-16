@@ -15,12 +15,16 @@
 # define ZOOM 18
 # define X(state, value) calc_x(state, value)
 # define Y(state, value) calc_y(state, value)
+# define RGBA_RED 255, 0, 0, 255 
+# define RGBA_GREEN 0, 255, 0, 255 
+# define RGBA_WHITE 255, 255, 255, 255 
 # include <SDL2/SDL2_gfxPrimitives.h>
 # include <SDL2/SDL2_rotozoom.h>
 # include <SDL2/SDL_image.h>
 # include <SDL2/SDL.h>
 # include <stdbool.h>
 # include <libft.h>
+# include <math.h>
 
 typedef struct			s_img
 {
@@ -45,6 +49,12 @@ typedef struct			s_room
 	bool				occupied;
 	
 }						t_room;
+
+typedef struct			s_fifo
+{
+	struct s_fifo 		*next;
+	t_room				*room;
+}						t_fifo;
 
 typedef struct			s_link
 {
@@ -92,6 +102,7 @@ typedef struct 			s_pathlist
 {
 	t_path				*path;
 	int					length;
+	bool				valid;
 	struct s_pathlist	*next;
 }						t_pathlist;
 
@@ -203,14 +214,41 @@ void					assign_link(t_anthill *ah, char *str);
 
 
 
-t_room *get_room(t_anthill *anthill, char *name);
-void	append_room(t_room *entry_point, t_room *new);
-void	assign_ants(t_anthill *anthill, char *str);
-void	assign_link(t_anthill *ah, char *str);
-void	assign_move(t_anthill *anthill, char *str);
-void	append_to_movelist(t_movelist **start, t_movelist *new);
-t_movelist	*make_movelist_item(t_moves *moves);
-t_anthill	*new_anthill(void);
-void	place_ants_on_start(t_state *s);
+t_room					*get_room(t_anthill *anthill, char *name);
+void					append_room(t_room *entry_point, t_room *new);
+void					assign_ants(t_anthill *anthill, char *str);
+void					assign_link(t_anthill *ah, char *str);
+void					assign_move(t_anthill *anthill, char *str);
+void					append_to_movelist(t_movelist **start, t_movelist *new);
+t_movelist				*make_movelist_item(t_moves *moves);
+t_anthill				*new_anthill(void);
+void					place_ants_on_start(t_state *s);
+t_img					*make_sprite(t_state *s, char *filename);
+void					loop_sprites(t_img *start);
+
+void					graph_traverse(t_anthill *a);
+void					set_path_distances(t_anthill *hill);
+void					polarize_room_parents(t_anthill *a);
+void					populate_pathlist(t_anthill *a);
+void					fifo_push(t_fifo **stack, t_room *room);
+t_room					*fifo_pop(t_fifo **stack);
+t_path					*get_shortest_path(t_anthill *a, t_room *end_room);
+void					animation_loop(t_state *state);
+void					handle_events(t_state *s);
+void					update_state(t_state *s);
+void					update_current_move(t_state *s);
+void					draw_paths(t_state *s);
+void					render_state(t_state *s);
+double					get_ant_angle(t_ant *ant);
+void					assign_sprite(t_state *s, t_ant *ant);
+bool					ant_reached_dest(t_ant *ant);
+int						set_active_movelist(t_state *s, t_moves *moves);
+bool					fbetween(double n, double min, double max);
+void					set_path_distances(t_anthill *hill);
+bool					lower_distance_path_exists(t_anthill *hill, int dist);
+void					optimise_paths(t_anthill *hill);
+void					add_start_end_pathlist(t_anthill **anthill);
+void					check_start_end_path(t_anthill **anthill);
+void					prepend_to_pathlist(t_pathlist **start, t_pathlist *new);
 
 #endif

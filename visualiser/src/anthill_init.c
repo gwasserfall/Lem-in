@@ -10,6 +10,7 @@ t_anthill	*new_anthill(void)
 	anthill->linear = NULL;
 	anthill->colony = NULL;
 	anthill->start = NULL;
+	anthill->paths = NULL;
 	anthill->nb_ants = 0;
 	anthill->movelist = NULL;
 	anthill->connectors = NULL;

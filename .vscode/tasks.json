@@ -6,17 +6,12 @@
 		{
 			"label": "build",
 			"type": "shell",
-			"command": ". ./visualiser/set_env.sh && make -C visualiser"
+			"command": "make -C visualiser"
 		},
 		{
 			"label": "build_lemon",
 			"type": "shell",
 			"command": "make"
-		},
-		{
-			"label": "build_test",
-			"type": "shell",
-			"command": "gcc -g algo_reup.c"
 		}
 	]
 }
