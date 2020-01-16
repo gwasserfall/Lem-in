@@ -53,3 +53,17 @@ t_room *get(t_room *start, char *name)
 	}
 	return NULL;
 }
+
+void		prepend_to_pathlist(t_pathlist **start, t_pathlist *new)
+{
+	t_pathlist *list;
+
+	list = *start;
+	if (!list)
+		*start = new;
+	else
+	{
+		new->next = list;
+		*start = new;
+	}
+}

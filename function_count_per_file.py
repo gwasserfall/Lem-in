@@ -20,7 +20,7 @@ for fi in os.listdir(folder):
             funcs.append({"f" : fi, "count" : len(func_count)})
 
 
-funcs.sort(key=lambda x: x["f"])
+funcs.sort(key=lambda x: -x["count"])
 
 for f in funcs:
     print("{0: <25} :: {1}".format(f["f"], f["count"]))

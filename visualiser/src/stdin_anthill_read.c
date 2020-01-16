@@ -28,7 +28,12 @@ int	identify_line(char *line)
 	int line_length;
 	line_length = ft_strlen(line);
 
-	if (line_length < 1)
+	if (ft_strstr(line, "Error :"))
+	{
+		printf("asd");
+		return INVLD;
+	}
+	else if (line_length < 1)
 		return EMPTY;
 	else if (line[0] == '#' && line[1] == '#')
 		return IDENT;
@@ -42,14 +47,16 @@ int	identify_line(char *line)
 		return LINK;
 	else if (line[0] == 'L')
 		return MOVE;
-	else
-		return INVLD;
+	return INVLD;
 }
 
-void		exit_with_error(char *line)
+void		exit_if_error(char *line)
 {
-	ft_putendl(line);
-	exit(1);
+	if (!line)
+	{
+		ft_putendl(line);
+		exit(1);
+	}
 }
 
 void		read_from_stdin(t_anthill *hill, bool *next_start, bool *next_end)
@@ -73,10 +80,7 @@ void		read_from_stdin(t_anthill *hill, bool *next_start, bool *next_end)
 		else if (line_type == MOVE)
 			assign_move(hill, line);
 		else
-		{
-			exit_with_error(line);
-			free(line);
-		}
+			exit_if_error(line);
 		free(line);
 	}
 }

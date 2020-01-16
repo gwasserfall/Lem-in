@@ -16,5 +16,5 @@ start-3
 2-end
 1-end
 
-L1-1
-L1-end
+L1-1 L2-2 L3-3
+L1-end L2-end L3-end
