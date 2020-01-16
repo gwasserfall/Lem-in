@@ -5,7 +5,6 @@ void	update_ant_position(t_ant *ant)
 	double gradient;
 	double diff_x;
 	double diff_y;
-	double direction;
 
 	diff_y = (ant->following->y - ant->current->y);
 	diff_x = (ant->following->x - ant->current->x);

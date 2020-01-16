@@ -1,0 +1,5 @@
+*.o
+*.a
+
+# Keep SDL lib files
+!*/lib/*

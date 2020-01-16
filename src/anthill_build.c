@@ -50,6 +50,13 @@ void add_start_or_end_data(t_data **entry, t_anthill *anthill)
 	}
 }
 
+
+bool command_is_needed(char *line)
+{
+	if (line[])
+}
+
+
 /*
 ** Read loop reads from the data structs line variable and then adds information
 ** to the room struct.
@@ -73,6 +80,7 @@ void		read_loop(t_anthill *anthill, t_data **data)
 		pre_add_data(type, current->line, &anthill);
 		if (type == IDENT)
 		{
+			if (command_is_needed())
 			add_start_or_end_data(&current, anthill);
 			continue;
 		}

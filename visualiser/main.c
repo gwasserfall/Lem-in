@@ -1,21 +1,6 @@
 #include "visualiser.h"
 #include <math.h>
 
-void	place_ants_on_start(t_state *s)
-{
-	t_ant *ant;
-
-	ant = s->anthill->colony;
-	while (ant)
-	{
-		ant->x = s->anthill->start->x;
-		ant->y = s->anthill->start->y;
-		ant->sprite = s->walk_static_r;
-		ant->current = s->anthill->start;
-		ant = ant->next;
-	}
-}
-
 bool fbetween(double n, double min, double max)
 {
 	if (n >= min && n <= max)
@@ -37,7 +22,6 @@ bool ant_reached_dest(t_ant *ant)
 
 	if (ant->following == ant->current)
 		return 1;
-
 	if (fbetween(ant->degrees, 270, 360))
 	{
 		if (cx >= dx && cy >= dy)

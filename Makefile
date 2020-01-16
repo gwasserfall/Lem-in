@@ -1,22 +1,31 @@
-FLAGS=-g
+FLAGS=-Wall -Werror -Wextra -g
 
 SRC_FILES = $(shell find src -name "*.c")
-INCLUDES = -I./includes -I./libft
-LIBRARY = -L./libft -lft
+DONE = @printf "\x1B[32mDone!\x1B[37m\n"
+LIBRARY = -L./lib/libft -lft
+INCLUDES = -I./includes
 RPAD = 45
 
 all: -lemin
 
--lemin: ./libft/libft.a
+-lemin: ./libft/libft.a ./includes/libft.h visualise
 	@printf "%-$(RPAD)s" "Compiling lemin executable. "
 	@$(CC) $(INCLUDES) $(LIBRARY) $(SRC_FILES) ./main.c -o lemin
-	@printf "\x1B[32mDone!\x1B[37m\n"
+	$(DONE)
 
 ./libft/libft.a:
 	@printf "%-$(RPAD)s" "Compiling libft library. "
-	@$(MAKE) -s -C libft
-	@$(MAKE) -s -C libft clean
+	@$(MAKE) -s -C lib/libft
+	@$(MAKE) -s -C lib/libft clean
 	@printf "\x1B[32mDone!\x1B[37m\n"
+
+./includes/libft.h:
+	@printf "%-$(RPAD)s" "Copying libf.h to includes. "
+	@cp ./lib/libft/libft.h ./includes/
+	@printf "\x1B[32mDone!\x1B[37m\n"
+
+visualise:
+	@$(MAKE) -s -C visualiser
 
 clean:
 	@$(RM) lemin

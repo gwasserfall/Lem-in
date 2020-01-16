@@ -25,9 +25,9 @@ t_ant *ant_by_name(t_ant *ants, char *name)
 
 t_moves *deserialise_move(t_anthill *anthill, char *line)
 {
-	char *ptr;
-	t_ant *ant;
-	t_room *room;
+	char	*ptr;
+	t_ant	*ant;
+	t_room	*room;
 	
 	line++;
 	ptr = ft_strchr(line, '-');
@@ -50,5 +50,20 @@ void	append_move(t_moves **start, t_moves *new)
 		while (moves->next)
 			moves = moves->next;
 		moves->next = new;
+	}
+}
+
+void	place_ants_on_start(t_state *s)
+{
+	t_ant *ant;
+
+	ant = s->anthill->colony;
+	while (ant)
+	{
+		ant->x = s->anthill->start->x;
+		ant->y = s->anthill->start->y;
+		ant->sprite = s->walk_static_r;
+		ant->current = s->anthill->start;
+		ant = ant->next;
 	}
 }
