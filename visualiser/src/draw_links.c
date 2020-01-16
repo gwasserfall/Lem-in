@@ -1,5 +1,11 @@
 #include "visualiser.h"
 
+#define RGBA_RED 255, 0, 0, 255 
+#define RGBA_GREEN 0, 255, 0, 255 
+#define RGBA_WHITE 255, 255, 255, 255 
+
+
+
 int calc_x(t_state *state, double value)
 {
 	return (state->zoom * value / 2 + state->offset_x) ;
@@ -51,7 +57,7 @@ void draw_nodes(t_state *s)
 		if (room->is_start)
 		{
 			stringRGBA(s->renderer, X(s, room->x) + 5, Y(s, room->y) - 24, "START", 255, 255, 255, 255);
-			filledCircleRGBA(s->renderer, X(s, room->x), Y(s, room->y), 10, 0, 255, 255, 255);
+			filledCircleRGBA(s->renderer, X(s, room->x), Y(s, room->y), 10, RGBA_RED);
 		}
 		else if (room->is_end)
 		{
@@ -61,7 +67,8 @@ void draw_nodes(t_state *s)
 		else
 		{
 			stringRGBA(s->renderer, X(s, room->x) + 5, Y(s, room->y) - 24, room->name, 255, 255, 255, 255);
-			SDL_RenderCopy(s->renderer, s->room_sprite, NULL, &r);
+			filledCircleRGBA(s->renderer, X(s, room->x), Y(s, room->y), 7, 0, 255, 255, 255);
+			//SDL_RenderCopy(s->renderer, s->room_sprite, NULL, &r);
 		}
 		room = room->next;
 	}

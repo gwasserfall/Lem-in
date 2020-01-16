@@ -13,21 +13,6 @@
 #include <lem_in.h>
 
 /*
-** This will create the anthills first node and then add nodes for each room.
-*/
-
-t_anthill	*build_anthill(t_data **data)
-{
-	t_anthill	*anthill;
-
-	anthill = new_anthill();
-	read_loop(anthill, data);
-	if (anthill->nb_ants <= 0)
-		print_ant_error();
-	return (anthill);
-}
-
-/*
 ** Skips 2 entries if ##start or ##end are found
 */
 
@@ -51,9 +36,19 @@ void add_start_or_end_data(t_data **entry, t_anthill *anthill)
 }
 
 
-bool command_is_needed(char *line)
+bool		command_is_needed(char *line)
 {
-	if (line[])
+	int strlen;
+
+	strlen = ft_strlen(line);
+	if (strlen == 5 || strlen == 7)
+	{
+		if (!*(line + 5) && !ft_strcmp("##end", line))
+			return (true);
+		if (!*(line + 7) && !ft_strcmp("##start", line))
+			return (true);
+	}
+	return (false);
 }
 
 
@@ -80,9 +75,11 @@ void		read_loop(t_anthill *anthill, t_data **data)
 		pre_add_data(type, current->line, &anthill);
 		if (type == IDENT)
 		{
-			if (command_is_needed())
-			add_start_or_end_data(&current, anthill);
-			continue;
+			if (command_is_needed(current->line))
+			{
+				add_start_or_end_data(&current, anthill);
+				continue;
+			}
 		}
 		current = current->next;
 	}

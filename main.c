@@ -26,7 +26,7 @@ int		main(void)
 	if (pathcount(anthill) > 0)
 	{
 		display_input_and_free(data);
-		create_colony(anthill);		
+		create_colony(anthill);
 		optimise_paths(anthill);
 		create_move_list(anthill);
 		print_move_list(anthill->moves);

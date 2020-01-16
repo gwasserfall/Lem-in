@@ -10,7 +10,7 @@ all: -lemin
 
 -lemin: ./libft/libft.a ./includes/libft.h visualise
 	@printf "%-$(RPAD)s" "Compiling lemin executable. "
-	@$(CC) $(INCLUDES) $(LIBRARY) $(SRC_FILES) ./main.c -o lemin
+	@$(CC) $(FLAGS) $(INCLUDES) $(LIBRARY) $(SRC_FILES) ./main.c -o lemin
 	$(DONE)
 
 ./libft/libft.a:

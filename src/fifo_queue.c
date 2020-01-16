@@ -3,7 +3,6 @@
 void fifo_push(t_fifo **stack, t_room *room)
 {
 	t_fifo *element;
-	t_fifo *head;
 
 	element = malloc(sizeof(t_fifo));
 	element->room = room;

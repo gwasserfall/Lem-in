@@ -223,27 +223,28 @@ t_pathlist				*create_pathlist_item(t_path *path_start);
 ** Algorithmic prototypes.
 */
 bool					set_paths(t_anthill *anthill);
-t_path					*make_path_item(t_room *room);
+bool 					ants_are_free(t_anthill * anthill);
+int						pathcount(t_anthill *hill);
 int						hatch_ant(t_anthill *anthill, char *name);
+t_ant					*ant_here(t_ant *colony, t_room *room);
+t_anthill				*build_anthill(t_data **data);
+t_moves					*move_ant(t_ant *ant, t_room *room);
+t_path					*get_shortest_path(t_anthill *a, t_room *end_room);
+t_path					*make_path_item(t_room *room);
 void					prepend_to_path(t_path **start, t_path *item);
 void					optimise_paths(t_anthill *anthill);
 void					check_start_end_path(t_anthill **anthill);
 void					prepend_pathlist(t_anthill **anthill);
-bool 					ants_are_free(t_anthill * anthill);
-t_ant					*ant_here(t_ant *colony, t_room *room);
 void					create_move_list(t_anthill *anthill);
 void					print_move_list(t_moves *moves);
 void					append_move(t_moves **start, t_moves *new);
-t_moves					*move_ant(t_ant *ant, t_room *room);
 void					create_colony(t_anthill *anthill);
 void					set_path_length(t_anthill *anthill);
 void					order_paths(t_anthill *anthill);
 void					swap(t_pathlist *first, t_pathlist *second);
 void					prepend_to_pathlist(t_pathlist **start, t_pathlist *new);
 void					graph_traverse(t_anthill *a);
-t_path					*get_shortest_path(t_anthill *a, t_room *end_room);
 void					set_path_distances(t_anthill *hill);
-int						pathcount(t_anthill *hill);
 void					polarize_room_parents(t_anthill *a);
 void					populate_pathlist(t_anthill *a);
 
