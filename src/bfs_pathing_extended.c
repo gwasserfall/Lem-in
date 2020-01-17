@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   bfs_pathing_extended.c                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gwasserf <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/01/17 04:26:06 by gwasserf          #+#    #+#             */
+/*   Updated: 2020/01/17 04:26:08 by gwasserf         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <lem_in.h>
 
 t_pathlist	*new_path_list(t_path *path)
@@ -41,7 +53,7 @@ void		populate_pathlist(t_anthill *a)
 
 int			pathcount(t_anthill *hill)
 {
-	t_pathlist *paths;
+	t_pathlist	*paths;
 	int			count;
 
 	paths = hill->paths;

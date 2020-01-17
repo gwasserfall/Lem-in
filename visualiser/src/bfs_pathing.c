@@ -23,7 +23,7 @@ t_path	*new_path_node(t_room *room)
 	return (path);
 }
 
-void	_append_path(t_path **start, t_room *room)
+void	append_path(t_path **start, t_room *room)
 {
 	t_path *head;
 
@@ -38,7 +38,7 @@ void	_append_path(t_path **start, t_room *room)
 		*start = new_path_node(room);
 }
 
-void destroy_unusable_path(t_path *path)
+void	destroy_unusable_path(t_path *path)
 {
 	t_path *previous;
 
@@ -53,14 +53,14 @@ void destroy_unusable_path(t_path *path)
 	}
 }
 
-t_path *get_shortest_path(t_anthill *a, t_room *end_room)
+t_path	*get_shortest_path(t_anthill *a, t_room *end_room)
 {
 	t_path *path;
 
 	path = NULL;
 	while (end_room->parent)
 	{
-		_append_path(&path, end_room);
+		append_path(&path, end_room);
 		end_room = end_room->parent;
 	}
 	if (!end_room->is_start)
@@ -68,6 +68,6 @@ t_path *get_shortest_path(t_anthill *a, t_room *end_room)
 		destroy_unusable_path(path);
 		return (NULL);
 	}
-	_append_path(&path, a->start);
+	append_path(&path, a->start);
 	return (path);
 }

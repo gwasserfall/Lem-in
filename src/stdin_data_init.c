@@ -35,7 +35,7 @@ t_data		*new_data_node(void)
 t_data		*read_stdin_to_data(void)
 {
 	char	*line;
-	t_data 	*data;
+	t_data	*data;
 
 	data = NULL;
 	while (get_next_line(0, &line) > 0)

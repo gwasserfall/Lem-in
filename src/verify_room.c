@@ -16,7 +16,7 @@
 ** Checks to see if the data given for the specific room is correctly formatted.
 */
 
-void		verify_room(char *line)
+void	verify_room(char *line)
 {
 	char	**data;
 	int		i;
@@ -37,7 +37,7 @@ void		verify_room(char *line)
 ** it cant be.
 */
 
-void		verify_first_char(char **data)
+void	verify_first_char(char **data)
 {
 	if (data[0][0] == 'L' || data[0][0] == '#')
 	{
@@ -50,7 +50,7 @@ void		verify_first_char(char **data)
 ** Check to see that the co-ordinates are only numeric values.
 */
 
-void		verify_coordinates(char **data)
+void	verify_coordinates(char **data)
 {
 	int		i;
 
@@ -80,7 +80,7 @@ void		verify_coordinates(char **data)
 ** Frees the char ** array strsplit created.
 */
 
-void		free_array(char **str)
+void	free_array(char **str)
 {
 	int		i;
 
@@ -96,7 +96,8 @@ void		free_array(char **str)
 /*
 ** Seriousely bro, it just prints an error message.
 */
-void		print_error_room(void)
+
+void	print_error_room(void)
 {
 	ft_putendl(RED "Error" RESET " : Room is not formatted correctly.");
 	exit(1);

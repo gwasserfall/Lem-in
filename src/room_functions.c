@@ -1,12 +1,26 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   room_functions.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gwasserf <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/01/17 04:25:32 by gwasserf          #+#    #+#             */
+/*   Updated: 2020/01/17 04:25:33 by gwasserf         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <lem_in.h>
 
 /*
 **	Create a new room link item.
 **
-**	roomtype rtype :: Distinguish between start (1), end (2), or normal (0) room types
+**	roomtype rtype :: Distinguish between start (1), end (2), or normal (0)
+**	room types
 **	char *line     :: will be split to get name, x, and y values
 **	t_anthill      :: The anthill struct whose lineat will get the new room.
 */
+
 void	new_room(int rtype, char *line, t_anthill **anthill)
 {
 	t_room	*new;
@@ -18,7 +32,7 @@ void	new_room(int rtype, char *line, t_anthill **anthill)
 	data = NULL;
 	if (rtype == START || rtype == END)
 	{
-		new->is_end = (rtype == END) ? true : false ;
+		new->is_end = (rtype == END) ? true : false;
 		new->is_start = (rtype == START) ? true : false;
 	}
 	else
@@ -35,6 +49,7 @@ void	new_room(int rtype, char *line, t_anthill **anthill)
 /*
 ** initializes the rooms values and mallocs the struct.
 */
+
 t_room	*init_room(void)
 {
 	t_room *new;
@@ -61,6 +76,7 @@ t_room	*init_room(void)
 **	t_room *entry_point :: usually the first room ever created
 **	t_room *new :: A pointer to the newly created room
 */
+
 void	append_room_linear(t_room **entry_point, t_room *new)
 {
 	t_room		*current;

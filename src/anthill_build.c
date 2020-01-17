@@ -16,7 +16,7 @@
 ** Skips 2 entries if ##start or ##end are found
 */
 
-void add_start_or_end_data(t_data **entry, t_anthill *anthill)
+void		add_start_or_end_data(t_data **entry, t_anthill *anthill)
 {
 	t_data *current;
 

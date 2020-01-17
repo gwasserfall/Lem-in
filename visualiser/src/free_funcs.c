@@ -12,7 +12,7 @@
 
 #include <visualiser.h>
 
-void		free_array(char **str)
+void	free_array(char **str)
 {
 	int		i;
 

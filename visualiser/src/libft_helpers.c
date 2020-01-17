@@ -12,7 +12,7 @@
 
 #include <visualiser.h>
 
-bool int_string(char *str)
+bool	int_string(char *str)
 {
 	while (*str)
 	{

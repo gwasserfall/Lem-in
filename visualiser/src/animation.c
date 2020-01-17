@@ -12,11 +12,11 @@
 
 #include <visualiser.h>
 
-void animation_loop(t_state *state)
+void	animation_loop(t_state *state)
 {
 	int start;
-    int time;
-    int sleepTime;
+	int time;
+	int sleep_time;
 
 	while (state->running)
 	{
@@ -27,9 +27,9 @@ void animation_loop(t_state *state)
 		time = SDL_GetTicks() - start;
 		if (time < 0)
 			continue;
-		sleepTime = 16 - time;
-		if (sleepTime > 0)
-        	SDL_Delay(sleepTime);
+		sleep_time = 16 - time;
+		if (sleep_time > 0)
+			SDL_Delay(sleep_time);
 		if (state->frame > 60)
 			state->frame = 0;
 		state->frame++;
@@ -38,11 +38,11 @@ void animation_loop(t_state *state)
 
 void	draw_path(t_state *s)
 {
-	t_path *route;
-	int x1;
-	int x2;
-	int y1;
-	int y2;
+	t_path	*route;
+	int		x1;
+	int		x2;
+	int		y1;
+	int		y2;
 
 	route = s->path;
 	SDL_SetRenderDrawColor(s->renderer, 0, 255, 0, SDL_ALPHA_OPAQUE);
@@ -54,8 +54,6 @@ void	draw_path(t_state *s)
 			x2 = X(s, route->next->room->x);
 			y1 = Y(s, route->room->y);
 			y2 = Y(s, route->next->room->y);
-			//thickLineRGBA(s->renderer, x1, y1, x2, y2, 3, 0, 255, 0, 255);
-			//
 		}
 		route = route->next;
 	}

@@ -14,13 +14,13 @@
 
 void	handle_zoom(t_state *s)
 {
-	if(s->event.wheel.y > 0)
+	if (s->event.wheel.y > 0)
 	{
 		s->offset_x -= s->event.motion.x;
 		s->offset_y -= s->event.motion.y;
 		s->zoom++;
 	}
-	else if(s->event.wheel.y < 0)
+	else if (s->event.wheel.y < 0)
 	{
 		s->offset_x -= s->event.motion.x;
 		s->offset_y -= s->event.motion.y;
@@ -34,7 +34,7 @@ void	handle_events(t_state *s)
 	{
 		if (s->event.type == SDL_QUIT)
 			s->running = false;
-		if(s->event.type == SDL_MOUSEWHEEL)
+		if (s->event.type == SDL_MOUSEWHEEL)
 			handle_zoom(s);
 		if (s->event.type == SDL_MOUSEBUTTONDOWN)
 			if (s->event.button.button == SDL_BUTTON_LEFT)

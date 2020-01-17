@@ -27,17 +27,17 @@ void	assign_ants(t_anthill *anthill, char *str)
 
 void	assign_link(t_anthill *ah, char *str)
 {
-	char **line;
-	t_room *from;
-	t_room *to;
-	t_link *link;
-	t_link *cursor;
+	char	**line;
+	t_room	*from;
+	t_room	*to;
+	t_link	*link;
+	t_link	*cursor;
 
 	line = ft_strsplit(str, '-');
 	from = get_room(ah, line[0]);
 	to = get_room(ah, line[1]);
 	if (!(link = malloc(sizeof(t_link))))
-		return (NULL);
+		exit(1);
 	link->to = to;
 	link->from = from;
 	link->next = NULL;
@@ -54,9 +54,9 @@ void	assign_link(t_anthill *ah, char *str)
 
 void	assign_move(t_anthill *anthill, char *str)
 {
-	char **line;
-	int i;
-	t_moves *moves;
+	char	**line;
+	int		i;
+	t_moves	*moves;
 
 	moves = NULL;
 	line = ft_strsplit(str, ' ');

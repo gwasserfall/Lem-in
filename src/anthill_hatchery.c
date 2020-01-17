@@ -1,8 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   anthill_hatchery.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gwasserf <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/01/17 04:26:13 by gwasserf          #+#    #+#             */
+/*   Updated: 2020/01/17 04:26:15 by gwasserf         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <lem_in.h>
 
 void	join_colony(t_anthill **anthill, t_ant *larvae)
 {
 	t_ant	*nurse;
+
 	if (!(*anthill)->colony)
 		(*anthill)->colony = larvae;
 	else
@@ -26,33 +39,6 @@ int		hatch_ant(t_anthill *anthill, char *name)
 	egg->name = name;
 	join_colony(&anthill, egg);
 	return (1);
-}
-
-/*
-** Now that the rooms have levels this will go and find all the valid paths
-** and add them to the pathlist struct *Does not include ##start-##end.
-*/
-
-/* apparently I can't write a freaking string-reverse algorithm
-   stackoverflow.com/a/784567/6850771 */
-char *reverse(char *str)
-{
-    char tmp, *src, *dst;
-    size_t len;
-    if (str != NULL)
-    {
-        len = strlen (str);
-        if (len > 1) {
-            src = str;
-            dst = src + len - 1;
-            while (src < dst) {
-                tmp = *src;
-                *src++ = *dst;
-                *dst-- = tmp;
-            }
-        }
-    }
-    return (str);
 }
 
 void	create_colony(t_anthill *anthill)

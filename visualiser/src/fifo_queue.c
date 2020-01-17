@@ -12,7 +12,7 @@
 
 #include <visualiser.h>
 
-void fifo_push(t_fifo **stack, t_room *room)
+void	fifo_push(t_fifo **stack, t_room *room)
 {
 	t_fifo *element;
 
@@ -24,7 +24,7 @@ void fifo_push(t_fifo **stack, t_room *room)
 	*stack = element;
 }
 
-t_room *fifo_pop(t_fifo **stack)
+t_room	*fifo_pop(t_fifo **stack)
 {
 	t_fifo *head;
 	t_room *room;

@@ -12,7 +12,7 @@
 
 #include "visualiser.h"
 
-t_path	*append_path(t_path *path, t_room *room)
+t_path		*append_path_here(t_path *path, t_room *room)
 {
 	t_path *p;
 	t_path *cur;
@@ -32,7 +32,7 @@ t_path	*append_path(t_path *path, t_room *room)
 	return (path);
 }
 
-bool visited(t_path *path, t_room *room)
+bool		visited(t_path *path, t_room *room)
 {
 	t_path *cursor;
 
@@ -46,13 +46,13 @@ bool visited(t_path *path, t_room *room)
 	return (false);
 }
 
-void	move(t_path **callback, t_path *path, t_room *from, t_room *to)
+void		move(t_path **callback, t_path *path, t_room *from, t_room *to)
 {
 	int i;
 
 	i = 0;
 	if (from)
-		append_path(path, from);
+		append_path_here(path, from);
 	if (to && to->is_end)
 		*callback = path;
 	if (*callback)
@@ -65,7 +65,7 @@ void	move(t_path **callback, t_path *path, t_room *from, t_room *to)
 	}
 }
 
-t_movelist *make_movelist_item(t_moves *moves)
+t_movelist	*make_movelist_item(t_moves *moves)
 {
 	t_movelist *new;
 
@@ -78,7 +78,7 @@ t_movelist *make_movelist_item(t_moves *moves)
 	return (new);
 }
 
-void	append_to_movelist(t_movelist **start, t_movelist *new)
+void		append_to_movelist(t_movelist **start, t_movelist *new)
 {
 	t_movelist *mvlist;
 

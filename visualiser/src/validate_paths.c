@@ -33,7 +33,7 @@ void	set_path_distances(t_anthill *hill)
 	}
 }
 
-bool lower_distance_path_exists(t_anthill *hill, int dist)
+bool	lower_distance_path_exists(t_anthill *hill, int dist)
 {
 	t_pathlist	*pathlist;
 

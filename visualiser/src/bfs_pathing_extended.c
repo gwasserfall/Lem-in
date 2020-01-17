@@ -53,7 +53,7 @@ void		populate_pathlist(t_anthill *a)
 
 int			pathcount(t_anthill *hill)
 {
-	t_pathlist *paths;
+	t_pathlist	*paths;
 	int			count;
 
 	paths = hill->paths;

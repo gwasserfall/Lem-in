@@ -12,7 +12,7 @@
 
 #include <visualiser.h>
 
-void load_sprites_right(t_state *s)
+void	load_sprites_right(t_state *s)
 {
 	append_sprite(&s->walk_right, make_sprite(s, "./img/walkr_cycle01.png"));
 	append_sprite(&s->walk_right, make_sprite(s, "./img/walkr_cycle02.png"));
@@ -25,7 +25,7 @@ void load_sprites_right(t_state *s)
 	append_sprite(&s->walk_static_r, make_sprite(s, "./img/walkr_cycle01.png"));
 }
 
-void load_sprites_left(t_state *s)
+void	load_sprites_left(t_state *s)
 {
 	append_sprite(&s->walk_left, make_sprite(s, "./img/walkl_cycle01.png"));
 	append_sprite(&s->walk_left, make_sprite(s, "./img/walkl_cycle02.png"));
@@ -38,18 +38,18 @@ void load_sprites_left(t_state *s)
 	append_sprite(&s->walk_static_l, make_sprite(s, "./img/walkl_cycle01.png"));
 }
 
-void load_walk_static(t_state *s)
+void	load_walk_static(t_state *s)
 {
 	s->walkl_static = IMG_LoadTexture(s->renderer, "./img/walkl_cycle01.png");
 	s->walkr_static = IMG_LoadTexture(s->renderer, "./img/walkr_cycle01.png");
 }
 
-void load_background(t_state *s)
+void	load_background(t_state *s)
 {
 	s->background = IMG_LoadTexture(s->renderer, "./img/background.png");
 }
 
-void load_all_images(t_state *s)
+void	load_all_images(t_state *s)
 {
 	load_sprites_right(s);
 	load_sprites_left(s);

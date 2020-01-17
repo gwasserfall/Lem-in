@@ -15,6 +15,7 @@
 void	join_colony(t_anthill **anthill, t_ant *larvae)
 {
 	t_ant	*nurse;
+
 	if (!(*anthill)->colony)
 		(*anthill)->colony = larvae;
 	else

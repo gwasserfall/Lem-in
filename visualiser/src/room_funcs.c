@@ -41,7 +41,7 @@ t_room	*init_room_g(char *name, int x, int y)
 	return (new);
 }
 
-t_room *get_room(t_anthill *anthill, char *name)
+t_room	*get_room(t_anthill *anthill, char *name)
 {
 	t_room *cursor;
 

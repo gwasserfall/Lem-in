@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   fifo_queue.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gwasserf <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/01/17 04:25:46 by gwasserf          #+#    #+#             */
+/*   Updated: 2020/01/17 04:25:48 by gwasserf         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <lem_in.h>
 
-void fifo_push(t_fifo **stack, t_room *room)
+void	fifo_push(t_fifo **stack, t_room *room)
 {
 	t_fifo *element;
 
@@ -12,7 +24,7 @@ void fifo_push(t_fifo **stack, t_room *room)
 	*stack = element;
 }
 
-t_room *fifo_pop(t_fifo **stack)
+t_room	*fifo_pop(t_fifo **stack)
 {
 	t_fifo *head;
 	t_room *room;

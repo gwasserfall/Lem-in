@@ -44,6 +44,7 @@ t_pathlist	*create_pathlist_item(t_path *path_start)
 /*
 ** Mallocs a path node and sets the paths room to the room given as an input.
 */
+
 t_path		*make_path_item(t_room *room)
 {
 	t_path *new;
@@ -60,6 +61,7 @@ t_path		*make_path_item(t_room *room)
 /*
 ** adds the path node called item to end of the path linked list given as start.
 */
+
 void		append_to_path(t_path **start, t_path *item)
 {
 	t_path	*path;
@@ -79,6 +81,7 @@ void		append_to_path(t_path **start, t_path *item)
 /*
 ** adds the node passed as item to the from of the linked list passed as start.
 */
+
 void		prepend_to_path(t_path **start, t_path *item)
 {
 	t_path *path;

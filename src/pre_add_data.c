@@ -29,6 +29,7 @@ void		add_room(char *line, t_anthill **anthill)
 **     : 5 == comment.
 **	   : 6 == error/invalid input.
 */
+
 void		pre_add_data(int type, char *line, t_anthill **anthill)
 {
 	if (type == 1)

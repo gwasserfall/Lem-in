@@ -12,7 +12,7 @@
 
 #include <visualiser.h>
 
-void	assign_room(t_anthill *ah, char *str, bool *s, bool *e)
+void		assign_room(t_anthill *ah, char *str, bool *s, bool *e)
 {
 	t_room	*room;
 	char	**line;
@@ -35,7 +35,7 @@ void	assign_room(t_anthill *ah, char *str, bool *s, bool *e)
 	*e = false;
 }
 
-int		identify_line(char *line)
+int			identify_line(char *line)
 {
 	int line_length;
 
@@ -62,7 +62,7 @@ int		identify_line(char *line)
 	return (INVLD);
 }
 
-void	exit_if_error(char *line)
+void		exit_if_error(char *line)
 {
 	if (!line)
 	{
@@ -86,7 +86,7 @@ void		read_from_stdin(t_anthill *hill, bool *next_start, bool *next_end)
 		else if (line_type == ROOM)
 			assign_room(hill, line, next_start, next_end);
 		else if (line_type == LINK)
-		 	assign_link(hill, line);
+			assign_link(hill, line);
 		else if (line_type == ANT_COUNT)
 			assign_ants(hill, line);
 		else if (line_type == MOVE)
@@ -107,5 +107,5 @@ t_anthill	*get_infos(void)
 	next_start = false;
 	next_end = false;
 	read_from_stdin(anthill, &next_start, &next_end);
-	return(anthill);
+	return (anthill);
 }

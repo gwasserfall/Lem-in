@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   moves_list.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gwasserf <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/01/17 04:25:20 by gwasserf          #+#    #+#             */
+/*   Updated: 2020/01/17 04:25:21 by gwasserf         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <visualiser.h>
 
-void set_ant_end_position(t_state *s, t_moves *moves)
+void	set_ant_end_position(t_state *s, t_moves *moves)
 {
 	moves->ant->x = moves->to->x;
 	moves->ant->y = moves->to->y;
@@ -13,7 +25,7 @@ void set_ant_end_position(t_state *s, t_moves *moves)
 		moves->ant->sprite = s->walk_static_r;
 }
 
-int set_active_movelist(t_state *s, t_moves *moves)
+int		set_active_movelist(t_state *s, t_moves *moves)
 {
 	int moving;
 

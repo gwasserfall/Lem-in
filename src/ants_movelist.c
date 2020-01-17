@@ -12,11 +12,11 @@
 
 #include <lem_in.h>
 
-void create_move_list(t_anthill *anthill)
+void	create_move_list(t_anthill *anthill)
 {
-	t_pathlist *pathlist;
-	t_path *path;
-	t_ant *ant;
+	t_pathlist	*pathlist;
+	t_path		*path;
+	t_ant		*ant;
 
 	while (!ants_are_free(anthill))
 	{
@@ -43,7 +43,7 @@ void create_move_list(t_anthill *anthill)
 ** Checks to see if all the ants are free, ie all the ants are in the next room.
 */
 
-bool ants_are_free(t_anthill * anthill)
+bool	ants_are_free(t_anthill *anthill)
 {
 	t_ant *ant;
 

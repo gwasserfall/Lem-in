@@ -12,7 +12,7 @@
 
 #include "visualiser.h"
 
-t_state *init_state(void)
+t_state	*init_state(void)
 {
 	t_state *state;
 

@@ -12,13 +12,13 @@
 
 #include "visualiser.h"
 
-void draw_links(t_state *s)
+void	draw_links(t_state *s)
 {
-	t_link *link;
-	int x1;
-	int x2;
-	int y1;
-	int y2;
+	t_link	*link;
+	int		x1;
+	int		x2;
+	int		y1;
+	int		y2;
 
 	link = s->anthill->connectors;
 	SDL_SetRenderDrawColor(s->renderer, 255, 255, 255, SDL_ALPHA_OPAQUE);
@@ -49,8 +49,8 @@ void	set_sprite_position(t_state *s, SDL_Rect *r, t_ant *army)
 
 void	draw_ants(t_state *s)
 {
-	t_ant *army;
-	SDL_Rect r;
+	t_ant		*army;
+	SDL_Rect	r;
 
 	army = s->anthill->colony;
 	SDL_SetRenderDrawColor(s->renderer, 200, 200, 200, 255);
@@ -75,13 +75,15 @@ void	draw_ants(t_state *s)
 	}
 }
 
-void 	draw_links_list(t_state *s)
+void	draw_links_list(t_state *s)
 {
-	int y = 20;
-	t_link *cur = s->anthill->connectors;
-	char *str;
-	char *str2;
+	int		y;
+	t_link	*cur;
+	char	*str;
+	char	*str2;
 
+	cur = s->anthill->connectors;
+	y = 20;
 	while (cur)
 	{
 		str = ft_strjoin(cur->from->name, " => ");

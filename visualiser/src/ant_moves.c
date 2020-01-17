@@ -12,7 +12,7 @@
 
 #include "visualiser.h"
 
-t_moves	*make_move(t_ant *ant, t_room *to)
+t_moves		*make_move(t_ant *ant, t_room *to)
 {
 	t_moves *move;
 
@@ -24,7 +24,7 @@ t_moves	*make_move(t_ant *ant, t_room *to)
 	return (move);
 }
 
-t_ant *ant_by_name(t_ant *ants, char *name)
+t_ant		*ant_by_name(t_ant *ants, char *name)
 {
 	while (ants)
 	{
@@ -35,7 +35,7 @@ t_ant *ant_by_name(t_ant *ants, char *name)
 	return (NULL);
 }
 
-t_moves *deserialise_move(t_anthill *anthill, char *line)
+t_moves		*deserialise_move(t_anthill *anthill, char *line)
 {
 	char	*ptr;
 	t_ant	*ant;
@@ -50,7 +50,7 @@ t_moves *deserialise_move(t_anthill *anthill, char *line)
 	return (make_move(ant, room));
 }
 
-void	append_move(t_moves **start, t_moves *new)
+void		append_move(t_moves **start, t_moves *new)
 {
 	t_moves *moves;
 
@@ -65,7 +65,7 @@ void	append_move(t_moves **start, t_moves *new)
 	}
 }
 
-void	place_ants_on_start(t_state *s)
+void		place_ants_on_start(t_state *s)
 {
 	t_ant *ant;
 

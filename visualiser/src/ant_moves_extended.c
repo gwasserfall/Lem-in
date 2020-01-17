@@ -36,19 +36,21 @@ void	update_current_move(t_state *s)
 	}
 }
 
-double get_ant_angle(t_ant *ant)
+double	get_ant_angle(t_ant *ant)
 {
 	double degree;
-	double y = (ant->following->y - ant->current->y) * -1;
-	double x = ant->following->x - ant->current->x;
+	double y;
+	double x;
 
+	y = (ant->following->y - ant->current->y) * -1;
+	x = ant->following->x - ant->current->x;
 	degree = atan2(y, x) * (180.0 / M_PI);
 	if (degree < 0)
 		degree += 360.0;
 	return (degree);
 }
 
-bool ant_reached_dest(t_ant *ant)
+bool	ant_reached_dest(t_ant *ant)
 {
 	double cx;
 	double cy;
