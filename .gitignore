@@ -4,7 +4,6 @@
 # Keep SDL lib files
 !*/lib/*
 
-.vscode
-.vscode/*
+.vscode/
 
 test*.sh
