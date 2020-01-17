@@ -1,4 +1,4 @@
-FLAGS=-Wall -Werror -Wextra
+FLAGS=-Wall -Werror -Wextra -g
 
 NAME = visual
 SRC_FILES = $(shell find src -name "*.c")

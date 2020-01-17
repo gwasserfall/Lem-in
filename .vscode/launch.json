@@ -37,7 +37,7 @@
 			"MIMode": "lldb",
 			"setupCommands": [
                 {
-                    "text": "settings set target.input-path ./visualiser/test.map"
+                    "text": "settings set target.input-path ./visualiser/error.map"
                 }
             ],
 			"preLaunchTask": "build"

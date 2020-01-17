@@ -62,11 +62,18 @@ int			identify_line(char *line)
 	return (INVLD);
 }
 
-void		exit_if_error(char *line)
+void		check_if_lemin_errors(char *line, bool not_identified)
 {
-	if (!line)
+	if (*line == '\0')
+		return ;
+	else if (ft_strstr(line, "Error") || not_identified)
 	{
 		ft_putendl(line);
+		exit(1);
+	}
+	else
+	{
+		ft_putendl(RED "Error" RESET " : Unknown error, check input.");
 		exit(1);
 	}
 }
@@ -78,6 +85,7 @@ void		read_from_stdin(t_anthill *hill, bool *next_start, bool *next_end)
 
 	while (get_next_line(STDIN_FILENO, &line) > 0)
 	{
+		check_if_lemin_errors(line, false);
 		line_type = identify_line(line);
 		if (line_type == IDENT && ft_strchr(line, 'e'))
 			*next_end = true;
@@ -92,7 +100,7 @@ void		read_from_stdin(t_anthill *hill, bool *next_start, bool *next_end)
 		else if (line_type == MOVE)
 			assign_move(hill, line);
 		else
-			exit_if_error(line);
+			check_if_lemin_errors(line, true);
 		free(line);
 	}
 }

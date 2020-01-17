@@ -13,6 +13,8 @@
 # define MOVE 7
 # define EMPTY 8
 # define ZOOM 18
+# define RESET "\033[00m"
+# define RED "\033[31m"
 # define X(state, value) calc_x(state, value)
 # define Y(state, value) calc_y(state, value)
 # define RGBA_RED 255, 0, 0, 255 
