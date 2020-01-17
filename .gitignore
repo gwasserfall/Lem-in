@@ -3,3 +3,6 @@
 
 # Keep SDL lib files
 !*/lib/*
+
+.vscode
+.vscode/*

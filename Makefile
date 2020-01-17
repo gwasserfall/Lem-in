@@ -1,16 +1,17 @@
-FLAGS=-Wall -Werror -Wextra -g
+FLAGS=-Wall -Werror -Wextra
 
+NAME = lemin
 SRC_FILES = $(shell find src -name "*.c")
 DONE = @printf "\x1B[32mDone!\x1B[37m\n"
 LIBRARY = -L./lib/libft -lft
 INCLUDES = -I./includes
 RPAD = 45
 
-all: -lemin
+all: lemin
 
--lemin: ./libft/libft.a ./includes/libft.h visualise
+lemin: ./libft/libft.a ./includes/libft.h visualise
 	@printf "%-$(RPAD)s" "Compiling lemin executable. "
-	@$(CC) $(FLAGS) $(INCLUDES) $(LIBRARY) $(SRC_FILES) ./main.c -o lemin
+	@$(CC) $(FLAGS) $(INCLUDES) $(LIBRARY) $(SRC_FILES) ./main.c -o $(NAME)
 	$(DONE)
 
 ./libft/libft.a:
@@ -31,4 +32,8 @@ clean:
 	@$(RM) lemin
 
 fclean: clean
+	@printf "Performing clean build. \n"
 	@$(RM) ./libft/libft.a
+	@$(RM) ./visualiser/visual
+
+re: fclean all
