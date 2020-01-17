@@ -12,12 +12,31 @@
 
 #include <lem_in.h>
 
+void	check_for_no_rooms(t_data *data)
+{
+	bool has_rooms;
+
+	has_rooms = false;
+	while (data)
+	{
+		if (word_count(data->line, ' ', 0) == 3)
+			has_rooms = true;
+		data = data->next;
+	}
+	if (!has_rooms)
+	{
+		ft_putendl(RED "Error" RESET " : No rooms were found in input.");
+		exit(1);
+	}
+}
+
 int		main(void)
 {
 	t_anthill	*anthill;
 	t_data		*data;
 
 	data = read_stdin_to_data();
+	check_for_no_rooms(data);
 	anthill = build_anthill(&data);
 	if (!anthill->start || !anthill->end)
 		print_start_end_error();
@@ -32,6 +51,6 @@ int		main(void)
 		print_move_list(anthill->moves);
 	}
 	else
-		ft_putendl(RED "Error" RESET " : No valid path");
+		ft_putendl(RED "Error" RESET " : No valid path.");
 	return (0);
 }

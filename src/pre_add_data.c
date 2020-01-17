@@ -65,6 +65,6 @@ void		pre_add_data(int type, char *line, t_anthill **anthill)
 
 void		print_invalid_input(void)
 {
-	ft_putendl(RED "Error " RESET " : Invalid Input.");
+	ft_putendl(RED "Error" RESET " : Invalid Input.");
 	exit(1);
 }
