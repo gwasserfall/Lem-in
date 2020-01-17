@@ -65,13 +65,16 @@ void		check_if_lemin_errors(char *line, bool not_identified)
 		return ;
 	else if (ft_strstr(line, "Error") || not_identified)
 	{
-		ft_putendl(line);
+		ft_putendl(RED "Error" RESET " : Input is malformed.");
 		exit(1);
 	}
 	else
 	{
-		ft_putendl(RED "Error" RESET " : Unknown error, check input.");
-		exit(1);
+		if (not_identified)
+		{
+			ft_putendl(RED "Error" RESET " : Unknown error, check input.");
+			exit(1);
+		}
 	}
 }
 
