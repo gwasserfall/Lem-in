@@ -15,7 +15,7 @@
 /*
 **	Create a new room link item.
 **
-**	roomtype rtype :: Distinguish between start (1), end (2), or normal (0)
+**	int rtype :: Distinguish between start (1), end (2), or normal (0)
 **	room types
 **	char *line     :: will be split to get name, x, and y values
 **	t_anthill      :: The anthill struct whose lineat will get the new room.

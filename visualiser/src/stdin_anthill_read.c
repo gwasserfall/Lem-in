@@ -40,11 +40,8 @@ int			identify_line(char *line)
 	int line_length;
 
 	line_length = ft_strlen(line);
-	if (ft_strstr(line, "Error :"))
-	{
-		printf("asd");
+	if (ft_strstr(line, "Error"))
 		return (INVLD);
-	}
 	else if (line_length < 1)
 		return (EMPTY);
 	else if (line[0] == '#' && line[1] == '#')

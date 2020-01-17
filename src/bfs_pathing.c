@@ -46,7 +46,6 @@ void	destroy_unusable_path(t_path *path)
 		return ;
 	while (path->next)
 	{
-		printf("Path has been deleted!\n");
 		previous = path;
 		path = path->next;
 		free(previous);
