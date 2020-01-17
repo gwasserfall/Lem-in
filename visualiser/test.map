@@ -18,3 +18,6 @@ start-3
 
 L1-1 L2-2 L3-3
 L1-end L2-end L3-end
+
+
+vim -c ":Stdheader" -c ":wqa" ./visualiser/src/state.c  ./visualiser/src/moves_list.c  ./visualiser/src/sprites_init.c  ./visualiser/src/sprites_render.c  ./visualiser/src/anthill_init.c ./src/room_functions.c ./src/room_links.c ./src/fifo_queue.c ./src/libft_helpers.c ./src/bfs_pathing_extended.c ./src/anthill_hatchery.c

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   sprites_load.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gwasserf <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/01/17 03:56:30 by gwasserf          #+#    #+#             */
+/*   Updated: 2020/01/17 03:56:30 by gwasserf         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <visualiser.h>
 
 void load_sprites_right(t_state *s)
@@ -42,7 +54,6 @@ void load_all_images(t_state *s)
 	load_sprites_right(s);
 	load_sprites_left(s);
 	load_background(s);
-
 	loop_sprites(s->walk_left);
 	loop_sprites(s->walk_right);
 	loop_sprites(s->walk_static_r);

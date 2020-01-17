@@ -1,10 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   stdin_anthill_read.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gwasserf <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/01/17 03:42:22 by gwasserf          #+#    #+#             */
+/*   Updated: 2020/01/17 03:42:29 by gwasserf         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <visualiser.h>
 
 void	assign_room(t_anthill *ah, char *str, bool *s, bool *e)
 {
 	t_room	*room;
 	char	**line;
-	
+
 	line = ft_strsplit(str, ' ');
 	room = init_room_g(line[0], ft_atoi(line[1]), ft_atoi(line[2]));
 	free_array(line);
@@ -23,34 +35,34 @@ void	assign_room(t_anthill *ah, char *str, bool *s, bool *e)
 	*e = false;
 }
 
-int	identify_line(char *line)
+int		identify_line(char *line)
 {
 	int line_length;
-	line_length = ft_strlen(line);
 
+	line_length = ft_strlen(line);
 	if (ft_strstr(line, "Error :"))
 	{
 		printf("asd");
-		return INVLD;
+		return (INVLD);
 	}
 	else if (line_length < 1)
-		return EMPTY;
+		return (EMPTY);
 	else if (line[0] == '#' && line[1] == '#')
-		return IDENT;
+		return (IDENT);
 	else if (line[0] == '#' && line[1] != '#')
-		return COMMENT;
+		return (COMMENT);
 	else if (int_string(line))
-		return ANT_COUNT;
+		return (ANT_COUNT);
 	else if (ft_strchr(line, ' ') && line[0] != 'L')
-		return ROOM;
+		return (ROOM);
 	else if (ft_strchr(line, '-') && line[0] != 'L')
-		return LINK;
+		return (LINK);
 	else if (line[0] == 'L')
-		return MOVE;
-	return INVLD;
+		return (MOVE);
+	return (INVLD);
 }
 
-void		exit_if_error(char *line)
+void	exit_if_error(char *line)
 {
 	if (!line)
 	{
@@ -85,12 +97,12 @@ void		read_from_stdin(t_anthill *hill, bool *next_start, bool *next_end)
 	}
 }
 
-t_anthill	*get_infos()
+t_anthill	*get_infos(void)
 {
 	t_anthill	*anthill;
 	bool		next_start;
 	bool		next_end;
-	
+
 	anthill = new_anthill();
 	next_start = false;
 	next_end = false;

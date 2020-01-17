@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   stdin_assigns.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gwasserf <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/01/17 03:32:09 by gwasserf          #+#    #+#             */
+/*   Updated: 2020/01/17 03:32:10 by gwasserf         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <visualiser.h>
 
 void	assign_ants(t_anthill *anthill, char *str)
@@ -5,7 +17,6 @@ void	assign_ants(t_anthill *anthill, char *str)
 	int i;
 
 	anthill->nb_ants = ft_atoi(str);
-
 	i = 0;
 	while (i < anthill->nb_ants)
 	{
@@ -25,8 +36,8 @@ void	assign_link(t_anthill *ah, char *str)
 	line = ft_strsplit(str, '-');
 	from = get_room(ah, line[0]);
 	to = get_room(ah, line[1]);
-	
-	link = malloc(sizeof(t_link));
+	if (!(link = malloc(sizeof(t_link))))
+		return (NULL);
 	link->to = to;
 	link->from = from;
 	link->next = NULL;

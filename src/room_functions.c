@@ -79,12 +79,11 @@ void	append_room_linear(t_room **entry_point, t_room *new)
 	current->next = new;
 }
 
-t_room *find_room_by_name(t_anthill **anthill, char *name)
+t_room	*find_room_by_name(t_anthill **anthill, char *name)
 {
 	t_room *cursor;
 
 	cursor = (*anthill)->linear;
-
 	while (cursor)
 	{
 		if ((ft_strequ(name, cursor->name)) == 1)

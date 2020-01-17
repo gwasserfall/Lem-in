@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ants_movelist.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gwasserf <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/01/17 03:27:17 by gwasserf          #+#    #+#             */
+/*   Updated: 2020/01/17 03:27:18 by gwasserf         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <lem_in.h>
 
 void create_move_list(t_anthill *anthill)
@@ -5,7 +17,7 @@ void create_move_list(t_anthill *anthill)
 	t_pathlist *pathlist;
 	t_path *path;
 	t_ant *ant;
-	
+
 	while (!ants_are_free(anthill))
 	{
 		pathlist = anthill->paths;
@@ -34,8 +46,8 @@ void create_move_list(t_anthill *anthill)
 bool ants_are_free(t_anthill * anthill)
 {
 	t_ant *ant;
-	ant = anthill->colony;
 
+	ant = anthill->colony;
 	while (ant)
 	{
 		if (ant->current != anthill->end)

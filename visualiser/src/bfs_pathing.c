@@ -1,15 +1,27 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   bfs_pathing.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gwasserf <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/01/17 03:31:39 by gwasserf          #+#    #+#             */
+/*   Updated: 2020/01/17 03:31:40 by gwasserf         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <visualiser.h>
 
 t_path	*new_path_node(t_room *room)
 {
 	t_path *path;
-	
+
 	if (!(path = malloc(sizeof(t_path))))
 		return (NULL);
 	path->next = NULL;
 	path->room = room;
 	return (path);
-} 
+}
 
 void	_append_path(t_path **start, t_room *room)
 {

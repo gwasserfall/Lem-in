@@ -16,11 +16,11 @@ t_room *fifo_pop(t_fifo **stack)
 {
 	t_fifo *head;
 	t_room *room;
-	
+
 	head = *stack;
 	room = NULL;
 	if (!head)
-		return room;
+		return (room);
 	while (head->next && head->next->next)
 		head = head->next;
 	if (!head->next)

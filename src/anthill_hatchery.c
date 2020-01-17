@@ -52,7 +52,7 @@ char *reverse(char *str)
             }
         }
     }
-    return str;
+    return (str);
 }
 
 void	create_colony(t_anthill *anthill)
@@ -62,5 +62,4 @@ void	create_colony(t_anthill *anthill)
 	i = 0;
 	while (i < anthill->nb_ants)
 		hatch_ant(anthill, ft_itoa(++i));
-	
 }

@@ -1,12 +1,24 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   bfs_main.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gwasserf <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/01/17 03:27:26 by gwasserf          #+#    #+#             */
+/*   Updated: 2020/01/17 03:27:51 by gwasserf         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <lem_in.h>
 
 bool	direct_link(t_link *link)
 {
 	if (link->from->is_start && link->to->is_end)
-		return true;
+		return (true);
 	if (link->from->is_end && link->to->is_start)
-		return true;
-	return false;
+		return (true);
+	return (false);
 }
 
 t_room	*valid_neighbour(t_room *node, t_link *link)
@@ -21,7 +33,7 @@ t_room	*valid_neighbour(t_room *node, t_link *link)
 		link->to->parent = node;
 		return (link->to);
 	}
-	return NULL;
+	return (NULL);
 }
 
 t_room	*get_room_neighbour(t_room *node, t_link *link)
@@ -56,5 +68,4 @@ void	graph_traverse(t_anthill *a)
 	while ((node = fifo_pop(&queue)))
 		while ((neighbour = get_room_neighbour(node, a->connectors)))
 			fifo_push(&queue, neighbour);
-	
 }

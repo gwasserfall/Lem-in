@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   room_funcs.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gwasserf <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/01/17 03:55:11 by gwasserf          #+#    #+#             */
+/*   Updated: 2020/01/17 03:55:11 by gwasserf         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <visualiser.h>
 
 void	append_room(t_room *entry_point, t_room *new)
@@ -34,7 +46,6 @@ t_room *get_room(t_anthill *anthill, char *name)
 	t_room *cursor;
 
 	cursor = anthill->linear;
-
 	while (cursor)
 	{
 		if (!(ft_strcmp(name, cursor->name)))

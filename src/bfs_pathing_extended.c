@@ -30,7 +30,7 @@ void		append_pathlist_item(t_anthill *a, t_path *path)
 void		populate_pathlist(t_anthill *a)
 {
 	t_path *path;
-	
+
 	graph_traverse(a);
 	while ((path = get_shortest_path(a, a->end)))
 	{

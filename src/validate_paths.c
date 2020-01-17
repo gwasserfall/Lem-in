@@ -19,7 +19,6 @@ void	set_path_distances(t_anthill *hill)
 	int			count;
 
 	pathlist = hill->paths;
-
 	while (pathlist)
 	{
 		path = pathlist->path;
@@ -32,10 +31,9 @@ void	set_path_distances(t_anthill *hill)
 		pathlist->length = count;
 		pathlist = pathlist->next;
 	}
-}	
+}
 
-
-bool lower_distance_path_exists(t_anthill *hill, int dist)
+bool	lower_distance_path_exists(t_anthill *hill, int dist)
 {
 	t_pathlist	*pathlist;
 
@@ -48,7 +46,6 @@ bool lower_distance_path_exists(t_anthill *hill, int dist)
 	}
 	return (false);
 }
-
 
 void	optimise_paths(t_anthill *hill)
 {

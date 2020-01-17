@@ -1,33 +1,35 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ant_moves_extended.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gwasserf <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/01/17 03:45:58 by gwasserf          #+#    #+#             */
+/*   Updated: 2020/01/17 03:46:06 by gwasserf         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <visualiser.h>
 
-void update_current_move(t_state *s)
+void	update_current_move(t_state *s)
 {
 	t_movelist	*current;
 	t_moves		*moves;
+	int			moving;
 
-	int moving;
-	
 	current = s->anthill->movelist;
-
-	// Check all move lists
 	while (current)
 	{
-		// If this movelist is active
 		if (current->active)
 		{
 			moves = current->moves;
-			// for each move in this movelist
-
 			moving = set_active_movelist(s, current->moves);
-			//printf("Moving : %d\n", moving);
-
 			if (!moving)
 			{
 				current->active = false;
 				if (current->next)
-				{
 					current->next->active = true;
-				}
 			}
 		}
 		current = current->next;
@@ -57,28 +59,19 @@ bool ant_reached_dest(t_ant *ant)
 	cy = ant->y;
 	dx = ant->following->x;
 	dy = ant->following->y;
-
 	if (ant->following == ant->current)
-		return 1;
+		return (1);
 	if (fbetween(ant->degrees, 270, 360))
-	{
 		if (cx >= dx && cy >= dy)
-			return true;
-	}
-	else if (fbetween(ant->degrees, 180, 270))
-	{	
+			return (true);
+	if (fbetween(ant->degrees, 180, 270))
 		if (cx <= dx && cy >= dy)
-			return true;
-	}
-	else if (fbetween(ant->degrees, 90, 180))
-	{
+			return (true);
+	if (fbetween(ant->degrees, 90, 180))
 		if (cx <= dx && cy <= dy)
-			return true;
-	}
-	else if (fbetween(ant->degrees, -1, 90))
-	{
+			return (true);
+	if (fbetween(ant->degrees, -1, 90))
 		if (cx >= dx && cy <= dy)
-			return true;
-	}
-	return false;
+			return (true);
+	return (false);
 }

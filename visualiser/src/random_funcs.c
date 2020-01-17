@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   random_funcs.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gwasserf <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/01/17 03:32:16 by gwasserf          #+#    #+#             */
+/*   Updated: 2020/01/17 03:32:17 by gwasserf         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "visualiser.h"
 
 t_path	*append_path(t_path *path, t_room *room)
@@ -9,9 +21,7 @@ t_path	*append_path(t_path *path, t_room *room)
 	p->next = NULL;
 	p->room = room;
 	if (!path)
-	{
 		path = p;
-	}
 	else
 	{
 		cur = path;
@@ -19,7 +29,7 @@ t_path	*append_path(t_path *path, t_room *room)
 			cur = cur->next;
 		cur->next = p;
 	}
-	return path;
+	return (path);
 }
 
 bool visited(t_path *path, t_room *room)
@@ -27,14 +37,13 @@ bool visited(t_path *path, t_room *room)
 	t_path *cursor;
 
 	cursor = path;
-
 	while (cursor)
 	{
 		if (cursor->room == room)
-			return true;
+			return (true);
 		cursor = cursor->next;
 	}
-	return false;
+	return (false);
 }
 
 void	move(t_path **callback, t_path *path, t_room *from, t_room *to)
@@ -42,20 +51,12 @@ void	move(t_path **callback, t_path *path, t_room *from, t_room *to)
 	int i;
 
 	i = 0;
-
 	if (from)
 		append_path(path, from);
-
 	if (to && to->is_end)
-	{
 		*callback = path;
-	}
-
 	if (*callback)
-	{
 		return ;
-	}
-
 	while (i < to->link_count)
 	{
 		if (!(visited(path, to->links[i])))

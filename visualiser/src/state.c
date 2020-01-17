@@ -1,11 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   state.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gwasserf <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/01/17 03:55:46 by gwasserf          #+#    #+#             */
+/*   Updated: 2020/01/17 03:55:46 by gwasserf         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "visualiser.h"
 
-t_state *init_state()
+t_state *init_state(void)
 {
 	t_state *state;
 
 	state = malloc(sizeof(t_state));
-
 	state->window = NULL;
 	state->renderer = NULL;
 	state->running = false;
@@ -22,8 +33,7 @@ t_state *init_state()
 	state->walk_left = NULL;
 	state->walk_right = NULL;
 	state->room_sprite = NULL;
-
-	return state;
+	return (state);
 }
 
 void	update_state(t_state *s)
@@ -44,26 +54,11 @@ void	render_state(t_state *s)
 {
 	SDL_RenderClear(s->renderer);
 	SDL_RenderCopy(s->renderer, s->background, NULL, NULL);
-
-	
-	//draw_parents(s);
-
-	// Draw links
 	draw_links(s);
 	draw_paths(s);
 	draw_nodes(s);
-
-	// Draw Stats
 	draw_stats(s);
-
-	
-	// Draw ants
 	draw_ants(s);
-
-
-	//SDL_RenderFillRect(s->renderer, s->rect);
 	SDL_SetRenderDrawColor(s->renderer, 0, 0, 0, 255);
-	// SDL_SetRenderDrawColor(s->renderer, 0, 0, 0, 255);
-	
 	SDL_RenderPresent(s->renderer);
 }

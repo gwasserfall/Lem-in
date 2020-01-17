@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   update_state.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gwasserf <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/01/17 03:33:28 by gwasserf          #+#    #+#             */
+/*   Updated: 2020/01/17 03:33:29 by gwasserf         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "visualiser.h"
 
 void	update_ant_position(t_ant *ant)
@@ -20,7 +32,7 @@ void	update_ant_position(t_ant *ant)
 	if (ant->degrees >= 90.0 && ant->degrees <= 270)
 	{
 		ant->x -= (0.05 * 0.6);
-		ant->y -= gradient * 0.05 * 0.6;	
+		ant->y -= gradient * 0.05 * 0.6;
 	}
 	else
 	{

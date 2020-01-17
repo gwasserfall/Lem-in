@@ -35,7 +35,6 @@ void add_start_or_end_data(t_data **entry, t_anthill *anthill)
 	}
 }
 
-
 bool		command_is_needed(char *line)
 {
 	int strlen;
@@ -50,7 +49,6 @@ bool		command_is_needed(char *line)
 	}
 	return (false);
 }
-
 
 /*
 ** Read loop reads from the data structs line variable and then adds information
@@ -134,4 +132,3 @@ t_anthill	*new_anthill(void)
 	anthill->nb_paths = 0;
 	return (anthill);
 }
-

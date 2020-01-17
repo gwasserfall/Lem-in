@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   animation.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gwasserf <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/01/17 03:33:21 by gwasserf          #+#    #+#             */
+/*   Updated: 2020/01/17 03:33:23 by gwasserf         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <visualiser.h>
 
 void animation_loop(t_state *state)
@@ -9,19 +21,12 @@ void animation_loop(t_state *state)
 	while (state->running)
 	{
 		start = SDL_GetTicks();
-		// Events
 		handle_events(state);
-
-		// Update State
 		update_state(state);
-
-		// Render State
 		render_state(state);
-
 		time = SDL_GetTicks() - start;
 		if (time < 0)
 			continue;
-
 		sleepTime = 16 - time;
 		if (sleepTime > 0)
         	SDL_Delay(sleepTime);

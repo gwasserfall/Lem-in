@@ -32,7 +32,7 @@ t_data		*new_data_node(void)
 ** line variable in the data struct
 */
 
-t_data		*read_stdin_to_data()
+t_data		*read_stdin_to_data(void)
 {
 	char	*line;
 	t_data 	*data;
