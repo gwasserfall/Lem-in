@@ -1,4 +1,4 @@
-FLAGS=-Wall -Werror -Wextra -g
+FLAGS=-Wall -Werror -Wextra
 
 NAME = lemin
 SRC_FILES = $(shell find src -name "*.c")
